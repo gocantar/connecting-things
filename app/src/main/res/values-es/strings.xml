@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Connecting-things</string>
+
+    <!-- a. -->
+    <!-- b. -->
+    <!-- c. -->
+    <string name="connect_disconnect_message">Conecta y desconecta tus dispositibos BLE</string>
+    <!-- d. -->
+    <!-- e. -->
+    <!-- f. -->
+    <!-- g. -->
+    <!-- h. -->
+    <!-- i. -->
+    <!-- j. -->
+    <!-- k. -->
+    <!-- l. -->
+    <!-- m. -->
+    <string name="manage_devices">Gestión de Dispositivos</string>
+    <!-- n. -->
+    <!-- o. -->
+    <!-- p. -->
+    <string name="control_panel">Panel de Control</string>
+    <!-- q. -->
+    <!-- r. -->
+    <!-- s. -->
+    <!-- t. -->
+    <!-- u. -->
+    <!-- v. -->
+    <!-- w. -->
+    <!-- x. -->
+    <!-- y. -->
+    <!-- z. -->
+    <!-- dialogs. -->
+
+
+
+</resources>
