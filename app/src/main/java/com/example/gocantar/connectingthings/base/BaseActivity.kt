@@ -1,29 +1,20 @@
-package com.example.gocantar.connecting_things.presentation.base
+package com.example.gocantar.connectingthings.base
 
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
 /**
- * Created by gocantar on 6/10/17.
+ * Created by gocantar on 10/10/17.
  */
-abstract class BaseActivity<T: BaseViewModel>: AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity(){
 
-    private val TAG: String by lazy { this::class.java.simpleName }
-
-    abstract val mViewModelClass: Class<T>
-
-    protected val mViewModel: T by lazy { ViewModelProviders.of(this).get(mViewModelClass) }
-
-    private val mRegistry = LifecycleRegistry(this)
+    protected val TAG: String by lazy { this::class.java.simpleName }
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         Log.i(TAG, "onCreate:")
-        mViewModel.init()
     }
 
     override fun onDestroy() {
@@ -45,5 +36,4 @@ abstract class BaseActivity<T: BaseViewModel>: AppCompatActivity() {
         super.onPause()
         Log.i(TAG, "onPause:")
     }
-
 }

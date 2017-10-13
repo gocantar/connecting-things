@@ -8,9 +8,9 @@
     <dimen name="double_padding">16dp</dimen>
 
     <!-- Text. -->
-    <dimen name="primary_title">44sp</dimen>
-    <dimen name="title">18sp</dimen>
-    <dimen name="subtitle">16sp</dimen>
-    <dimen name="regular">14sp</dimen>
+    <dimen name="primary_title_text_size">44sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="subtitle_text_size">16sp</dimen>
+    <dimen name="regular_text_size">14sp</dimen>
 
 </resources>

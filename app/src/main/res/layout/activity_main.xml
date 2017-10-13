@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gocantar.connecting_things.presentation.view.MainActivityView">
+    tools:context="com.example.gocantar.connectingthings.presentation.view.MainActivityView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,19 +14,73 @@
             android:id="@+id/ma_primary_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Panel Control"
-            android:textSize="44sp"
-            android:layout_margin="@dimen/double_margin"/>
-
+            android:layout_marginBottom="@dimen/double_margin"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/sfheavy"
+            android:text="@string/control_panel"
+            android:textColor="#5e5e5e"
+            android:textSize="@dimen/primary_title_text_size" />
 
         <TextView
-            android:id="@+id/ma_manage_device_title"
+            android:id="@+id/ma_manage_devices_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage Devices"
-            android:textSize="@dimen/title"
             android:layout_below="@id/ma_primary_title"
-            android:layout_margin="@dimen/double_margin"/>
+            android:layout_marginBottom="@dimen/double_margin"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="@dimen/double_margin"
+            android:fontFamily="@font/sfbold"
+            android:text="@string/manage_devices"
+            android:textColor="#5e5e5e"
+            android:textSize="@dimen/title_text_size" />
+
+        <RelativeLayout
+            android:id="@+id/ma_manage_devices_layout"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/ma_manage_devices_title"
+            android:layout_marginBottom="@dimen/double_margin"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:background="@drawable/rectangle_with_stroke">
+
+            <ImageView
+                android:id="@+id/ma_device_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"
+                android:background="@drawable/oval"
+                android:backgroundTint="#3B5998"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_bluetooth" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/ma_device_icon"
+                android:paddingBottom="@dimen/double_padding"
+                android:paddingStart="@dimen/double_padding"
+                android:paddingTop="@dimen/double_padding"
+                android:text="@string/connect_disconnect_message"
+                android:textColor="#5e5e5e"
+                android:textSize="@dimen/regular_text_size" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/ma_manage_devices_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/ma_manage_devices_layout"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:background="#3b3b3b" />
 
     </RelativeLayout>
 

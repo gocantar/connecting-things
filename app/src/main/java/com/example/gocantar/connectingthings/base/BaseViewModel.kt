@@ -1,4 +1,4 @@
-package com.example.gocantar.connecting_things.presentation.base
+package com.example.gocantar.connectingthings.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
@@ -9,7 +9,7 @@ import android.util.Log
  */
 abstract class BaseViewModel(application: Application): AndroidViewModel(application) {
 
-    private val TAG :String by lazy { this::class.java.simpleName }
+    protected val TAG :String by lazy { this::class.java.simpleName }
 
     fun init() {
         Log.i(TAG, "initiated")

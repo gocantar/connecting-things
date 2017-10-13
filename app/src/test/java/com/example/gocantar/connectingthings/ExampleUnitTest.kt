@@ -1,4 +1,4 @@
-package com.example.gocantar.connecting_things
+package com.example.gocantar.connectingthings
 
 import org.junit.Test
 
