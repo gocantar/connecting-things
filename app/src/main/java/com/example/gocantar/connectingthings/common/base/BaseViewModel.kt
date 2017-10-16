@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.base
+package com.example.gocantar.connectingthings.common.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/hble_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/double_margin"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/simple_margin"
+        android:layout_marginTop="@dimen/simple_margin"
+        tools:text="N/A" />
+
+    <TextView
+        android:id="@+id/hble_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hble_name"
+        android:layout_marginStart="@dimen/double_margin"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/simple_margin"
+        tools:text="65:12:36:FS:A9:55" />
+
+    <TextView
+        android:id="@+id/hble_rssi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="68"
+        android:layout_marginStart="@dimen/double_margin"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/simple_margin"
+        android:layout_below="@id/hble_address"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#7F7F7F"
+        android:layout_below="@id/hble_rssi"/>
+
+</RelativeLayout>

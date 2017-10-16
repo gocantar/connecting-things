@@ -5,11 +5,10 @@ import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
-import com.example.gocantar.connectingthings.base.BaseActivity
+import com.example.gocantar.connectingthings.common.base.BaseActivity
 import com.example.gocantar.connectingthings.data.BLEService
 import com.example.gocantar.connectingthings.data.PermissionsService
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.toast
 
 
 class MainActivityView : BaseActivity() {
@@ -18,10 +17,14 @@ class MainActivityView : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /**
+         * onClick Listeners
+         */
         ma_manage_devices_layout.setOnClickListener {
-            toast("Pressed")
             Navigator.navigateToManageDevicesActivity(this)
         }
+
+
     }
 
     override fun onStart() {
@@ -41,5 +44,7 @@ class MainActivityView : BaseActivity() {
             Log.d(TAG, "There are not required permissions" )
         }
     }
+
+
 
 }

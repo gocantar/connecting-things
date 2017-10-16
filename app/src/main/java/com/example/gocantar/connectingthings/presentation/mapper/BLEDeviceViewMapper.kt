@@ -9,7 +9,7 @@ import com.example.gocantar.connectingthings.presentation.model.BLEDeviceView
 class BLEDeviceViewMapper {
 
     companion object {
-        fun toBLEDeviceView( device: BLEDevice ): BLEDeviceView {
+        fun fromBLEDevice(device: BLEDevice ): BLEDeviceView {
             return BLEDeviceView(device.name, device.bluetoothDevice.address, device.rssi)
         }
     }
