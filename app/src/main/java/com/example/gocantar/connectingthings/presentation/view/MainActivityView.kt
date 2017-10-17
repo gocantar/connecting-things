@@ -6,12 +6,16 @@ import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
 import com.example.gocantar.connectingthings.common.base.BaseActivity
+import com.example.gocantar.connectingthings.common.base.BaseActivityVM
 import com.example.gocantar.connectingthings.data.BLEService
 import com.example.gocantar.connectingthings.data.PermissionsService
+import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivityView : BaseActivity() {
+class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
+
+    override val mViewModelClass: Class<MainActivityViewModel> = MainActivityViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +34,8 @@ class MainActivityView : BaseActivity() {
     override fun onStart() {
         super.onStart()
 
-        if (!BLEService.isBLEnabled()) {
-            startActivityForResult(BLEService.getRequestBLEIntent(), BLEService.REQUEST_ENABLE_BT)
+        if (!mViewModel.isBLEEnabled()) {
+            startActivityForResult(mViewModel.getRequestBLEIntent(), BLEService.REQUEST_ENABLE_BT)
         } else{
             Log.d(TAG, "Bluetooth is enabled")
         }
