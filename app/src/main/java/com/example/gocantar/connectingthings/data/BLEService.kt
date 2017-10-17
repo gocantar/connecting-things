@@ -7,7 +7,7 @@ import android.bluetooth.le.ScanResult
 import android.content.Intent
 import android.util.Log
 import com.example.gocantar.connectingthings.data.mapper.BLEDeviceDataMapper
-import com.example.gocantar.connectingthings.domain.boundary.BLEBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by gocantar on 10/10/17.
  */
-class BLEService @Inject constructor(private val mBluetoothManager: BluetoothManager) : ScanCallback(), BLEBoundary {
+class BLEService @Inject constructor(private val mBluetoothManager: BluetoothManager) : ScanCallback(), BLEServiceBoundary {
 
     /**
      *  Static properties

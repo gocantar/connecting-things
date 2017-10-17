@@ -5,39 +5,91 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/hble_connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/double_margin"
+        android:background="@drawable/selector_button_grey"
+        android:fontFamily="@font/sfmedium"
+        android:paddingBottom="@dimen/simple_padding"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:paddingTop="@dimen/simple_padding"
+        android:text="@string/connect"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/regular_text_size" />
+
+    <TextView
         android:id="@+id/hble_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/double_margin"
+        android:layout_alignParentStart="true"
         android:layout_marginEnd="@dimen/double_margin"
-        android:layout_marginBottom="@dimen/simple_margin"
+        android:layout_marginStart="@dimen/double_margin"
         android:layout_marginTop="@dimen/simple_margin"
+        android:layout_toStartOf="@id/hble_connect_button"
+        android:fontFamily="@font/sfbold"
+        android:textColor="@color/primaryText"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/subtitle_text_size"
         tools:text="N/A" />
 
     <TextView
         android:id="@+id/hble_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/hble_name"
-        android:layout_marginStart="@dimen/double_margin"
         android:layout_marginEnd="@dimen/double_margin"
-        android:layout_marginBottom="@dimen/simple_margin"
+        android:layout_marginStart="@dimen/double_margin"
+        android:layout_toStartOf="@id/hble_connect_button"
+        android:fontFamily="@font/sfregular"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/regular_text_size"
         tools:text="65:12:36:FS:A9:55" />
+
+    <TextView
+        android:id="@+id/hble_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/hble_address"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginStart="@dimen/double_margin"
+        android:fontFamily="@font/sfregular"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:layout_toStartOf="@id/hble_connect_button"
+        android:textColor="@color/primaryText"
+        tools:text="2 services" />
 
     <TextView
         android:id="@+id/hble_rssi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="68"
-        android:layout_marginStart="@dimen/double_margin"
-        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/hble_services"
         android:layout_marginBottom="@dimen/simple_margin"
-        android:layout_below="@id/hble_address"/>
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginStart="@dimen/double_margin"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_toStartOf="@id/hble_connect_button"
+        android:fontFamily="@font/sfregular"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/regular_text_size"
+        tools:text="68" />
+
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#7F7F7F"
-        android:layout_below="@id/hble_rssi"/>
+        android:layout_below="@id/hble_rssi"
+        android:background="@color/dividersLinesColor" />
 
 </RelativeLayout>

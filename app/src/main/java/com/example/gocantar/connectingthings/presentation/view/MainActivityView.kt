@@ -5,7 +5,6 @@ import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
-import com.example.gocantar.connectingthings.common.base.BaseActivity
 import com.example.gocantar.connectingthings.common.base.BaseActivityVM
 import com.example.gocantar.connectingthings.data.BLEService
 import com.example.gocantar.connectingthings.data.PermissionsService

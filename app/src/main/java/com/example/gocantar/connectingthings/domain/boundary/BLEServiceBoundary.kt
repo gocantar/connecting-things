@@ -7,7 +7,7 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Created by gocantar on 13/10/17.
  */
-interface BLEBoundary {
+interface BLEServiceBoundary {
 
     val mPublisher: PublishSubject<BLEDevice>
 

@@ -10,7 +10,7 @@ class BLEDeviceViewMapper {
 
     companion object {
         fun fromBLEDevice(device: BLEDevice ): BLEDeviceView {
-            return BLEDeviceView(device.name, device.bluetoothDevice.address, device.rssi)
+            return BLEDeviceView(device.name, device.bluetoothDevice.address, device.rssi, device.uuids.size)
         }
     }
 

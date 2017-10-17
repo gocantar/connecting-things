@@ -20,7 +20,7 @@
             android:layout_marginTop="48dp"
             android:fontFamily="@font/sfheavy"
             android:text="@string/control_panel"
-            android:textColor="#5e5e5e"
+            android:textColor="@color/primaryText"
             android:textSize="@dimen/primary_title_text_size" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_marginTop="@dimen/double_margin"
             android:fontFamily="@font/sfbold"
             android:text="@string/manage_devices"
-            android:textColor="#5e5e5e"
+            android:textColor="@color/primaryText"
             android:textSize="@dimen/title_text_size" />
 
         <RelativeLayout
@@ -68,7 +68,7 @@
                 android:paddingStart="@dimen/double_padding"
                 android:paddingTop="@dimen/double_padding"
                 android:text="@string/connect_disconnect_message"
-                android:textColor="#5e5e5e"
+                android:textColor="@color/primaryText"
                 android:textSize="@dimen/regular_text_size" />
 
         </RelativeLayout>
@@ -80,7 +80,7 @@
             android:layout_below="@id/ma_manage_devices_layout"
             android:layout_marginEnd="100dp"
             android:layout_marginStart="100dp"
-            android:background="#3b3b3b" />
+            android:background="@color/dividersLinesColor" />
 
     </RelativeLayout>
 

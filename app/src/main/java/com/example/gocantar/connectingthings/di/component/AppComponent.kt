@@ -2,7 +2,7 @@ package com.example.gocantar.connectingthings.di.component
 
 import android.bluetooth.BluetoothManager
 import com.example.gocantar.connectingthings.di.module.AppModule
-import com.example.gocantar.connectingthings.domain.boundary.BLEBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun getBluetoothManager(): BluetoothManager
-    fun getBLEService(): BLEBoundary
+    fun getBLEService(): BLEServiceBoundary
 
     fun inject(mainActivityViewModel: MainActivityViewModel)
 }

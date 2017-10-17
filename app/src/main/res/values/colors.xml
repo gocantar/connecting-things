@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="dividersLinesColor">#9E9E9E</color>
+
+    <color name="primaryText">#D9000000</color>
+    <color name="secundaryText">#8C000000</color>
+    <color name="hintText">#40000000</color>
+
+    <color name="greyButtonColor">#616161</color>
+    <color name="greyButtonPressedColor">#BF616161</color>
+    <color name="greyButtonDisabledColor">#40616161</color>
+
 </resources>

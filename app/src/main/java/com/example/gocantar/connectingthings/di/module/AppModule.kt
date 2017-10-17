@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import com.example.gocantar.connectingthings.AppController
 import com.example.gocantar.connectingthings.data.BLEService
-import com.example.gocantar.connectingthings.domain.boundary.BLEBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,5 +19,5 @@ import javax.inject.Singleton
 
     @Provides @Singleton fun provideBluetoothManager(): BluetoothManager = appController.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
-    @Provides @Singleton fun provideBLEService(bluetoothManager: BluetoothManager): BLEBoundary = BLEService(bluetoothManager)
+    @Provides @Singleton fun provideBLEService(bluetoothManager: BluetoothManager): BLEServiceBoundary = BLEService(bluetoothManager)
 }

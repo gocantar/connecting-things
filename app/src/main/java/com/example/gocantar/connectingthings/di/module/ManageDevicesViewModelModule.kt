@@ -1,6 +1,6 @@
 package com.example.gocantar.connectingthings.di.module
 
-import com.example.gocantar.connectingthings.domain.boundary.BLEBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.usecase.ScanDevicesActor
 import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import dagger.Module
@@ -12,6 +12,6 @@ import dagger.Provides
 
 @Module class ManageDevicesViewModelModule(manageDevicesViewModel: ManageDevicesViewModel){
 
-    @Provides fun provideScannedDevices(bleService: BLEBoundary): ScanDevicesActor = ScanDevicesActor(bleService)
+    @Provides fun provideScannedDevices(bleServiceService: BLEServiceBoundary): ScanDevicesActor = ScanDevicesActor(bleServiceService)
 
 }

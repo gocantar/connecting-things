@@ -1,6 +1,6 @@
 package com.example.gocantar.connectingthings.domain.usecase
 
-import com.example.gocantar.connectingthings.domain.boundary.BLEBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,15 +11,15 @@ import javax.inject.Inject
 /**
  * Created by gocantar on 10/10/17.
  */
-class ScanDevicesActor @Inject constructor(private val mBLEService: BLEBoundary) {
+class ScanDevicesActor @Inject constructor(private val mBLEServiceService: BLEServiceBoundary) {
 
     private val mDisposables: CompositeDisposable = CompositeDisposable()
 
     fun execute(discovered: (BLEDevice) -> Unit){
 
-        mBLEService.start()
+        mBLEServiceService.start()
 
-        val observable = mBLEService.mPublisher
+        val observable = mBLEServiceService.mPublisher
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
 
@@ -40,7 +40,7 @@ class ScanDevicesActor @Inject constructor(private val mBLEService: BLEBoundary)
     }
 
     fun stop(){
-        mBLEService.stop()
+        mBLEServiceService.stop()
     }
 
     fun dispose(){
