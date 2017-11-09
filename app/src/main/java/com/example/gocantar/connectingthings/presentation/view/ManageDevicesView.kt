@@ -21,8 +21,11 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
     override val mViewModelClass: Class<ManageDevicesViewModel> = ManageDevicesViewModel::class.java
 
     private val mAdapter: ScannedDevicesAdapter by lazy {
-        ScannedDevicesAdapter(md_scanned_devices_recycler_view, mViewModel.mDevicesScannedList,
-                mListener = { Log.d(TAG, "Connect to $it") })
+        ScannedDevicesAdapter(md_scanned_devices_recycler_view, mViewModel.mDevicesScannedList) {
+            // Connect device
+            Log.d(TAG, "Connecting to ${it.mac_address}")
+            mViewModel.connectDevice(it)
+        }
     }
 
     /**
@@ -35,11 +38,10 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
         md_back_button.setOnClickListener{ onBackPressed() }
 
-        mViewModel.mRecyclerViewEvent.observe( this, Observer { it?.let {
-            when (it) {
-                Event.LIST_CHANGED -> updateRecyclerView()
-            }
-        } } )
+        mViewModel.mRecyclerViewEvent.observe( this, Observer {
+            it?.let {
+                updateRecyclerView()
+            } } )
 
         setUpRecyclerView()
     }
@@ -69,10 +71,13 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
     }
 
     /**
-     * Statics methods
+     * Statics
      */
 
     companion object {
+
+        val REQUEST_CODE = 10100
+
         fun getCallingIntent(context: Context) : Intent {
             return Intent(context, ManageDevicesView::class.java)
         }

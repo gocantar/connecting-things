@@ -14,7 +14,6 @@ import dagger.Component
         modules = arrayOf(ManageDevicesViewModelModule::class)
 )
 
-
 interface ManageDevicesComponent: AppComponent{
     fun inject (manageDevicesViewModel: ManageDevicesViewModel)
 }

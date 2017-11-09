@@ -3,6 +3,7 @@ package com.example.gocantar.connectingthings.presentation.view.adapter.holder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.gocantar.connectingthings.R
+import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.presentation.model.BLEDeviceView
 import kotlinx.android.synthetic.main.holder_ble_device.view.*
 import org.jetbrains.anko.onClick
@@ -12,7 +13,7 @@ import org.jetbrains.anko.onClick
  */
 class BLEDeviceViewHolder(private val view: View):RecyclerView.ViewHolder(view) {
 
-    fun bind(device: BLEDeviceView, listener: (String) -> Unit ) =
+    fun bind(device: BLEDeviceView, listener: (BLEDeviceView) -> Unit ) =
         with(view){
             // Set name
             hble_name.text = device.name
@@ -32,8 +33,15 @@ class BLEDeviceViewHolder(private val view: View):RecyclerView.ViewHolder(view) 
             val rssi = "${device.rssi} dBm"
             hble_rssi.text =  rssi
 
+            when(device.typeID){
+                TypeID.SENSOR, TypeID.PLUG, TypeID.BULB -> {
+                    hble_connect_button.visibility = View.VISIBLE
+                    hble_connect_button.onClick { listener(device) }
+                }
+                else -> hble_connect_button.visibility = View.GONE
 
-            hble_connect_button.onClick { listener(device.mac_address) }
+            }
+
         }
 
 

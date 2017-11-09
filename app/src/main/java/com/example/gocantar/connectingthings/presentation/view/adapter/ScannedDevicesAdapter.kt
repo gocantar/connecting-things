@@ -12,7 +12,7 @@ import com.example.gocantar.connectingthings.presentation.view.adapter.holder.BL
  * Created by gocantar on 14/10/17.
  */
 
-class ScannedDevicesAdapter(private val mRecyclerView: RecyclerView, private val mList: MutableMap<String, BLEDeviceView>,  private val mListener: (String)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ScannedDevicesAdapter(private val mRecyclerView: RecyclerView, private val mList: MutableMap<String, BLEDeviceView>,  private val mListener: (BLEDeviceView) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view: View = parent!!.inflate(R.layout.holder_ble_device)

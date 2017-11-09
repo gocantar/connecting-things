@@ -10,7 +10,7 @@ import com.example.gocantar.connectingthings.AppController
  */
 object PermissionsService {
 
-    val PERMISSION_LOCATION_REQUEST_CODE: Int  = 4300
+    val REQUEST_CODE: Int  = 4300
 
     fun requiredPermissions(): Array<String> {
         val listOfPermissions: MutableList<String> = mutableListOf()

@@ -1,5 +1,6 @@
 package com.example.gocantar.connectingthings.presentation
 
+import android.app.Activity
 import android.content.Context
 import com.example.gocantar.connectingthings.presentation.view.ManageDevicesView
 
@@ -9,7 +10,8 @@ import com.example.gocantar.connectingthings.presentation.view.ManageDevicesView
 class Navigator {
     companion object {
         fun navigateToManageDevicesActivity(context: Context){
-            context.startActivity(ManageDevicesView.getCallingIntent(context))
+            (context as Activity).startActivityForResult(ManageDevicesView.getCallingIntent(context) , ManageDevicesView.REQUEST_CODE)
         }
     }
+
 }

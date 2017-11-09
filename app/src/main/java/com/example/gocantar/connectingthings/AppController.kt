@@ -7,6 +7,7 @@ import com.example.gocantar.connectingthings.di.component.DaggerAppComponent
 
 
 
+
 /**
  * Created by gocantar on 10/10/17.
  */
@@ -24,6 +25,11 @@ class AppController: Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+
     }
+
+
+
 
 }
