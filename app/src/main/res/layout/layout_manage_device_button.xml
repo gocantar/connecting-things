@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ma_manage_devices_layout"
+    android:layout_width="250dp"
+    android:layout_height="80dp"
+    android:layout_below="@id/ma_manage_devices_title"
+    android:layout_marginBottom="@dimen/double_margin"
+    android:layout_marginEnd="100dp"
+    android:layout_marginStart="100dp"
+    android:background="@drawable/rectangle_with_stroke">
+
+    <ImageView
+        android:id="@+id/ma_device_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/double_margin"
+        android:background="@drawable/oval"
+        android:backgroundTint="#3B5998"
+        android:padding="12dp"
+        app:srcCompat="@drawable/ic_bluetooth" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/ma_device_icon"
+        android:padding="@dimen/double_padding"
+        android:text="@string/connect_disconnect_message"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/regular_text_size" />
+
+</RelativeLayout>

@@ -14,4 +14,6 @@
     <color name="greyButtonPressedColor">#BF616161</color>
     <color name="greyButtonDisabledColor">#40616161</color>
 
+    <color name="greenOK">#06730C</color>
+    <color name="redWrong">#BA0707</color>
 </resources>

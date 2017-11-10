@@ -21,7 +21,6 @@ import javax.inject.Inject
  */
 class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
 
-
     val mDevicesScannedList: MutableMap<String, BLEDeviceView> = mutableMapOf()
 
     val mRecyclerViewEvent: MutableLiveData<Event> = MutableLiveData()

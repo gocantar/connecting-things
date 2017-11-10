@@ -9,7 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/double_margin"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_marginBottom="@dimen/double_margin"
         android:background="@drawable/selector_button_grey"
         android:fontFamily="@font/sfmedium"
         android:paddingBottom="@dimen/simple_padding"
@@ -34,7 +36,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="@dimen/subtitle_text_size"
-        tools:text="N/A" />
+        tools:text="PLAYBULB CANDLE" />
 
     <TextView
         android:id="@+id/hble_address"

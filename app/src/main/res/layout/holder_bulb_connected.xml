@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="80dp"
+    android:layout_margin="@dimen/simple_margin"
+    android:background="@drawable/rectangle_with_stroke">
+
+    <View
+        android:id="@+id/hbc_color_indicator"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/oval_stroke" />
+
+    <TextView
+        android:id="@+id/hbc_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_toStartOf="@+id/hbc_color_indicator"
+        android:ellipsize="end"
+        android:fontFamily="@font/sfbold"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/subtitle_text_size"
+        tools:text="PLAYBULB CANDLE" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hbc_device_name"
+        android:layout_marginEnd="4dp"
+        android:layout_toStartOf="@id/hbc_color_indicator"
+        android:fontFamily="@font/sfheavy"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:textAllCaps="true"
+        android:textColor="@color/greenOK"
+        android:textSize="@dimen/regular_text_size"
+        tools:text="On" />
+
+</RelativeLayout>

@@ -37,41 +37,7 @@
             android:textColor="@color/primaryText"
             android:textSize="@dimen/title_text_size" />
 
-        <RelativeLayout
-            android:id="@+id/ma_manage_devices_layout"
-            android:layout_width="250dp"
-            android:layout_height="80dp"
-            android:layout_below="@id/ma_manage_devices_title"
-            android:layout_marginBottom="@dimen/double_margin"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:background="@drawable/rectangle_with_stroke">
-
-            <ImageView
-                android:id="@+id/ma_device_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="16dp"
-                android:background="@drawable/oval"
-                android:backgroundTint="#3B5998"
-                android:padding="12dp"
-                app:srcCompat="@drawable/ic_bluetooth" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/ma_device_icon"
-                android:paddingBottom="@dimen/double_padding"
-                android:paddingStart="@dimen/double_padding"
-                android:paddingTop="@dimen/double_padding"
-                android:text="@string/connect_disconnect_message"
-                android:textColor="@color/primaryText"
-                android:textSize="@dimen/regular_text_size" />
-
-        </RelativeLayout>
+        <include layout="@layout/layout_manage_device_button" />
 
         <View
             android:id="@+id/ma_manage_devices_line"
@@ -82,6 +48,37 @@
             android:layout_marginStart="100dp"
             android:background="@color/dividersLinesColor" />
 
+        <TextView
+            android:id="@+id/ma_bulbs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ma_manage_devices_line"
+            android:layout_marginBottom="@dimen/simple_margin"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/sfbold"
+            android:text="@string/illumination"
+            android:textColor="@color/primaryText"
+            android:textSize="@dimen/title_text_size" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ma_bulbs_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ma_bulbs_title"
+            android:layout_marginEnd="92dp"
+            android:layout_marginStart="92dp"/>
+
+        <View
+            android:id="@+id/ma_bulbs_connected_devices"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/ma_bulbs_recycler_view"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="@dimen/simple_margin"
+            android:background="@color/dividersLinesColor" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

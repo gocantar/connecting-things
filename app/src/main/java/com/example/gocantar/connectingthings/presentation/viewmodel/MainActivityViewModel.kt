@@ -1,8 +1,11 @@
 package com.example.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
+import android.arch.lifecycle.MutableLiveData
+import android.util.EventLog
 import android.util.Log
 import com.example.gocantar.connectingthings.common.base.BaseViewModel
+import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
@@ -18,9 +21,11 @@ import javax.inject.Inject
  */
 class MainActivityViewModel(app: Application): BaseViewModel(app) {
 
-    private val mBulbsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
-    private val mSensorsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
-    private val mPlugsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
+    val mRecyclerViewEvent: MutableLiveData<Event> = MutableLiveData()
+
+    val mBulbsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
+    val mSensorsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
+    val mPlugsConnected: MutableMap<String, BLEDeviceView> = mutableMapOf()
 
     @Inject
     lateinit var mBLEServiceService: BLEServiceBoundary
@@ -49,6 +54,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             override fun onComplete() {
                 // notified list is completed
                 Log.d(TAG, "List of connected devices has been updated")
+                mRecyclerViewEvent.value = Event.LIST_CHANGED
             }
             override fun onError(e: Throwable?) {
                 Log.e(TAG, e?.message)
@@ -62,6 +68,8 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
         mSensorsConnected.clear()
     }
 
+
+
     override fun onCleared() {
         super.onCleared()
         mGetConnectedDevicesActor.dispose()
@@ -70,6 +78,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     override fun setUpComponent(appComponent: AppComponent) {
         appComponent.inject(this)
     }
+
 
 
 
