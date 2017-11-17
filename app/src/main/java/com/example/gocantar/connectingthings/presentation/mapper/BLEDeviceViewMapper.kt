@@ -1,7 +1,6 @@
 package com.example.gocantar.connectingthings.presentation.mapper
 
-import com.example.gocantar.connectingthings.common.base.extension.getType
-import com.example.gocantar.connectingthings.common.ids.TypeID
+import com.example.gocantar.connectingthings.presentation.base.extension.getType
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.presentation.model.BLEDeviceView
 

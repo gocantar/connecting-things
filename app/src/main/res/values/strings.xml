@@ -8,6 +8,8 @@
     <string name="connect">Conectar</string>
     <!-- d. -->
     <!-- e. -->
+    <string name="effects">Efectos</string>
+    <string name="error">Error</string>
     <!-- f. -->
     <!-- g. -->
     <!-- h. -->
@@ -25,6 +27,7 @@
     <!-- q. -->
     <!-- r. -->
     <!-- s. -->
+    <string name="settings">Ajustes</string>
     <!-- t. -->
     <!-- u. -->
     <!-- v. -->

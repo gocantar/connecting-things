@@ -7,6 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 
 /**
@@ -19,11 +20,13 @@ class ScanDevicesActor @Inject constructor(private val mBLEService: BLEServiceBo
 
     override fun start(disposable: DisposableObserver<BLEDevice>){
 
-        mBLEService.start()
+        doAsync {
+            mBLEService.start()
+        }
 
         val observable = mBLEService.mPublisherOfBLEDevice
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
         mDisposables.add(observable.subscribeWith(disposable))
 

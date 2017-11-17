@@ -1,0 +1,47 @@
+package com.example.gocantar.connectingthings.common.ids
+
+import java.util.*
+
+
+/**
+ * Created by gocantar on 1/11/17.
+ */
+class UUIDs {
+    companion object {
+        /**
+         * General
+         */
+        val BATTERY = UUID.fromString("0000180f-0000-1000-8000-00805f9b34fb")
+
+        /**
+         * PlayBulb
+         */
+        val PLAYBULB_CANDLE_PRIMARY_SERVICE = UUID.fromString("0000ff02-0000-1000-8000-00805f9b34fb")
+
+        val PLAYBULB_CANDLE_COLOR_CHARACTERISTIC = UUID.fromString("0000fffc-0000-1000-8000-00805f9b34fb")
+
+        val Bulbs: List<UUID> = listOf(PLAYBULB_CANDLE_PRIMARY_SERVICE)
+
+
+        /**
+         * Smart Connect
+         */
+        val REVOGI_SMART_PLUG_PRIMARY_SERVICE = UUID.fromString("0000fff0-0000-1000-8000-00805f9b34fb")
+
+        val Plugs: List<UUID> = listOf(REVOGI_SMART_PLUG_PRIMARY_SERVICE)
+
+
+        /**
+         * Sensors
+         */
+        val ARDUINO1_TEMPERATURE_SENSOR_PRIMARY_SERVICE = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb")
+
+        val Sensors: List<UUID> = listOf(ARDUINO1_TEMPERATURE_SENSOR_PRIMARY_SERVICE)
+
+
+
+
+
+
+    }
+}

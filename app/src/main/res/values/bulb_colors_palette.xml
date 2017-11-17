@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="zero">#FFFFFF</color>
+    <color name="one">#E91E63</color>
+    <color name="two">#AB47BC</color>
+    <color name="three">#5C6BC0</color>
+    <color name="four">#2196F3</color>
+    <color name="five">#26C6DA</color>
+    <color name="six">#26A69A</color>
+    <color name="seven">#8BC34A</color>
+    <color name="eight">#CDDC39</color>
+    <color name="nine">#FFEE58</color>
+    <color name="ten">#FFB300</color>
+    <color name="eleven">#FB8C00</color>
+    <color name="twelve">#F4511E</color>
+    <color name="thirteen">#E53935</color>
+
+    <array name="bulb_colors_palette">
+        <item>@color/zero</item>
+        <item>@color/one</item>
+        <item>@color/two</item>
+        <item>@color/three</item>
+        <item>@color/four</item>
+        <item>@color/five</item>
+        <item>@color/six</item>
+        <item>@color/seven</item>
+        <item>@color/eight</item>
+        <item>@color/nine</item>
+        <item>@color/ten</item>
+        <item>@color/eleven</item>
+        <item>@color/twelve</item>
+        <item>@color/thirteen</item>
+    </array>
+
+</resources>

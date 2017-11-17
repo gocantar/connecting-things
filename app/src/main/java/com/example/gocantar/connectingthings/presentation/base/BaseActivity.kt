@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.common.base
+package com.example.gocantar.connectingthings.presentation.base
 
 import android.os.Bundle
 import android.os.PersistableBundle

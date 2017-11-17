@@ -3,7 +3,7 @@ package com.example.gocantar.connectingthings.presentation.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.example.gocantar.connectingthings.common.base.BaseViewModel
+import com.example.gocantar.connectingthings.presentation.base.BaseViewModel
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerManageDevicesComponent
@@ -56,9 +56,9 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         mConnectDevicesActor.connect(bleDeviceView.device, bleDeviceView.typeID, object : DisposableObserver<Event>() {
             override fun onNext(event: Event) {
                 when(event){
-                    Event.DEVICE_CONNECTED -> Log.d(TAG, "Device ${bleDeviceView.mac_address} has been connected")
-                    Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device ${bleDeviceView.mac_address} has been disconnected")
-                    else -> Log.d(TAG, "Device ${bleDeviceView.mac_address} has registered other event")
+                    Event.DEVICE_CONNECTED -> Log.d(TAG, "Device ${bleDeviceView.address} has been connected")
+                    Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device ${bleDeviceView.address} has been disconnected")
+                    else -> Log.d(TAG, "Device ${bleDeviceView.address} has registered other event")
                 }
             }
 

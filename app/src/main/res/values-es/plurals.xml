@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="services">
-        <item quantity="one">%d Servicio disponible</item>
-        <item quantity="other">%d Servicios disponibles</item>
-    </plurals>
-</resources>

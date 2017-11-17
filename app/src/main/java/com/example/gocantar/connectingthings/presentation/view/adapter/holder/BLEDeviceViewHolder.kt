@@ -19,7 +19,7 @@ class BLEDeviceViewHolder(private val view: View):RecyclerView.ViewHolder(view) 
             hble_name.text = device.name
 
             // Set mac address
-            hble_address.text = device.mac_address
+            hble_address.text = device.address
 
             // Set number of services
             if (device.numberOfServices > 0){

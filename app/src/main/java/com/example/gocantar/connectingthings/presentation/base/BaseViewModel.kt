@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.common.base
+package com.example.gocantar.connectingthings.presentation.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
@@ -13,7 +13,9 @@ abstract class BaseViewModel(application: Application): AndroidViewModel(applica
 
     protected val TAG :String by lazy { this::class.java.simpleName }
 
-    val appComponent: AppComponent by lazy { (application as AppController).component }
+    protected val appComponent: AppComponent by lazy { (application as AppController).component }
+
+    protected val mResources = AppController.instance.resources
 
     fun init() {
         Log.i(TAG, "initiated")

@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
-import com.example.gocantar.connectingthings.common.base.BaseActivityVM
+import com.example.gocantar.connectingthings.presentation.base.BaseActivityVM
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.data.controller.BLEController
 import com.example.gocantar.connectingthings.data.PermissionsService
@@ -25,34 +25,20 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
     private val mBulbsAdapter: ConnectedBulbsRecyclerViewAdapter by lazy {
         ConnectedBulbsRecyclerViewAdapter(ma_bulbs_recycler_view, mViewModel.mBulbsConnected){
             Log.d(TAG, "Opening bulb controller activity")
+            Navigator.navigateToControlBulbView(this, it.address)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setEventObserver()
 
-        /**
-         * Set up observers
-         */
-        mViewModel.mRecyclerViewEvent.observe(this, Observer {
-            it.let {
-                when(it){
-                    Event.LIST_CHANGED -> updateRecyclerView()
-                    else -> TODO()
-                }
-            }
-        })
-
-        /**
-         * onClick Listeners
-         */
         ma_manage_devices_layout.setOnClickListener {
             Navigator.navigateToManageDevicesActivity(this)
         }
 
         setUpRecyclersView()
-        
     }
 
     override fun onStart() {
@@ -82,6 +68,17 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
 
     private fun updateRecyclerView(){
         mBulbsAdapter.notifyDataSetChanged()
+    }
+
+    private fun setEventObserver(){
+        mViewModel.mRecyclerViewEvent.observe(this, Observer {
+            it.let {
+                when(it){
+                    Event.LIST_CHANGED -> updateRecyclerView()
+                    else -> Log.d(TAG, "The event could not be captured")
+                }
+            }
+        })
     }
 
     private fun checkBLE(){

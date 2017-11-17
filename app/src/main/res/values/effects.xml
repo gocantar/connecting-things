@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="effects">
+        <item>Color</item>
+        <item>Vela</item>
+        <item>Desvanecer</item>
+        <item>Pulso</item>
+        <item>Disminuir</item>
+        <item>Arcoiris</item>
+    </array>
+</resources>

@@ -11,6 +11,8 @@ import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -81,9 +83,18 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
     override fun isBLEnabled(): Boolean = mBluetoothAdapter.isEnabled
 
-    override fun getConnectedDevices(): List<BLEDevice> =
+    override fun getConnectedDevices(): Observable<BLEDevice> =
             mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
                     .mapNotNull { mConnectedDevices[it.address] }
+                    .toObservable()
+
+    override fun getDevice(address: String): Observable<BLEDevice> {
+        return mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
+                .mapNotNull { mConnectedDevices[it.address] }
+                .toObservable()
+                .filter { it.bluetoothDevice.address == address }
+                .distinctUntilChanged()
+    }
 
 
     override fun getRequestBLEIntent(): Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)

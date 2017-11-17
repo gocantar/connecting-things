@@ -16,5 +16,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SwitchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#3F51B5</item>
+        <item name="colorSwitchThumbNormal">#F1F1F1</item>
+        <item name="android:colorForeground">#42221F1F</item>
+    </style>
+
 
 </resources>

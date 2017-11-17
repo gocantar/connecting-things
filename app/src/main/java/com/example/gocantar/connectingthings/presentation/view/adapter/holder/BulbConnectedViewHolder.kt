@@ -15,7 +15,6 @@ class BulbConnectedViewHolder(private val view: View): RecyclerView.ViewHolder(v
     fun bind(bulb: BLEDeviceView, listener: (BLEDeviceView) -> Unit){
         with(view){
             hbc_device_name.text = bulb.name
-
             view.onClick { listener(bulb) }
         }
     }

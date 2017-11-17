@@ -30,6 +30,8 @@
 
         <activity android:name=".presentation.view.ManageDevicesView"/>
 
+        <activity android:name=".presentation.view.ControlBulbView"/>
+
 
     </application>
 </manifest>

@@ -2,10 +2,10 @@ package com.example.gocantar.connectingthings.domain.boundary
 
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
-import android.util.EventLog
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 /**
@@ -21,6 +21,8 @@ interface BLEServiceBoundary {
     fun connect(bluetoothDevice: BluetoothDevice, typeID: TypeID)
     fun disconnect(bluetoothDevice: BluetoothDevice)
     fun isBLEnabled(): Boolean
-    fun getConnectedDevices(): List<BLEDevice>
+    fun getConnectedDevices(): Observable<BLEDevice>
+    fun getDevice(address: String): Observable<BLEDevice>
     fun getRequestBLEIntent(): Intent
+
 }

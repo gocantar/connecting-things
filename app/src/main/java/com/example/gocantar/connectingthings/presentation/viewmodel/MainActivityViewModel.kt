@@ -2,9 +2,8 @@ package com.example.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.util.EventLog
 import android.util.Log
-import com.example.gocantar.connectingthings.common.base.BaseViewModel
+import com.example.gocantar.connectingthings.presentation.base.BaseViewModel
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.di.component.AppComponent
@@ -43,9 +42,9 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             override fun onNext(device: BLEDevice) {
                 val deviceView = BLEDeviceViewMapper.fromBLEDevice(device)
                 when(deviceView.typeID){
-                    TypeID.BULB -> mBulbsConnected.put(deviceView.mac_address, deviceView)
-                    TypeID.PLUG -> mPlugsConnected.put(deviceView.mac_address, deviceView)
-                    TypeID.SENSOR -> mSensorsConnected.put(deviceView.mac_address, deviceView)
+                    TypeID.BULB -> mBulbsConnected.put(deviceView.address, deviceView)
+                    TypeID.PLUG -> mPlugsConnected.put(deviceView.address, deviceView)
+                    TypeID.SENSOR -> mSensorsConnected.put(deviceView.address, deviceView)
                     else -> {
                         Log.e(TAG, "Device's typeID is wrong")
                     }
@@ -59,7 +58,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             override fun onError(e: Throwable?) {
                 Log.e(TAG, e?.message)
             }
-        })
+        }, Unit)
     }
 
     private fun clearMaps(){
