@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
-import com.example.gocantar.connectingthings.presentation.base.BaseActivityVM
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.data.controller.BLEController
 import com.example.gocantar.connectingthings.data.PermissionsService

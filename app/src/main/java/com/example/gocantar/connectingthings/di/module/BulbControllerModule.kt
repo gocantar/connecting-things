@@ -1,9 +1,13 @@
 package com.example.gocantar.connectingthings.di.module
 
+import com.example.gocantar.connectingthings.device.controller.BulbController
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.example.gocantar.connectingthings.domain.interactor.SetColorInteractor
 import com.example.gocantar.connectingthings.domain.usecase.GetDeviceActor
 import com.example.gocantar.connectingthings.domain.usecase.BaseInteractor
+import com.example.gocantar.connectingthings.domain.usecase.SetColorActor
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import dagger.Module
 import dagger.Provides
@@ -13,6 +17,9 @@ import dagger.Provides
  */
 @Module class BulbControllerModule(controlBulbViewModel: ControlBulbViewModel) {
 
-    @Provides fun provideDevice(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
+    @Provides fun provideBulbController(): BulbControllerBoundary = BulbController()
 
+    @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
+
+    @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetColorActor(bulbController)
 }

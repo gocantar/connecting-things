@@ -15,8 +15,8 @@ import dagger.Provides
 
 @Module class ManageDevicesViewModelModule(manageDevicesViewModel: ManageDevicesViewModel){
 
-    @Provides fun provideScannedDevices(bleServiceService: BLEServiceBoundary): ScanDevicesInteractor = ScanDevicesActor(bleServiceService)
+    @Provides fun provideScannedDevicesActor(bleServiceService: BLEServiceBoundary): ScanDevicesInteractor = ScanDevicesActor(bleServiceService)
 
-    @Provides fun provideConnectDevices(bleService: BLEServiceBoundary): ConnectDevicesInteractor = ConnectDevicesActor(bleService)
+    @Provides fun provideConnectDevicesActor(bleService: BLEServiceBoundary): ConnectDevicesInteractor = ConnectDevicesActor(bleService)
 
 }

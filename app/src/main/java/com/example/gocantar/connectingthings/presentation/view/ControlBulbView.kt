@@ -1,15 +1,18 @@
 package com.example.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
+import com.example.gocantar.connectingthings.common.Constants
 import com.example.gocantar.connectingthings.common.ids.Key
-import com.example.gocantar.connectingthings.presentation.base.BaseActivityVM
 import com.example.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
@@ -31,6 +34,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
     private val mColorsAdapter: BulbColorRecyclerViewAdapter by lazy {
         BulbColorRecyclerViewAdapter(ba_colors_recycler_view, mViewModel.mColorList){
             Log.d(TAG, "RED: ${Color.red(it)} - GREEN ${Color.green(it)} - BLUE ${Color.green(it)}")
+            onColorChanged(it)
         }
     }
 
@@ -47,8 +51,18 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
         mViewModel.initialize(intent.extras.getString(Key.DEVICE_ADDRESS))
         setUpRecyclersView()
+
+     }
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
     }
 
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, IntentFilter("device-data-event"))
+    }
 
 
     /**
@@ -60,6 +74,22 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
         ba_colors_recycler_view.layoutManager = GridLayoutManager(this, 4)
         ba_colors_recycler_view.adapter = mColorsAdapter
+    }
+
+
+    private val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent != null && intent.action == Constants.DEVICE_DATA_ACTION) {
+                    val data = intent.extras.getByteArray(Constants.DATA_RECEIVED)
+                    val characteristic = intent.extras.getString(Constants.CHARACTERISTIC)
+                    mViewModel.onMessageReceived(characteristic, data)
+            }
+        }
+    }
+
+    private fun onColorChanged(color: Int){
+        mViewModel.mColor = color
+        mViewModel.putColor()
     }
 
 

@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.gocantar.connectingthings.AppController
 import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.base.extension.inflate
+import com.example.gocantar.connectingthings.presentation.extension.inflate
 import kotlinx.android.synthetic.main.holder_bulb_color_box.view.*
 
 /**

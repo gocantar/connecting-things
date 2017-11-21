@@ -3,7 +3,6 @@ package com.example.gocantar.connectingthings.presentation.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.example.gocantar.connectingthings.presentation.base.BaseViewModel
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerManageDevicesComponent

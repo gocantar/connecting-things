@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.base.extension.inflate
+import com.example.gocantar.connectingthings.presentation.extension.inflate
 import com.example.gocantar.connectingthings.presentation.model.BulbEffect
 import com.example.gocantar.connectingthings.presentation.view.adapter.holder.EffectBoxViewHolder
 

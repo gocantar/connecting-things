@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.base.BaseActivityVM
 import com.example.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import kotlinx.android.synthetic.main.activity_manage_devices.*

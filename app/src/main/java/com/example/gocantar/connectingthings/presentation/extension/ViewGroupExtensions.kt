@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.base.extension
+package com.example.gocantar.connectingthings.presentation.extension
 
 
 

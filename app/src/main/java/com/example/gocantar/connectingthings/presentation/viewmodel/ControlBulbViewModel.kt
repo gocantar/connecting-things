@@ -5,12 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.common.enum.State
-import com.example.gocantar.connectingthings.presentation.base.BaseViewModel
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerBulbControllerComponent
 import com.example.gocantar.connectingthings.di.module.BulbControllerModule
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.example.gocantar.connectingthings.domain.entity.BulbParams
 import com.example.gocantar.connectingthings.domain.usecase.GetDeviceActor
+import com.example.gocantar.connectingthings.domain.usecase.SetColorActor
 import com.example.gocantar.connectingthings.presentation.model.BulbColor
 import com.example.gocantar.connectingthings.presentation.model.BulbEffect
 import io.reactivex.observers.DisposableObserver
@@ -22,23 +23,6 @@ import javax.inject.Inject
 
 class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
-    var mColor: Int = mResources.getColor(R.color.white, app.theme)
-
-    var mAlpha: Int = 255
-
-    lateinit var mEffect: String
-
-    var mDevice: BLEDevice? = null
-
-    @Inject
-    lateinit var mGetDeviceActor: GetDeviceActor
-
-    /**
-     * Data binding variables
-     */
-
-    val ba_title: MutableLiveData<String> = MutableLiveData()
-
     val mEffectsList: List<BulbEffect> by lazy {
         mResources.getStringArray(R.array.effects).asList()
                 .map { BulbEffect(it, State.DISABLE) }
@@ -48,6 +32,24 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         mResources.getIntArray(R.array.bulb_colors_palette).asList()
                 .map { BulbColor(it, State.DISABLE) }
     }
+
+    var mColor: Int = mResources.getColor(R.color.white, app.theme)
+
+    var mAlpha: Int = 0
+
+    var mEffect: String = mEffectsList.first().effect
+
+    var mDevice: BLEDevice? = null
+
+    @Inject lateinit var mGetDeviceActor: GetDeviceActor
+    @Inject lateinit var mSetColorActor: SetColorActor
+
+    /**
+     * Data binding variables
+     */
+
+    val ba_title: MutableLiveData<String> = MutableLiveData()
+
 
     /**
      * ---------------------------------------------------------
@@ -73,6 +75,14 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
         }, address )
     }
+
+    fun putColor(){
+        mDevice?.let {
+            mSetColorActor.execute(BulbParams(it, mColor, mAlpha, mEffect))
+        }
+    }
+
+    fun onMessageReceived(characterisctic: String, message: ByteArray){}
 
     override fun onCleared() {
         super.onCleared()

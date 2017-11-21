@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Created by gocantar on 1/11/17.
  */
-class UUIDs {
+class ServicesUUIDs {
     companion object {
         /**
          * General
@@ -18,7 +18,6 @@ class UUIDs {
          */
         val PLAYBULB_CANDLE_PRIMARY_SERVICE = UUID.fromString("0000ff02-0000-1000-8000-00805f9b34fb")
 
-        val PLAYBULB_CANDLE_COLOR_CHARACTERISTIC = UUID.fromString("0000fffc-0000-1000-8000-00805f9b34fb")
 
         val Bulbs: List<UUID> = listOf(PLAYBULB_CANDLE_PRIMARY_SERVICE)
 
