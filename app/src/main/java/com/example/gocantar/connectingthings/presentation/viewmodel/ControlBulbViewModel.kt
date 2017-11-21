@@ -34,15 +34,25 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     }
 
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
-
     var mAlpha: Int = 0
-
     var mEffect: String = mEffectsList.first().effect
-
     var mDevice: BLEDevice? = null
 
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
     @Inject lateinit var mSetColorActor: SetColorActor
+
+    private var mDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
+        override fun onError(e: Throwable?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+        override fun onNext(device: BLEDevice?) {
+            mDevice = device
+            ba_title.value = device?.name ?: mResources.getString(R.string.error)
+        }
+        override fun onComplete() {
+            Log.d(TAG, "Device connected was gotten")
+        }
+    }
 
     /**
      * Data binding variables
@@ -59,21 +69,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
         mEffect = mEffectsList.first().effect
 
-        mGetDeviceActor.execute(object : DisposableObserver<BLEDevice>() {
-            override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onNext(device: BLEDevice?) {
-                mDevice = device
-                ba_title.value = device?.name ?: mResources.getString(R.string.error)
-            }
-
-            override fun onComplete() {
-                Log.d(TAG, "Device connected was gotten")
-            }
-
-        }, address )
+        mGetDeviceActor.execute(mDisposable, address )
     }
 
     fun putColor(){
@@ -83,6 +79,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     }
 
     fun onMessageReceived(characterisctic: String, message: ByteArray){}
+
 
     override fun onCleared() {
         super.onCleared()

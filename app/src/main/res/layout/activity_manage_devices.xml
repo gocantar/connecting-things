@@ -27,7 +27,7 @@
             android:layout_below="@id/md_back_button"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="50dp"
-            android:background="@drawable/rectangle_with_stroke">
+            android:background="@drawable/bg_rectangle_with_stroke">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/md_scanned_devices_recycler_view"
@@ -46,7 +46,7 @@
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/rectangle_with_stroke" />
+                android:background="@drawable/bg_rectangle_with_stroke" />
 
         </RelativeLayout>
 

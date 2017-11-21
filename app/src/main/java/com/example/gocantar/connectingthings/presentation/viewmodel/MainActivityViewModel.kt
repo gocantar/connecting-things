@@ -30,6 +30,28 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject
     lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
 
+    private val mDisposable: DisposableObserver<BLEDevice> = object : DisposableObserver<BLEDevice>() {
+        override fun onNext(device: BLEDevice) {
+            val deviceView = BLEDeviceViewMapper.fromBLEDevice(device)
+            when(deviceView.typeID){
+                TypeID.BULB -> mBulbsConnected.put(deviceView.address, deviceView)
+                TypeID.PLUG -> mPlugsConnected.put(deviceView.address, deviceView)
+                TypeID.SENSOR -> mSensorsConnected.put(deviceView.address, deviceView)
+                else -> {
+                    Log.e(TAG, "Device's typeID is wrong")
+                }
+            }
+        }
+        override fun onComplete() {
+            // notified list is completed
+            Log.d(TAG, "List of connected devices has been updated")
+            mRecyclerViewEvent.value = Event.LIST_CHANGED
+        }
+        override fun onError(e: Throwable?) {
+            Log.e(TAG, e?.message)
+        }
+    }
+
 
     fun isBLEEnabled(): Boolean = mBLEServiceService.isBLEnabled()
 
@@ -37,27 +59,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
 
     fun updateDevicesConnected(){
         clearMaps()
-        mGetConnectedDevicesActor.execute(object : DisposableObserver<BLEDevice>() {
-            override fun onNext(device: BLEDevice) {
-                val deviceView = BLEDeviceViewMapper.fromBLEDevice(device)
-                when(deviceView.typeID){
-                    TypeID.BULB -> mBulbsConnected.put(deviceView.address, deviceView)
-                    TypeID.PLUG -> mPlugsConnected.put(deviceView.address, deviceView)
-                    TypeID.SENSOR -> mSensorsConnected.put(deviceView.address, deviceView)
-                    else -> {
-                        Log.e(TAG, "Device's typeID is wrong")
-                    }
-                }
-            }
-            override fun onComplete() {
-                // notified list is completed
-                Log.d(TAG, "List of connected devices has been updated")
-                mRecyclerViewEvent.value = Event.LIST_CHANGED
-            }
-            override fun onError(e: Throwable?) {
-                Log.e(TAG, e?.message)
-            }
-        }, Unit)
+        mGetConnectedDevicesActor.execute(mDisposable, Unit)
     }
 
     private fun clearMaps(){

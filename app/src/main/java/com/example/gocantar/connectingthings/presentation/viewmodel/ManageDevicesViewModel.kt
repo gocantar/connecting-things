@@ -29,6 +29,24 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject
     lateinit var mConnectDevicesActor: ConnectDevicesInteractor
 
+    private val mDisposable: DisposableObserver<Event> = object : DisposableObserver<Event>() {
+        override fun onNext(event: Event) {
+            when(event){
+                Event.DEVICE_CONNECTED -> Log.d(TAG, "Device has been connected")
+                Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device has been disconnected")
+                else -> Log.d(TAG, "Device has registered other event")
+            }
+        }
+
+        override fun onComplete() {
+            // Never it's called
+        }
+
+        override fun onError(e: Throwable?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
     fun startScanDevices(){
         mScanDevicesActor.start(object : DisposableObserver<BLEDevice>() {
             override fun onComplete() {
@@ -52,23 +70,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     }
 
     fun connectDevice(bleDeviceView: BLEDeviceView){
-        mConnectDevicesActor.connect(bleDeviceView.device, bleDeviceView.typeID, object : DisposableObserver<Event>() {
-            override fun onNext(event: Event) {
-                when(event){
-                    Event.DEVICE_CONNECTED -> Log.d(TAG, "Device ${bleDeviceView.address} has been connected")
-                    Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device ${bleDeviceView.address} has been disconnected")
-                    else -> Log.d(TAG, "Device ${bleDeviceView.address} has registered other event")
-                }
-            }
-
-            override fun onComplete() {
-                // Never it's called
-            }
-
-            override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
+        mConnectDevicesActor.connect(bleDeviceView.device, bleDeviceView.typeID, mDisposable )
     }
 
     override fun onCleared() {

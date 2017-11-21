@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@drawable/rectangle_with_stroke"
+    android:background="@drawable/bg_rectangle_with_stroke"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/simple_margin">
 
