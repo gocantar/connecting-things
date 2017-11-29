@@ -1,84 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.gocantar.connectingthings.presentation.view.MainActivityView">
-
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ma_primary_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/double_margin"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/sfheavy"
-            android:text="@string/control_panel"
-            android:textColor="@color/primaryText"
-            android:textSize="@dimen/primary_title_text_size" />
-
-        <TextView
-            android:id="@+id/ma_manage_devices_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ma_primary_title"
-            android:layout_marginBottom="@dimen/double_margin"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="@dimen/double_margin"
-            android:fontFamily="@font/sfbold"
-            android:text="@string/manage_devices"
-            android:textColor="@color/primaryText"
-            android:textSize="@dimen/title_text_size" />
-
-        <include layout="@layout/layout_manage_device_button" />
-
-        <View
-            android:id="@+id/ma_manage_devices_line"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/ma_manage_devices_layout"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:background="@color/dividersLinesColor" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ma_bulbs_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ma_manage_devices_line"
-            android:layout_marginBottom="@dimen/simple_margin"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/sfbold"
-            android:text="@string/illumination"
-            android:textColor="@color/primaryText"
-            android:textSize="@dimen/title_text_size" />
+            <TextView
+                android:id="@+id/ma_primary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/sfheavy"
+                android:text="@string/control_panel"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/primary_title_text_size" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/ma_bulbs_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ma_bulbs_title"
-            android:layout_marginEnd="92dp"
-            android:layout_marginStart="92dp"/>
+            <TextView
+                android:id="@+id/ma_manage_devices_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="@dimen/double_margin"
+                android:fontFamily="@font/sfbold"
+                android:text="@string/manage_devices"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/title_text_size" />
 
-        <View
-            android:id="@+id/ma_bulbs_connected_devices"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/ma_bulbs_recycler_view"
-            android:layout_marginEnd="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="@dimen/simple_margin"
-            android:background="@color/dividersLinesColor" />
-    </RelativeLayout>
+            <include layout="@layout/layout_manage_device_button" />
+
+            <View
+                android:id="@+id/ma_manage_devices_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:background="@color/dividersLinesColor" />
+
+            <TextView
+                android:id="@+id/ma_bulbs_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/sfbold"
+                android:text="@string/illumination"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/title_text_size" />
+
+            <TextView
+                android:id="@+id/ma_bulbs_no_device_connected_message"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginTop="@dimen/double_margin"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:textSize="@dimen/regular_text_size"
+                android:fontFamily="@font/sfmedium"
+                android:textColor="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_bulbs_connected"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/ma_bulbs_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="92dp"
+                android:layout_marginStart="92dp"/>
+
+            <View
+                android:id="@+id/ma_bulbs_connected_devices_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="@dimen/simple_margin"
+                android:background="@color/dividersLinesColor" />
+
+            <TextView
+                android:id="@+id/ma_plugs_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/sfbold"
+                android:text="@string/plugs"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/title_text_size" />
+
+            <TextView
+                android:id="@+id/ma_plugs_no_device_connected_message"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginTop="@dimen/double_margin"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:textSize="@dimen/regular_text_size"
+                android:fontFamily="@font/sfmedium"
+                android:textColor="@color/hintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_plugs_connected"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/ma_plugs_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="92dp"
+                android:layout_marginStart="92dp" />
+
+            <View
+                android:id="@+id/ma_plugs_connected_devices_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="@dimen/simple_margin"
+                android:background="@color/dividersLinesColor" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 
 </android.support.design.widget.CoordinatorLayout>

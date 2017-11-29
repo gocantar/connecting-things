@@ -17,8 +17,8 @@ class CharacteristicUUIDs {
         /**
          * Smart Connect
          */
-        val REVOGI_SMART_PLUG_REQUEST = 0xfff3
-        val REVOGI_SMART_PLUG_RESPONSE = 0xfff4
+        val REVOGI_SMART_PLUG_REQUEST =  UUID.fromString("0000fff3-0000-1000-8000-00805f9b34fb")
+        val REVOGI_SMART_PLUG_RESPONSE = UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb")
 
         /**
          * Sensor

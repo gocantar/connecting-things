@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
+import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import kotlinx.android.synthetic.main.activity_manage_devices.*
@@ -38,10 +39,10 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
         mViewModel.mRecyclerViewEvent.observe( this, Observer {
             it?.let {
-                updateRecyclerView()
+                onModelViewEventReceived(it)
             } } )
 
-        setUpRecyclerView()
+        setUpRecyclersView()
     }
 
     override fun onResume() {
@@ -54,18 +55,24 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
         mViewModel.stopScanDevices()
     }
 
-
     /**
      * Private methods
      */
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclersView(){
         md_scanned_devices_recycler_view.layoutManager = LinearLayoutManager(this)
         md_scanned_devices_recycler_view.adapter = mAdapter
     }
 
-    private fun updateRecyclerView(){
+    private fun updateBulbsRecyclerView(){
         mAdapter.notifyDataSetChanged()
+    }
+
+    private fun onModelViewEventReceived(event: Event){
+        when(event){
+            Event.LIST_CHANGED -> updateBulbsRecyclerView()
+            else -> Log.d(TAG, "Other event was caught")
+        }
     }
 
     /**

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.extension.inflate
-import com.example.gocantar.connectingthings.presentation.model.BLEDeviceView
+import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
 import com.example.gocantar.connectingthings.presentation.view.adapter.holder.BLEDeviceViewHolder
 
 /**
@@ -13,8 +13,8 @@ import com.example.gocantar.connectingthings.presentation.view.adapter.holder.BL
  */
 
 class ScannedDevicesRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
-                                        private val mItems: Map<String, BLEDeviceView>,
-                                        private val mListener: (BLEDeviceView) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                                        private val mItems: Map<String, DeviceScannedView>,
+                                        private val mListener: (DeviceScannedView) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = parent.inflate(R.layout.holder_ble_device)

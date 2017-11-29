@@ -9,9 +9,11 @@ import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
 import com.example.gocantar.connectingthings.common.enum.Event
+import com.example.gocantar.connectingthings.common.extension.toVisibility
 import com.example.gocantar.connectingthings.data.controller.BLEController
 import com.example.gocantar.connectingthings.data.PermissionsService
 import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
+import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_manage_device_button.*
@@ -23,15 +25,21 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
 
     private val mBulbsAdapter: ConnectedBulbsRecyclerViewAdapter by lazy {
         ConnectedBulbsRecyclerViewAdapter(ma_bulbs_recycler_view, mViewModel.mBulbsConnected){
-            Log.d(TAG, "Opening bulb controller activity")
+            Log.d(TAG, "Opening bulb ${it.name} controller activity")
             Navigator.navigateToControlBulbView(this, it.address)
+        }
+    }
+
+    private val mPlugsAdapter: ConnectedPlugRecyclerViewAdapter by lazy {
+        ConnectedPlugRecyclerViewAdapter(ma_plugs_recycler_view, mViewModel.mPlugsConnected){
+            Log.d(TAG, "Selected plug ${it.name}")
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setEventObserver()
+        setEventsObserver()
 
         ma_manage_devices_layout.setOnClickListener {
             Navigator.navigateToManageDevicesActivity(this)
@@ -61,23 +69,37 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
      */
 
     private fun setUpRecyclersView(){
+        // Setup bulbs adapter
+        showBulbsRecyclerView(mViewModel.getBulbsRecyclerViewVisibility())
         ma_bulbs_recycler_view.layoutManager = GridLayoutManager(this, 3)
         ma_bulbs_recycler_view.adapter = mBulbsAdapter
+
+        // Setup plugs adapter
+        showPlugsRecyclerView(mViewModel.getPlugsRecyclerViewVisibility())
+        ma_plugs_recycler_view.layoutManager = GridLayoutManager(this, 3)
+        ma_plugs_recycler_view.adapter = mPlugsAdapter
     }
 
-    private fun updateRecyclerView(){
-        mBulbsAdapter.notifyDataSetChanged()
-    }
-
-    private fun setEventObserver(){
+    private fun setEventsObserver(){
         mViewModel.mRecyclerViewEvent.observe(this, Observer {
             it.let {
                 when(it){
-                    Event.LIST_CHANGED -> updateRecyclerView()
+                    Event.BULB_LIST_CHANGED -> updateBulbsRecyclerView()
+                    Event.PLUG_LIST_CHANGED -> updatePlugsRecyclerView()
                     else -> Log.d(TAG, "The event could not be captured")
                 }
             }
         })
+    }
+
+    private fun updateBulbsRecyclerView(){
+        showBulbsRecyclerView(mViewModel.getBulbsRecyclerViewVisibility())
+        mBulbsAdapter.notifyDataSetChanged()
+    }
+
+    private fun updatePlugsRecyclerView(){
+        showPlugsRecyclerView(mViewModel.getPlugsRecyclerViewVisibility())
+        mPlugsAdapter.notifyDataSetChanged()
     }
 
     private fun checkBLE(){
@@ -96,6 +118,16 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         }else{
             Log.d(TAG, "There are not required permissions" )
         }
+    }
+
+    private fun showBulbsRecyclerView(visibility: Boolean){
+        ma_bulbs_recycler_view.visibility = visibility.toVisibility()
+        ma_bulbs_no_device_connected_message.visibility = (!visibility).toVisibility()
+    }
+
+    private fun showPlugsRecyclerView(visibility: Boolean){
+        ma_plugs_recycler_view.visibility = visibility.toVisibility()
+        ma_plugs_no_device_connected_message.visibility = (!visibility).toVisibility()
     }
 
 

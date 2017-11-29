@@ -7,20 +7,20 @@
     android:background="@drawable/bg_rectangle_with_stroke">
 
     <View
-        android:id="@+id/hbc_color_indicator"
+        android:id="@+id/hpc_color_indicator"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/oval_stroke" />
+        android:background="@drawable/ic_plug_off" />
 
     <TextView
-        android:id="@+id/hbc_device_name"
+        android:id="@+id/hpc_device_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/double_margin"
-        android:layout_toStartOf="@+id/hbc_color_indicator"
+        android:layout_toStartOf="@+id/hpc_color_indicator"
         android:ellipsize="end"
         android:fontFamily="@font/sfbold"
         android:maxLines="1"
@@ -33,15 +33,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hbc_device_name"
+        android:layout_below="@id/hpc_device_name"
         android:layout_marginEnd="4dp"
         android:layout_toStartOf="@id/hbc_color_indicator"
         android:fontFamily="@font/sfheavy"
         android:paddingEnd="@dimen/double_padding"
         android:paddingStart="@dimen/double_padding"
         android:textAllCaps="true"
-        android:textColor="@color/greenOK"
+        android:textColor="@color/redWrong"
         android:textSize="@dimen/regular_text_size"
-        tools:text="On" />
+        tools:text="Off" />
 
 </RelativeLayout>

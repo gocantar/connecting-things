@@ -11,6 +11,7 @@ import com.example.gocantar.connectingthings.common.ids.TypeID
 fun List<ParcelUuid>.getType(): TypeID {
     return when {
         find { ServicesUUIDs.Bulbs.contains(it.uuid) } != null -> TypeID.BULB
+        find { ServicesUUIDs.Plugs.contains(it.uuid) } != null -> TypeID.PLUG
         find { ServicesUUIDs.Sensors.contains(it.uuid) } != null -> TypeID.SENSOR
         else -> TypeID.NO_TYPE
     }

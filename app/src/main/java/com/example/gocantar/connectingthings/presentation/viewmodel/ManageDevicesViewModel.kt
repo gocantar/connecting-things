@@ -11,7 +11,7 @@ import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
 import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
 import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
-import com.example.gocantar.connectingthings.presentation.model.BLEDeviceView
+import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ import javax.inject.Inject
  */
 class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
 
-    val mDevicesScannedList: MutableMap<String, BLEDeviceView> = mutableMapOf()
+    val mDevicesScannedList: MutableMap<String, DeviceScannedView> = mutableMapOf()
 
     val mRecyclerViewEvent: MutableLiveData<Event> = MutableLiveData()
 
@@ -29,54 +29,55 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject
     lateinit var mConnectDevicesActor: ConnectDevicesInteractor
 
-    private val mDisposable: DisposableObserver<Event> = object : DisposableObserver<Event>() {
-        override fun onNext(event: Event) {
-            when(event){
-                Event.DEVICE_CONNECTED -> Log.d(TAG, "Device has been connected")
-                Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device has been disconnected")
-                else -> Log.d(TAG, "Device has registered other event")
-            }
-        }
-
+    private val mScanDisposable: DisposableObserver<BLEDevice> = object : DisposableObserver<BLEDevice>() {
         override fun onComplete() {
             // Never it's called
+        }
+
+        override fun onNext(device: BLEDevice) {
+            mDevicesScannedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDeviceToScannedView(device))
+            mRecyclerViewEvent.value = Event.LIST_CHANGED
         }
 
         override fun onError(e: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
     }
 
     fun startScanDevices(){
-        mScanDevicesActor.start(object : DisposableObserver<BLEDevice>() {
-            override fun onComplete() {
-                // Never it's called
+        mScanDevicesActor.start(mScanDisposable)
+    }
+
+    fun stopScanDevices(){
+        mScanDevicesActor.stop()
+        mScanDisposable.dispose()
+    }
+
+    fun connectDevice(deviceScannedView: DeviceScannedView){
+        mConnectDevicesActor.connect(deviceScannedView.device, deviceScannedView.typeID, object : DisposableObserver<Event>() {
+            override fun onNext(event: Event) {
+                when(event){
+                    Event.DEVICE_CONNECTED -> Log.d(TAG, "Device has been connected")
+                    Event.DEVICE_DISCONNECTED -> Log.d(TAG, "Device has been disconnected")
+                    else -> Log.d(TAG, "Device has registered other event")
+                }
             }
 
-            override fun onNext(device: BLEDevice) {
-                mDevicesScannedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDevice(device))
-                mRecyclerViewEvent.value = Event.LIST_CHANGED
+            override fun onComplete() {
+                // Never it's called
             }
 
             override fun onError(e: Throwable?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-
         })
-    }
-
-    fun stopScanDevices(){
-        mScanDevicesActor.stop()
-    }
-
-    fun connectDevice(bleDeviceView: BLEDeviceView){
-        mConnectDevicesActor.connect(bleDeviceView.device, bleDeviceView.typeID, mDisposable )
     }
 
     override fun onCleared() {
         super.onCleared()
-        mScanDevicesActor.dispose()
         mConnectDevicesActor.dispose()
+        mScanDevicesActor.dispose()
     }
 
     override fun setUpComponent(appComponent: AppComponent) {
