@@ -3,6 +3,7 @@ package com.example.gocantar.connectingthings.presentation
 import android.app.Activity
 import android.content.Context
 import com.example.gocantar.connectingthings.presentation.view.ControlBulbView
+import com.example.gocantar.connectingthings.presentation.view.ControlPlugView
 import com.example.gocantar.connectingthings.presentation.view.ManageDevicesView
 
 /**
@@ -16,6 +17,10 @@ class Navigator {
 
         fun navigateToControlBulbView(context: Context, address: String){
             (context as Activity).startActivityForResult(ControlBulbView.getCallingIntent(context, address), ControlBulbView.REQUEST_CODE)
+        }
+
+        fun navigateToControlPlugView(context: Context, address: String){
+            (context as Activity).startActivityForResult(ControlPlugView.getCallingIntent(context, address), ControlPlugView.REQUEST_CODE)
         }
     }
 

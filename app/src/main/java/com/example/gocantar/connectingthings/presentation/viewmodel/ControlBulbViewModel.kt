@@ -36,7 +36,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
     var mAlpha: Int = 0
     var mEffect: String = mEffectsList.first().effect
-    var mDevice: BLEDevice? = null
+
+    lateinit var mDevice: BLEDevice
 
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
     @Inject lateinit var mSetColorActor: SetColorActor
@@ -46,8 +47,11 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
         override fun onNext(device: BLEDevice?) {
-            mDevice = device
+            device?.let {
+                mDevice = device
+            }
             ba_title.value = device?.name ?: mResources.getString(R.string.error)
+
         }
         override fun onComplete() {
             Log.d(TAG, "Device connected was gotten")
@@ -60,26 +64,20 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     val ba_title: MutableLiveData<String> = MutableLiveData()
 
-
     /**
      * ---------------------------------------------------------
      */
 
     fun initialize(address: String){
-
         mEffect = mEffectsList.first().effect
-
-        mGetDeviceActor.execute(mDisposable, address )
+        mGetDeviceActor.execute(mDisposable, address)
     }
 
     fun putColor(){
-        mDevice?.let {
-            mSetColorActor.execute(BulbParams(it, mColor, mAlpha, mEffect))
-        }
+        mSetColorActor.execute(BulbParams(mDevice, mColor, mAlpha, mEffect))
     }
 
     fun onMessageReceived(characterisctic: String, message: ByteArray){}
-
 
     override fun onCleared() {
         super.onCleared()

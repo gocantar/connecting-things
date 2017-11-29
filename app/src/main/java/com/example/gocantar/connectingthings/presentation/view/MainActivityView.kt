@@ -32,7 +32,8 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
 
     private val mPlugsAdapter: ConnectedPlugRecyclerViewAdapter by lazy {
         ConnectedPlugRecyclerViewAdapter(ma_plugs_recycler_view, mViewModel.mPlugsConnected){
-            Log.d(TAG, "Selected plug ${it.name}")
+            Log.d(TAG, "Opening bulb ${it.name} controller activity")
+            Navigator.navigateToControlPlugView(this, it.address)
         }
     }
 

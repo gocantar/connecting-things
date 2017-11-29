@@ -19,7 +19,5 @@ import dagger.Provides
 
     @Provides fun provideBulbController(): BulbControllerBoundary = BulbController()
 
-    @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
-
     @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetColorActor(bulbController)
 }

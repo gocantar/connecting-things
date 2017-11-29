@@ -32,6 +32,7 @@
 
         <activity android:name=".presentation.view.ControlBulbView"/>
 
+        <activity android:name=".presentation.view.ControlPlugView"/>
 
     </application>
 </manifest>

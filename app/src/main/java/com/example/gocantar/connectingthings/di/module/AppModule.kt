@@ -8,6 +8,7 @@ import com.example.gocantar.connectingthings.data.controller.BLEController
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
+import com.example.gocantar.connectingthings.domain.usecase.GetDeviceActor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -25,5 +26,8 @@ import javax.inject.Singleton
     @Provides @Singleton fun provideBLEService(bluetoothManager: BluetoothManager): BLEServiceBoundary = BLEController(bluetoothManager)
 
     @Provides fun provideGetConnectedDevicesActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, Unit> = GetConnectedDevicesActor(bleService)
+
+    @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
+
 
 }
