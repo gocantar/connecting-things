@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.common.enum.Event
+import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import kotlinx.android.synthetic.main.activity_manage_devices.*
@@ -19,13 +20,21 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
     override val mViewModelClass: Class<ManageDevicesViewModel> = ManageDevicesViewModel::class.java
 
-    private val mAdapter: ScannedDevicesRecyclerViewAdapter by lazy {
+    private val mScannedDevicesAdapter: ScannedDevicesRecyclerViewAdapter by lazy {
         ScannedDevicesRecyclerViewAdapter(md_scanned_devices_recycler_view, mViewModel.mDevicesScannedList) {
             // Connect device
             Log.d(TAG, "Connecting to ${it.address}")
             mViewModel.connectDevice(it)
         }
     }
+
+    private val mConnectedDevicesAdapter: ConnectedDevicesRecyclerViewAdapter by lazy {
+        ConnectedDevicesRecyclerViewAdapter(md_connected_devices_recycler_view, mViewModel.mDevicesConnectedList){
+            Log.d(TAG, "Disconnecting to $it")
+            mViewModel.disconnectDevice(it)
+        }
+    }
+
 
     /**
      * Override functions
@@ -41,8 +50,8 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
             it?.let {
                 onModelViewEventReceived(it)
             } } )
-
         setUpRecyclersView()
+        mViewModel.initialize()
     }
 
     override fun onResume() {
@@ -61,16 +70,26 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
     private fun setUpRecyclersView(){
         md_scanned_devices_recycler_view.layoutManager = LinearLayoutManager(this)
-        md_scanned_devices_recycler_view.adapter = mAdapter
+        md_scanned_devices_recycler_view.adapter = mScannedDevicesAdapter
+
+        md_connected_devices_recycler_view.layoutManager = LinearLayoutManager(this)
+        md_connected_devices_recycler_view.adapter = mConnectedDevicesAdapter
     }
 
-    private fun updateBulbsRecyclerView(){
-        mAdapter.notifyDataSetChanged()
+    private fun updateScannedRecyclerView(){
+        mScannedDevicesAdapter.notifyDataSetChanged()
+    }
+
+    private fun updateConnectedRecyclerView(){
+        mConnectedDevicesAdapter.notifyDataSetChanged()
     }
 
     private fun onModelViewEventReceived(event: Event){
         when(event){
-            Event.LIST_CHANGED -> updateBulbsRecyclerView()
+            Event.LIST_CHANGED -> {
+                updateScannedRecyclerView()
+                updateConnectedRecyclerView()
+            }
             else -> Log.d(TAG, "Other event was caught")
         }
     }

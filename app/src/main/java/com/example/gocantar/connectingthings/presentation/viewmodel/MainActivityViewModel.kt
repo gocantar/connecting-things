@@ -27,10 +27,8 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     val mSensorsConnected: MutableList<DeviceScannedView> = mutableListOf()
     val mPlugsConnected: MutableList<DeviceScannedView> = mutableListOf()
 
-    @Inject
-    lateinit var mBLEServiceService: BLEServiceBoundary
-    @Inject
-    lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
+    @Inject lateinit var mBLEServiceService: BLEServiceBoundary
+    @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     
     fun isBLEEnabled(): Boolean = mBLEServiceService.isBLEnabled()
 
@@ -71,7 +69,6 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             }
         }, Unit)
     }
-
 
     fun getBulbsRecyclerViewVisibility(): Boolean =
             (mBulbsConnected.size != 0)

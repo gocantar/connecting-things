@@ -4,9 +4,12 @@ import android.bluetooth.BluetoothDevice
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
@@ -16,12 +19,20 @@ class ConnectDevicesActor @Inject constructor(private val mBLEService: BLEServic
 
     private val mDisposables: CompositeDisposable = CompositeDisposable()
 
-    override fun connect(device: BluetoothDevice, type: TypeID, disposable: DisposableObserver<Event>) {
+    override fun connect(device: BluetoothDevice, type: TypeID, disposable: DisposableObserver<DeviceEvent>, subscribe: Boolean) {
         mBLEService.connect(device, type)
+
+        if (subscribe) {
+            val observable = mBLEService.mPublisherOfEvent
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+
+            mDisposables.addAll(observable.subscribeWith(disposable))
+        }
     }
 
     override fun disconnect(address: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mBLEService.disconnect(address)
     }
 
     override fun dispose() {

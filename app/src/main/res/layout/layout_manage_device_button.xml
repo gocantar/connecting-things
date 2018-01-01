@@ -19,7 +19,7 @@
         android:layout_marginEnd="@dimen/double_margin"
         android:layout_marginTop="@dimen/double_margin"
         android:layout_marginBottom="@dimen/double_margin"
-        android:background="@drawable/oval"
+        android:background="@drawable/ic_oval"
         android:backgroundTint="#3B5998"
         android:padding="12dp"
         app:srcCompat="@drawable/ic_bluetooth" />

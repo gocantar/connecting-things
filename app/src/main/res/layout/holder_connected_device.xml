@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/hcd_disconnect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sfregular"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:text="@string/disconnect"
+        android:textColor="@color/redWrong"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hcd_services_prompt" />
+
+    <TextView
+        android:id="@+id/hcd_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_toStartOf="@id/hcd_disconnect_button"
+        android:ellipsize="end"
+        android:fontFamily="@font/sfbold"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/subtitle_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/hcd_name_prompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/hcd_name_prompt"
+        tools:text="PLAYBULB CANDLE" />
+
+    <TextView
+        android:id="@+id/hcd_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/hcd_name"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_toStartOf="@id/hcd_disconnect_button"
+        android:ellipsize="end"
+        android:fontFamily="@font/sfbold"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/hcd_address_prompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/hcd_address_prompt"
+        tools:text="65:12:36:FS:A9:55" />
+
+    <TextView
+        android:id="@+id/hcd_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/hcd_address"
+        android:layout_marginStart="4dp"
+        android:layout_toStartOf="@id/hcd_disconnect_button"
+        android:ellipsize="end"
+        android:fontFamily="@font/sfbold"
+        android:maxLines="1"
+        android:textColor="@color/primaryText"
+        app:layout_constraintBottom_toBottomOf="@+id/hcd_services_prompt"
+        app:layout_constraintStart_toEndOf="@+id/hcd_services_prompt"
+        tools:text="1 Servicio" />
+
+    <TextView
+        android:id="@+id/hcd_name_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sflight"
+        android:text="@string/name_prompt"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nombre:" />
+
+    <TextView
+        android:id="@+id/hcd_address_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sflight"
+        android:text="@string/address_prompt"
+        android:textColor="@color/primaryText"
+        app:layout_constraintStart_toStartOf="@+id/hcd_name_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/hcd_name_prompt" />
+
+
+    <TextView
+        android:id="@+id/hcd_services_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sflight"
+        android:text="@string/services_prompt"
+        android:textColor="@color/primaryText"
+        app:layout_constraintStart_toStartOf="@+id/hcd_address_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/hcd_address_prompt" />
+
+    <View
+        android:id="@+id/hcd_line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/dividersLinesColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hcd_disconnect_button" />
+
+</android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.extension.inflate
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.BLEDeviceViewHolder
+import com.example.gocantar.connectingthings.presentation.view.adapter.holder.ScannedDeviceViewHolder
 
 /**
  * Created by gocantar on 14/10/17.
@@ -17,12 +17,12 @@ class ScannedDevicesRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
                                         private val mListener: (DeviceScannedView) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view: View = parent.inflate(R.layout.holder_ble_device)
-        return BLEDeviceViewHolder(view)
+        val view: View = parent.inflate(R.layout.holder_scanned_device)
+        return ScannedDeviceViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as BLEDeviceViewHolder).bind(mItems.values.elementAt(position), mListener)
+        (holder as ScannedDeviceViewHolder).bind(mItems.values.elementAt(position), mListener)
     }
 
     override fun getItemCount(): Int = mItems.size

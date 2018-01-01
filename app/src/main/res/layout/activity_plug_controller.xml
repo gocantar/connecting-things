@@ -15,5 +15,26 @@
         android:textSize="@dimen/primary_title_text_size"
         tools:text="PLUG" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_plug">
+
+        <ProgressBar android:id="@+id/progressBar"
+            android:progressDrawable="@drawable/dw_progress_circle"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:progress="100"
+            android:layout_centerInParent="true"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminateOnly="false"
+            android:max="103">
+        </ProgressBar>
+
+
+    </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

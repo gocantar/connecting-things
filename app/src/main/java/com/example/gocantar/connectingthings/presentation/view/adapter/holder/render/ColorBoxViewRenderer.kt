@@ -39,7 +39,7 @@ class ColorBoxViewRenderer {
         with(view){
             when(mType){
                 DISABLE_VIEW -> hbcb_state.backgroundTintList = AppController.instance.getColorStateList(R.color.grey)
-                UNSELECTED_VIEW -> hbcb_state.background = AppController.instance.getDrawable(R.drawable.oval_stroke)
+                UNSELECTED_VIEW -> hbcb_state.background = AppController.instance.getDrawable(R.drawable.ic_oval_stroke)
                 SELECTED_VIEW -> hbcb_state.backgroundTintList = AppController.instance.getColorStateList(R.color.colorPrimary)
             }
         }

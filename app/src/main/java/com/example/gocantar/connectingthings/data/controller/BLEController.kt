@@ -13,6 +13,7 @@ import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.PublishSubject
@@ -41,7 +42,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
      */
     override val mPublisherOfBLEDevice: PublishSubject<BLEDevice> = PublishSubject.create()
 
-    override val mPublisherOfEvent: PublishSubject<Event> = PublishSubject.create()
+    override val mPublisherOfEvent: PublishSubject<DeviceEvent> = PublishSubject.create()
 
 
     /**
@@ -81,8 +82,8 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
         bluetoothDevice.connectGatt(AppController.instance, false, getGattCallback(), BluetoothDevice.TRANSPORT_LE )
     }
 
-    override fun disconnect(bluetoothDevice: BluetoothDevice) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun disconnect(address: String) {
+        mConnectedDevices[address]?.gattBluetoothGatt?.disconnect()
     }
 
     override fun isBLEnabled(): Boolean = mBluetoothAdapter.isEnabled
@@ -91,6 +92,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
             mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
                     .mapNotNull { mConnectedDevices[it.address] }
                     .toObservable()
+
 
     override fun getDevice(address: String): Observable<BLEDevice> {
         return mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
@@ -113,13 +115,13 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                     when (newState){
                         BluetoothProfile.STATE_CONNECTED -> {
                             Log.d(TAG, "${gatt.device.address} has been connected to  Gatt client. Attempting to start service discovery")
-                            mPublisherOfEvent.onNext(Event.DEVICE_CONNECTED)
+                            mPublisherOfEvent.onNext(DeviceEvent(gatt.device.address, Event.DEVICE_CONNECTED))
                             // Discovering services
                             gatt.discoverServices()
                         }
                         BluetoothProfile.STATE_DISCONNECTED -> {
                             Log.d(TAG, "${gatt.device.address} has been disconnected to  Gatt client.")
-                            mPublisherOfEvent.onNext(Event.DEVICE_DISCONNECTED)
+                            mPublisherOfEvent.onNext(DeviceEvent(gatt.device.address, Event.DEVICE_DISCONNECTED))
                             mConnectedDevices.remove(gatt.device.address)
                         }
                     }

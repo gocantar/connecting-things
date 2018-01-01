@@ -1,7 +1,9 @@
+
 <resources>
-    <string name="app_name">Connecting-things</string>
 
     <!-- a. -->
+    <string name="app_name">Connecting-things</string>
+    <string name="address_prompt">Dirección:</string>
     <!-- b. -->
     <!-- c. -->
     <string name="color">Color</string>
@@ -11,6 +13,7 @@
     <string name="control_panel">Panel de Control</string>
     <!-- d. -->
     <string name="decrease">Disminuir</string>
+    <string name="disconnect">Desconectar</string>
     <!-- e. -->
     <string name="effects">Efectos</string>
     <string name="error">Error</string>
@@ -29,8 +32,11 @@
     <!-- n. -->
     <string name="no_bulbs_connected">No hay ningun dispositivo de iluminación conectado</string>
     <string name="no_plugs_connected">No hay ningun enchufe conectado</string>
+    <string name="no_available_services">No hay servicios disponibles</string>
+    <string name="name_prompt">Nombre:</string>
     <!-- o. -->
     <!-- p. -->
+    <string name="power_signal_prompt">Potencia:</string>
     <string name="pulse">Pulso</string>
     <string name="plugs">Enchufes</string>
     <!-- q. -->
@@ -38,6 +44,7 @@
     <string name="rainbow">Arcoiris</string>
     <!-- s. -->
     <string name="settings">Ajustes</string>
+    <string name="services_prompt">Servicios:</string>
     <!-- t. -->
     <!-- u. -->
     <!-- v. -->
