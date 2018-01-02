@@ -2,7 +2,6 @@ package com.example.gocantar.connectingthings.domain.boundary
 
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
-import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.entity.DeviceEvent

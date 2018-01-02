@@ -10,7 +10,6 @@ import io.reactivex.observers.DisposableObserver
  * Created by gocantar on 3/11/17.
  */
 interface ConnectDevicesInteractor {
-    fun connect(device: BluetoothDevice, type: TypeID ,disposable: DisposableObserver<DeviceEvent>, subscribe: Boolean)
+    fun connect(device: BluetoothDevice, type: TypeID)
     fun disconnect(address:String)
-    fun dispose()
 }

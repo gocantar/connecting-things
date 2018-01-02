@@ -1,6 +1,5 @@
 package com.example.gocantar.connectingthings.common.ids
 
-import android.os.ParcelUuid
 import java.util.*
 
 /**

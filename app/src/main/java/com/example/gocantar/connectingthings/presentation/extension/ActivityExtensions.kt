@@ -10,15 +10,11 @@ import org.jetbrains.anko.find
 /**
  * Created by gocantar on 21/11/17.
  */
-fun Activity.showLoadingDialog(text: String){
+fun Activity.showLoadingDialog(text: String = baseContext.resources.getString(R.string.loading)) {
     val layout: View = inflate(this, R.layout.loading_layout)
     layout.loading_text.text = text
 }
 
-
-fun Activity.showLoadingDialog(){
-   inflate(this, R.layout.loading_layout)
-}
 
 fun Activity.removeLoadingDialog(){
     val rootLayout: FrameLayout = this.find(android.R.id.content)

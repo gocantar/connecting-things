@@ -1,8 +1,5 @@
 package com.example.gocantar.connectingthings.presentation.mapper
 
-import android.graphics.Color
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.extension.getType
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView

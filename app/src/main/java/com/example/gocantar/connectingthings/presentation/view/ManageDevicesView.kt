@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.common.enum.Event
+import com.example.gocantar.connectingthings.presentation.extension.removeLoadingDialog
+import com.example.gocantar.connectingthings.presentation.extension.showLoadingDialog
 import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
@@ -19,22 +21,16 @@ import kotlinx.android.synthetic.main.activity_manage_devices.*
 class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
     override val mViewModelClass: Class<ManageDevicesViewModel> = ManageDevicesViewModel::class.java
-
     private val mScannedDevicesAdapter: ScannedDevicesRecyclerViewAdapter by lazy {
         ScannedDevicesRecyclerViewAdapter(md_scanned_devices_recycler_view, mViewModel.mDevicesScannedList) {
-            // Connect device
-            Log.d(TAG, "Connecting to ${it.address}")
             mViewModel.connectDevice(it)
         }
     }
-
     private val mConnectedDevicesAdapter: ConnectedDevicesRecyclerViewAdapter by lazy {
         ConnectedDevicesRecyclerViewAdapter(md_connected_devices_recycler_view, mViewModel.mDevicesConnectedList){
-            Log.d(TAG, "Disconnecting to $it")
             mViewModel.disconnectDevice(it)
         }
     }
-
 
     /**
      * Override functions
@@ -46,10 +42,7 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
         md_back_button.setOnClickListener{ onBackPressed() }
 
-        mViewModel.mRecyclerViewEvent.observe( this, Observer {
-            it?.let {
-                onModelViewEventReceived(it)
-            } } )
+        setUpObservers()
         setUpRecyclersView()
         mViewModel.initialize()
     }
@@ -67,6 +60,38 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
     /**
      * Private methods
      */
+
+    private fun setUpObservers(){
+        observeEvents()
+        observeStates()
+    }
+
+    private fun observeEvents(){
+        mViewModel.mRecyclerViewEvent.observe( this, Observer {
+            it?.let {
+                onModelViewEventReceived(it)
+            } } )
+    }
+
+    private fun observeStates(){
+        mViewModel.mConnectingDevice.observe(this, Observer {
+            it?.let {
+                when{
+                    it -> showLoadingDialog(resources.getString(R.string.connecting))
+                    else -> removeLoadingDialog()
+                }
+            }
+        })
+
+        mViewModel.mDisconnectingDevice.observe(this, Observer {
+            it?.let {
+                when{
+                    it -> showLoadingDialog(resources.getString(R.string.disconnecting))
+                    else -> removeLoadingDialog()
+                }
+            }
+        })
+    }
 
     private fun setUpRecyclersView(){
         md_scanned_devices_recycler_view.layoutManager = LinearLayoutManager(this)

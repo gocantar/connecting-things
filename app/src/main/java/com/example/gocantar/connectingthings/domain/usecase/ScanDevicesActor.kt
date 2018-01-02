@@ -20,9 +20,7 @@ class ScanDevicesActor @Inject constructor(private val mBLEService: BLEServiceBo
 
     override fun start(disposable: DisposableObserver<BLEDevice>){
 
-        doAsync {
-            mBLEService.start()
-        }
+        doAsync { mBLEService.start() }
 
         val observable = mBLEService.mPublisherOfBLEDevice
                 .subscribeOn(Schedulers.io())
@@ -33,7 +31,7 @@ class ScanDevicesActor @Inject constructor(private val mBLEService: BLEServiceBo
     }
 
     override fun stop(){
-        mBLEService.stop()
+        doAsync {  mBLEService.stop() }
     }
 
     override fun dispose(){
