@@ -30,9 +30,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     
-    fun isBLEEnabled(): Boolean = mBLEServiceService.isBLEnabled()
-
-    fun getRequestBLEIntent() = mBLEServiceService.getRequestBLEIntent()
+    fun enableBLE() = mBLEServiceService.enableBLE()
 
     fun updateDevicesConnected(){
         val bulbs = mutableListOf<BulbConnectedView>()

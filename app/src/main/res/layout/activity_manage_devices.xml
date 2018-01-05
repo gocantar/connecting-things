@@ -16,8 +16,8 @@
             android:layout_height="35dp"
             android:layout_marginBottom="32dp"
             android:layout_marginEnd="@dimen/double_margin"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginStart="@dimen/double_margin"
+            android:layout_marginTop="@dimen/double_margin"
             android:tint="@color/primaryText"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
@@ -25,12 +25,12 @@
             android:id="@+id/md_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="@dimen/double_margin"
             android:layout_toEndOf="@id/md_back_button"
             android:fontFamily="@font/sfbold"
             android:text="@string/manage_devices"
             android:textColor="@color/primaryText"
-            android:textSize="36sp" />
+            android:textSize="@dimen/primary_title_text_size" />
 
         <View
             android:id="@+id/md_title_line"
@@ -38,12 +38,12 @@
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/md_title"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="@dimen/simple_margin"
             android:background="@color/primaryText" />
 
         <RelativeLayout
             android:id="@+id/md_container_layout"
-            android:layout_width="700dp"
+            android:layout_width="440dp"
             android:layout_height="match_parent"
             android:layout_below="@id/md_title_line"
             android:layout_centerHorizontal="true"
@@ -53,7 +53,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/md_scanned_devices_recycler_view"
-                android:layout_width="350dp"
+                android:layout_width="220dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 tools:listitem="@layout/holder_scanned_device" />
@@ -62,15 +62,17 @@
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/md_scanned_devices_recycler_view"
-                android:background="#7F7F7F" />
+                android:background="@color/dividersLinesColor" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/md_connected_devices_recycler_view"
-                android:layout_width="350dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                tools:listitem="@layout/holder_connected_device"/>
         </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/md_connected_devices_recycler_view"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/md_container_layout"
+            android:layout_alignTop="@+id/md_container_layout"
+            tools:listitem="@layout/holder_connected_device" />
 
 
     </RelativeLayout>

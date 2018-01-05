@@ -3,15 +3,12 @@ package com.example.gocantar.connectingthings.presentation.view
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.presentation.Navigator
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.extension.toVisibility
-import com.example.gocantar.connectingthings.data.controller.BLEController
-import com.example.gocantar.connectingthings.data.PermissionsService
 import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
@@ -51,8 +48,7 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
 
     override fun onStart() {
         super.onStart()
-        checkBLE()
-        checkPermissions()
+        mViewModel.enableBLE()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,7 +59,6 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
             }
         }
     }
-
 
     /**
      * Private functions
@@ -101,24 +96,6 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
     private fun updatePlugsRecyclerView(){
         showPlugsRecyclerView(mViewModel.getPlugsRecyclerViewVisibility())
         mPlugsAdapter.notifyDataSetChanged()
-    }
-
-    private fun checkBLE(){
-        if (!mViewModel.isBLEEnabled()) {
-            startActivityForResult(mViewModel.getRequestBLEIntent(), BLEController.REQUEST_CODE)
-        } else{
-            Log.d(TAG, "Bluetooth is enabled")
-        }
-    }
-
-    private fun checkPermissions(){
-        val requiredPermissions: Array<String> = PermissionsService.requiredPermissions()
-        if (!requiredPermissions.isEmpty()) {
-            Log.d(TAG, "There are required permission")
-            ActivityCompat.requestPermissions(this, requiredPermissions, PermissionsService.REQUEST_CODE)
-        }else{
-            Log.d(TAG, "There are not required permissions" )
-        }
     }
 
     private fun showBulbsRecyclerView(visibility: Boolean){

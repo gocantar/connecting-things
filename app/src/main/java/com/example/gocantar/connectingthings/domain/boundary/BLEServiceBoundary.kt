@@ -20,7 +20,7 @@ interface BLEServiceBoundary {
     fun stop()
     fun connect(bluetoothDevice: BluetoothDevice, typeID: TypeID)
     fun disconnect(address: String)
-    fun isBLEnabled(): Boolean
+    fun enableBLE()
     fun getConnectedDevices(): Observable<BLEDevice>
     fun getDevice(address: String): Observable<BLEDevice>
     fun getRequestBLEIntent(): Intent

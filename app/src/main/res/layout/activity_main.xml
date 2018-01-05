@@ -17,22 +17,27 @@
                 android:id="@+id/ma_primary_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/double_margin"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginBottom="@dimen/simple_margin"
                 android:fontFamily="@font/sfheavy"
                 android:text="@string/control_panel"
                 android:textColor="@color/primaryText"
                 android:textSize="@dimen/primary_title_text_size" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/primaryText"/>
+
             <TextView
                 android:id="@+id/ma_manage_devices_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/double_margin"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
                 android:layout_marginTop="@dimen/double_margin"
                 android:fontFamily="@font/sfbold"
                 android:text="@string/manage_devices"
@@ -45,8 +50,8 @@
                 android:id="@+id/ma_manage_devices_line"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
                 android:background="@color/dividersLinesColor" />
 
             <TextView
@@ -54,9 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/simple_margin"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
                 android:fontFamily="@font/sfbold"
                 android:text="@string/illumination"
                 android:textColor="@color/primaryText"
@@ -64,8 +69,8 @@
 
             <TextView
                 android:id="@+id/ma_bulbs_no_device_connected_message"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginEnd="@dimen/double_margin"
                 android:layout_marginTop="@dimen/double_margin"
                 android:layout_marginBottom="@dimen/double_margin"
                 android:textSize="@dimen/regular_text_size"
@@ -80,15 +85,15 @@
                 android:id="@+id/ma_bulbs_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="92dp"
-                android:layout_marginStart="92dp"/>
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin"/>
 
             <View
                 android:id="@+id/ma_bulbs_connected_devices_line"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
                 android:layout_marginTop="@dimen/simple_margin"
                 android:background="@color/dividersLinesColor" />
 
@@ -97,9 +102,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/simple_margin"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
                 android:fontFamily="@font/sfbold"
                 android:text="@string/plugs"
                 android:textColor="@color/primaryText"
@@ -107,8 +112,8 @@
 
             <TextView
                 android:id="@+id/ma_plugs_no_device_connected_message"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginEnd="@dimen/double_margin"
                 android:layout_marginTop="@dimen/double_margin"
                 android:layout_marginBottom="@dimen/double_margin"
                 android:textSize="@dimen/regular_text_size"
@@ -123,15 +128,15 @@
                 android:id="@+id/ma_plugs_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="92dp"
-                android:layout_marginStart="92dp" />
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin" />
 
             <View
                 android:id="@+id/ma_plugs_connected_devices_line"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
                 android:layout_marginTop="@dimen/simple_margin"
                 android:background="@color/dividersLinesColor" />
         </LinearLayout>

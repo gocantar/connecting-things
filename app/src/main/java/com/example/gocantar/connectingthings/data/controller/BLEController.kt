@@ -86,7 +86,12 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
         mConnectedDevices[address]?.gattBluetoothGatt?.disconnect()
     }
 
-    override fun isBLEnabled(): Boolean = mBluetoothAdapter.isEnabled
+    override fun enableBLE()  {
+        if (!mBluetoothAdapter.isEnabled) {
+            mBluetoothAdapter.enable()
+        }
+    }
+
 
     override fun getConnectedDevices(): Observable<BLEDevice> =
             mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
