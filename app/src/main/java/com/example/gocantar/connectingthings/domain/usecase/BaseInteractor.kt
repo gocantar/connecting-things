@@ -17,9 +17,9 @@ abstract class BaseInteractor<T, in Param>{
 
     fun execute(disposable: DisposableObserver<T>, params: Param){
 
-        val observable = this.buildUseCase(params).subscribeOn(Schedulers.io())
+        val observable = this.buildUseCase(params)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
 
         mDisposable.add( observable.subscribeWith(disposable) )
     }

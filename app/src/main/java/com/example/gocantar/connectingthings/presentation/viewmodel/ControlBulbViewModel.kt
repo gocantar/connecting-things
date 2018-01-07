@@ -5,13 +5,15 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.common.enum.State
+import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
+import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerBulbControllerComponent
 import com.example.gocantar.connectingthings.di.module.BulbControllerModule
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.entity.BulbParams
-import com.example.gocantar.connectingthings.domain.usecase.GetDeviceActor
-import com.example.gocantar.connectingthings.domain.usecase.SetColorActor
+import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.example.gocantar.connectingthings.domain.usecase.*
 import com.example.gocantar.connectingthings.presentation.model.BulbColor
 import com.example.gocantar.connectingthings.presentation.model.BulbEffect
 import io.reactivex.observers.DisposableObserver
@@ -41,8 +43,10 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
     @Inject lateinit var mSetColorActor: SetColorActor
+    @Inject lateinit var mGetNotificationsActor: GetCharacteristicNotificationActor
+    @Inject lateinit var mReadBulbCharacteristicActor: ReadBulbCharacteristicActor
 
-    private var mDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
+    private var mGetDeviceDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
         override fun onError(e: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
@@ -55,13 +59,26 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
         override fun onComplete() {
             Log.d(TAG, "Device connected was gotten")
+            // Read value
+           readCharacteristic()
+        }
+    }
+
+    private var mNotificationDisposable: DisposableObserver<CharacteristicData> = object : DisposableObserver<CharacteristicData>() {
+        override fun onComplete() {
+            // Never it´ called
+        }
+        override fun onNext(char: CharacteristicData) {
+            TODO("Get effect value characteristics, update IU to current state of the device")
+        }
+        override fun onError(e: Throwable?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 
     /**
      * Data binding variables
      */
-
     val ba_title: MutableLiveData<String> = MutableLiveData()
 
     /**
@@ -70,18 +87,18 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     fun initialize(address: String){
         mEffect = mEffectsList.first().effect
-        mGetDeviceActor.execute(mDisposable, address)
+        mGetNotificationsActor.execute(mNotificationDisposable, Unit)
+        mGetDeviceActor.execute(mGetDeviceDisposable, address)
     }
 
     fun putColor(){
         mSetColorActor.execute(BulbParams(mDevice, mColor, mAlpha, mEffect))
     }
 
-    fun onMessageReceived(characterisctic: String, message: ByteArray){}
-
     override fun onCleared() {
         super.onCleared()
         mGetDeviceActor.dispose()
+        mGetNotificationsActor.dispose()
     }
 
     override fun setUpComponent(appComponent: AppComponent) {
@@ -90,5 +107,13 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 .bulbControllerModule(BulbControllerModule(this))
                 .build()
                 .inject(this)
+    }
+
+    private fun readCharacteristic(){
+        when{
+            mDevice.gattBluetoothGatt != null -> mReadBulbCharacteristicActor.execute(mDevice.gattBluetoothGatt!!)
+            else -> TODO("Show error BLE device error")
+        }
+
     }
 }

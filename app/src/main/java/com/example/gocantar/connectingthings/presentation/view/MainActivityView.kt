@@ -98,14 +98,14 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         mPlugsAdapter.notifyDataSetChanged()
     }
 
-    private fun showBulbsRecyclerView(visibility: Boolean){
-        ma_bulbs_recycler_view.visibility = visibility.toVisibility()
-        ma_bulbs_no_device_connected_message.visibility = (!visibility).toVisibility()
+    private fun showBulbsRecyclerView(visible: Boolean){
+        ma_bulbs_recycler_view.visibility = visible.toVisibility()
+        ma_bulbs_no_device_connected_message.visibility = (!visible).toVisibility()
     }
 
-    private fun showPlugsRecyclerView(visibility: Boolean){
-        ma_plugs_recycler_view.visibility = visibility.toVisibility()
-        ma_plugs_no_device_connected_message.visibility = (!visibility).toVisibility()
+    private fun showPlugsRecyclerView(visible: Boolean){
+        ma_plugs_recycler_view.visibility = visible.toVisibility()
+        ma_plugs_no_device_connected_message.visibility = (!visible).toVisibility()
     }
 
 

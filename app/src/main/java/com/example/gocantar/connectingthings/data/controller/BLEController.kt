@@ -5,14 +5,13 @@ import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Intent
 import android.os.ParcelUuid
-import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.common.Constants
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.common.ids.TypeID
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.toObservable
@@ -43,6 +42,8 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
     override val mPublisherOfBLEDevice: PublishSubject<BLEDevice> = PublishSubject.create()
 
     override val mPublisherOfEvent: PublishSubject<DeviceEvent> = PublishSubject.create()
+
+    override val mPublisherOfCharacteristic: PublishSubject<CharacteristicData> = PublishSubject.create()
 
 
     /**
@@ -92,12 +93,10 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
         }
     }
 
-
     override fun getConnectedDevices(): Observable<BLEDevice> =
             mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
                     .mapNotNull { mConnectedDevices[it.address] }
                     .toObservable()
-
 
     override fun getDevice(address: String): Observable<BLEDevice> {
         return mBluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
@@ -133,22 +132,12 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                 }
 
                 override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
-
-                    Log.d(TAG, "Services were discovered")
-                    gatt.services?.forEach { Log.d(TAG, it?.uuid.toString()) }
-
+                    Log.d(TAG, "Services has been discovered")
                     mConnectedDevices.put(gatt.device.address, BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt))
-
-
                 }
 
-                override fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?, status: Int) {
-                    characteristic?.let {
-                        val intent = Intent(Constants.DEVICE_DATA_ACTION)
-                        intent.putExtra(Constants.DATA_RECEIVED, characteristic.value)
-                        intent.putExtra(Constants.CHARACTERISTIC, characteristic.uuid.toString())
-                        LocalBroadcastManager.getInstance(AppController.instance.baseContext)
-                    }
+                override fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic, status: Int) {
+                    mPublisherOfCharacteristic.onNext(CharacteristicData(characteristic.uuid, characteristic.value))
                 }
             }
 

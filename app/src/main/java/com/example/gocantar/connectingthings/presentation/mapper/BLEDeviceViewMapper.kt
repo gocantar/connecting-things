@@ -1,6 +1,6 @@
 package com.example.gocantar.connectingthings.presentation.mapper
 
-import com.example.gocantar.connectingthings.presentation.extension.getType
+import com.example.gocantar.connectingthings.common.extension.getType
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView

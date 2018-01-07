@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.extension
+package com.example.gocantar.connectingthings.common.extension
 
 import android.os.ParcelUuid
 import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
@@ -16,4 +16,10 @@ fun List<ParcelUuid>.getType(): TypeID {
         else -> TypeID.NO_TYPE
     }
 }
+
+
+fun List<ParcelUuid>.getBulbService(): ParcelUuid = first { ServicesUUIDs.Bulbs.contains(it.uuid) }
+
+
+
 

@@ -1,5 +1,6 @@
 package com.example.gocantar.connectingthings.domain.boundary
 
+import android.bluetooth.BluetoothGatt
 import com.example.gocantar.connectingthings.domain.entity.BulbParams
 
 /**
@@ -7,4 +8,5 @@ import com.example.gocantar.connectingthings.domain.entity.BulbParams
  */
 interface BulbControllerBoundary {
     fun setColor(params: BulbParams)
+    fun readCharacteristic(gatt: BluetoothGatt)
 }

@@ -14,7 +14,7 @@
     <color name="ten">#FFB300</color>
     <color name="eleven">#FB8C00</color>
     <color name="twelve">#F4511E</color>
-    <color name="thirteen">#E53935</color>
+    <color name="thirteen">#FF0000</color>
 
     <array name="bulb_colors_palette">
         <item>@color/zero</item>

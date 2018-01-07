@@ -9,7 +9,7 @@ import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
-import com.example.gocantar.connectingthings.presentation.extension.getType
+import com.example.gocantar.connectingthings.common.extension.getType
 import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView

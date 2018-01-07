@@ -21,4 +21,4 @@ fun Activity.removeLoadingDialog(){
     rootLayout.removeViewAt(rootLayout.childCount-1)
 }
 
-private fun inflate(activity: Activity, layout: Int): View = View.inflate(activity, R.layout.loading_layout, activity.find(android.R.id.content))
+private fun inflate(activity: Activity, layout: Int): View = View.inflate(activity, layout, activity.find(android.R.id.content))

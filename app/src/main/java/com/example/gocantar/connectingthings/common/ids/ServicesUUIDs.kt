@@ -37,10 +37,5 @@ class ServicesUUIDs {
 
         val Sensors: List<UUID> = listOf(ARDUINO1_TEMPERATURE_SENSOR_PRIMARY_SERVICE)
 
-
-
-
-
-
     }
 }

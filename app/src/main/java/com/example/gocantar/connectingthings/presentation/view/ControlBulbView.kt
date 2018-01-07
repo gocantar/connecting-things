@@ -54,17 +54,6 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
      }
 
-    override fun onPause() {
-        super.onPause()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, IntentFilter("device-data-event"))
-    }
-
-
     /**
      * Private functions
      */
@@ -74,17 +63,6 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
         ba_colors_recycler_view.layoutManager = GridLayoutManager(this, 4)
         ba_colors_recycler_view.adapter = mColorsAdapter
-    }
-
-
-    private val mMessageReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent != null && intent.action == Constants.DEVICE_DATA_ACTION) {
-                    val data = intent.extras.getByteArray(Constants.DATA_RECEIVED)
-                    val characteristic = intent.extras.getString(Constants.CHARACTERISTIC)
-                    mViewModel.onMessageReceived(characteristic, data)
-            }
-        }
     }
 
     private fun onColorChanged(color: Int){
