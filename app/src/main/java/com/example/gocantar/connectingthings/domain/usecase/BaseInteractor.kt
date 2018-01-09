@@ -25,8 +25,9 @@ abstract class BaseInteractor<T, in Param>{
     }
 
     fun dispose() {
-        if (!mDisposable.isDisposed)
-            mDisposable.dispose()
+        when(!mDisposable.isDisposed){
+            true -> mDisposable.dispose()
+        }
     }
 
 }

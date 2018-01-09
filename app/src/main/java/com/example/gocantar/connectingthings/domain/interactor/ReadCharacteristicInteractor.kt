@@ -5,6 +5,6 @@ import android.bluetooth.BluetoothGatt
 /**
  * Created by gocantar on 5/1/18.
  */
-interface ReadBulbCharacteristicInteractor {
+interface ReadCharacteristicInteractor {
     fun execute(gatt: BluetoothGatt)
 }

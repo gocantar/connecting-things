@@ -17,12 +17,7 @@ class BulbColorRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val item = mItems[position]
-        with(holder as ColorBoxViewHolder){
-            if (position > 0){
-                bind(item.color)
-            }
-            view.setOnClickListener { mListener(item.color) }
-        }
+        (holder as ColorBoxViewHolder).bind(item.color, mListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -40,7 +35,7 @@ class BulbColorRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
         return when(mItems[position].state){
             State.DISABLE -> ColorBoxViewRenderer.DISABLE_VIEW
             State.SELECTED -> ColorBoxViewRenderer.SELECTED_VIEW
-            State.UNSELECTED -> ColorBoxViewRenderer.UNSELECTED_VIEW
+            State.AVAILABLE -> ColorBoxViewRenderer.AVAILABLE_VIEW
         }
     }
 

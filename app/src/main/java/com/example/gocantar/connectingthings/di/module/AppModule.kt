@@ -8,7 +8,6 @@ import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
-import com.example.gocantar.connectingthings.domain.interactor.ReadBulbCharacteristicInteractor
 import com.example.gocantar.connectingthings.domain.usecase.*
 import dagger.Module
 import dagger.Provides

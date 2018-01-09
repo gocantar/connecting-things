@@ -5,6 +5,10 @@ package com.example.gocantar.connectingthings.common
  */
 class Constants {
     companion object {
+
+        val GATT_BLUETOOTH = "gatt_bluetooth"
+        val CHARACTERISTIC_DATA = "characteristic_data"
+
         val COLOR_EFFECT =  0
         val CANDLE_EFFECT = 1
         val FADE_EFFECT =  2

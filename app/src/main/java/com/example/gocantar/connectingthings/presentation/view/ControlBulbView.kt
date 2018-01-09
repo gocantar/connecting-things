@@ -1,17 +1,13 @@
 package com.example.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.Constants
 import com.example.gocantar.connectingthings.common.ids.Key
 import com.example.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
@@ -28,6 +24,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
     private val mEffectAdapter: BulbEffectRecyclerViewAdapter by lazy {
         BulbEffectRecyclerViewAdapter(ba_effects_recycler_view, mViewModel.mEffectsList){
             Log.d(TAG, "Effect $it pressed")
+            onEffectChanged(it)
         }
     }
 
@@ -49,8 +46,11 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
         mViewModel.ba_title.observe(this, Observer { ba_title.text = it })
 
+
         mViewModel.initialize(intent.extras.getString(Key.DEVICE_ADDRESS))
         setUpRecyclersView()
+        setUpEffectsRecyclerObserver()
+        setUpColorsRecyclerObserver()
 
      }
 
@@ -66,8 +66,28 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
     }
 
     private fun onColorChanged(color: Int){
-        mViewModel.mColor = color
-        mViewModel.putColor()
+        mViewModel.putColor(color)
+    }
+
+    private fun onEffectChanged(effect: String){
+        mViewModel.putEffect(effect)
+    }
+
+    private fun setUpEffectsRecyclerObserver(){
+        mViewModel.mEffectsRecycler.observe(this, Observer {
+            when(it){
+                mViewModel.UPDATE_ALL_RECYCLER -> mEffectAdapter.notifyDataSetChanged()
+                else -> {
+                    it?.let {
+                        mEffectAdapter.notifyItemChanged(it)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setUpColorsRecyclerObserver(){
+        mViewModel.mColorsRecycler.observe(this, Observer { mColorsAdapter.notifyDataSetChanged() })
     }
 
 

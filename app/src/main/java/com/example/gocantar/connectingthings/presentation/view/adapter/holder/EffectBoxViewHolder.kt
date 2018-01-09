@@ -11,8 +11,8 @@ class EffectBoxViewHolder(private val view: View): RecyclerView.ViewHolder(view)
     fun bind(text: String, listener: (String) -> Unit){
         with(view){
             heb_effect.text = text
-            view.setOnClickListener{
-                listener(text)
+            when{
+                isClickable -> setOnClickListener{ listener(text) }
             }
         }
     }

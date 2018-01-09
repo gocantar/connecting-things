@@ -1,5 +1,6 @@
 package com.example.gocantar.connectingthings.domain.usecase
 
+import android.util.Log
 import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
@@ -31,7 +32,10 @@ class ScanDevicesActor @Inject constructor(private val mBLEService: BLEServiceBo
     }
 
     override fun stop(){
-        doAsync {  mBLEService.stop() }
+        doAsync {
+            mBLEService.stop()
+            mDisposables.clear()
+        }
     }
 
     override fun dispose(){

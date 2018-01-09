@@ -12,35 +12,30 @@ import kotlinx.android.synthetic.main.holder_bulb_color_box.view.*
  */
 
 
-class ColorBoxViewRenderer {
+class ColorBoxViewRenderer: BaseRender() {
 
     companion object {
         val DISABLE_VIEW = -1
-        val UNSELECTED_VIEW = 0
+        val AVAILABLE_VIEW = 0
         val SELECTED_VIEW = 1
     }
 
-    private var mParent: ViewGroup? = null
-    private var mType: Int = DISABLE_VIEW
-
-    fun viewType(type: Int): ColorBoxViewRenderer{
-        mType = type
-        return this
-    }
-
-
-    fun parent(parent: ViewGroup): ColorBoxViewRenderer{
-        mParent = parent
-        return this
-    }
-
-    fun render(): View{
+    override fun render(): View{
         val view = mParent!!.inflate(R.layout.holder_bulb_color_box)
         with(view){
             when(mType){
-                DISABLE_VIEW -> hbcb_state.backgroundTintList = AppController.instance.getColorStateList(R.color.grey)
-                UNSELECTED_VIEW -> hbcb_state.background = AppController.instance.getDrawable(R.drawable.ic_oval_stroke)
-                SELECTED_VIEW -> hbcb_state.backgroundTintList = AppController.instance.getColorStateList(R.color.colorPrimary)
+                AVAILABLE_VIEW -> {
+                    hbcb_state.background = resources.getDrawable(R.drawable.ic_oval_stroke, context.theme)
+                    isClickable = true
+                }
+                SELECTED_VIEW -> {
+                    hbcb_state.backgroundTintList = resources.getColorStateList(R.color.colorPrimary, context.theme)
+                    isClickable = false
+                }
+                else -> {
+                    hbcb_state.backgroundTintList = resources.getColorStateList(R.color.grey, context.theme)
+                    isClickable = false
+                }
             }
         }
         return view

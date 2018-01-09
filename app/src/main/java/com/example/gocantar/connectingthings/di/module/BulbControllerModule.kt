@@ -1,11 +1,12 @@
 package com.example.gocantar.connectingthings.di.module
 
 import com.example.gocantar.connectingthings.device.controller.BulbController
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
-import com.example.gocantar.connectingthings.domain.interactor.ReadBulbCharacteristicInteractor
+import com.example.gocantar.connectingthings.domain.interactor.DecodeBulbCharacteristicInteractor
+import com.example.gocantar.connectingthings.domain.interactor.ReadCharacteristicInteractor
 import com.example.gocantar.connectingthings.domain.interactor.SetColorInteractor
-import com.example.gocantar.connectingthings.domain.usecase.ReadBulbCharacteristicActor
+import com.example.gocantar.connectingthings.domain.usecase.DecodeBulbCharacteristicActor
+import com.example.gocantar.connectingthings.domain.usecase.ReadBulbStateActor
 import com.example.gocantar.connectingthings.domain.usecase.SetColorActor
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import dagger.Module
@@ -20,6 +21,7 @@ import dagger.Provides
 
     @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetColorActor(bulbController)
 
-    @Provides fun provideReadBulbCharacteristicActor(bulbController: BulbControllerBoundary): ReadBulbCharacteristicInteractor = ReadBulbCharacteristicActor(bulbController)
+    @Provides fun provideReadBulbCharacteristicActor(bulbController: BulbControllerBoundary): ReadCharacteristicInteractor = ReadBulbStateActor(bulbController)
 
+    @Provides fun provideDecodeBulbCharacteristicActor(bulbController: BulbControllerBoundary): DecodeBulbCharacteristicInteractor = DecodeBulbCharacteristicActor(bulbController)
 }

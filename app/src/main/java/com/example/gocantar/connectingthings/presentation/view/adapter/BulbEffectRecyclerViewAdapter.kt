@@ -3,10 +3,10 @@ package com.example.gocantar.connectingthings.presentation.view.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.extension.inflate
+import com.example.gocantar.connectingthings.common.enum.State
 import com.example.gocantar.connectingthings.presentation.model.BulbEffect
 import com.example.gocantar.connectingthings.presentation.view.adapter.holder.EffectBoxViewHolder
+import com.example.gocantar.connectingthings.presentation.view.adapter.holder.render.EffectBoxViewRender
 
 /**
  * Created by gocantar on 15/11/17.
@@ -16,7 +16,9 @@ class BulbEffectRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
                                     private val mListener: (String) -> Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view: View = parent.inflate(R.layout.holder_effect_box)
+        val view: View = EffectBoxViewRender().parent(parent)
+                .viewType(viewType)
+                .render()
         return EffectBoxViewHolder(view)
     }
 
@@ -26,6 +28,14 @@ class BulbEffectRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
 
     override fun getItemCount(): Int {
         return mItems.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when(mItems[position].state){
+            State.AVAILABLE -> EffectBoxViewRender.AVAILABLE_VIEW
+            State.SELECTED -> EffectBoxViewRender.SELECTED_VIEW
+            State.DISABLE -> EffectBoxViewRender.DISABLE_VIEW
+        }
     }
 
 }

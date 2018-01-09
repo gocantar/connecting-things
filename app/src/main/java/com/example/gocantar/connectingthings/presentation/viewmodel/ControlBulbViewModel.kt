@@ -4,14 +4,14 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.gocantar.connectingthings.R
+import com.example.gocantar.connectingthings.common.Constants
 import com.example.gocantar.connectingthings.common.enum.State
-import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerBulbControllerComponent
 import com.example.gocantar.connectingthings.di.module.BulbControllerModule
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.entity.BulbParams
+import com.example.gocantar.connectingthings.domain.entity.BulbStatus
 import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.example.gocantar.connectingthings.domain.usecase.*
 import com.example.gocantar.connectingthings.presentation.model.BulbColor
@@ -25,9 +25,11 @@ import javax.inject.Inject
 
 class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
+    val UPDATE_ALL_RECYCLER = -1
+
     val mEffectsList: List<BulbEffect> by lazy {
         mResources.getStringArray(R.array.effects).asList()
-                .map { BulbEffect(it, State.DISABLE) }
+                .map { BulbEffect(it, State.AVAILABLE) }
     }
 
     val mColorList: List<BulbColor> by lazy {
@@ -35,16 +37,18 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 .map { BulbColor(it, State.DISABLE) }
     }
 
+
+    var mEffect: Int = effectIdFromString(mEffectsList.first().effect)
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
     var mAlpha: Int = 0
-    var mEffect: String = mEffectsList.first().effect
 
     lateinit var mDevice: BLEDevice
 
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
     @Inject lateinit var mSetColorActor: SetColorActor
     @Inject lateinit var mGetNotificationsActor: GetCharacteristicNotificationActor
-    @Inject lateinit var mReadBulbCharacteristicActor: ReadBulbCharacteristicActor
+    @Inject lateinit var mReadBulbCharacteristicActor: ReadBulbStateActor
+    @Inject lateinit var mDecodeStatusCharacteristic: DecodeBulbCharacteristicActor
 
     private var mGetDeviceDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
         override fun onError(e: Throwable?) {
@@ -55,7 +59,6 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 mDevice = device
             }
             ba_title.value = device?.name ?: mResources.getString(R.string.error)
-
         }
         override fun onComplete() {
             Log.d(TAG, "Device connected was gotten")
@@ -63,17 +66,31 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
            readCharacteristic()
         }
     }
-
     private var mNotificationDisposable: DisposableObserver<CharacteristicData> = object : DisposableObserver<CharacteristicData>() {
         override fun onComplete() {
             // Never it´ called
         }
         override fun onNext(char: CharacteristicData) {
-            TODO("Get effect value characteristics, update IU to current state of the device")
+            decodeStatus(char)
         }
         override fun onError(e: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+    }
+    private var mDecodeStatusDisposable: DisposableObserver<BulbStatus> = object : DisposableObserver<BulbStatus>() {
+        override fun onComplete() {
+            // Never it's called
+        }
+        override fun onNext(status: BulbStatus?) {
+            when(status){
+                null -> TODO("Show error")
+                else -> updateEffectUI(status.effectID)
+            }
+        }
+        override fun onError(e: Throwable?) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
     }
 
     /**
@@ -81,24 +98,110 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
      */
     val ba_title: MutableLiveData<String> = MutableLiveData()
 
+    val mLoadingData: MutableLiveData<Boolean> = MutableLiveData()
+
+    val mEffectsRecycler: MutableLiveData<Int> = MutableLiveData()
+    val mColorsRecycler: MutableLiveData<Int> = MutableLiveData()
+
     /**
      * ---------------------------------------------------------
      */
 
     fun initialize(address: String){
-        mEffect = mEffectsList.first().effect
         mGetNotificationsActor.execute(mNotificationDisposable, Unit)
         mGetDeviceActor.execute(mGetDeviceDisposable, address)
+        mLoadingData.value = true
     }
 
-    fun putColor(){
-        mSetColorActor.execute(BulbParams(mDevice, mColor, mAlpha, mEffect))
+    fun putColor(color: Int){
+        when{
+            mColor != color -> {
+                updateColorUI(color)
+                mSetColorActor.execute(BulbParams (mDevice,
+                        BulbStatus(true, mColor, mAlpha, mEffect)))
+            }
+        }
+    }
+
+    fun putEffect(effect: String){
+        val effectId = effectIdFromString(effect)
+        when{
+            mEffect !=  effectId -> {
+                updateEffectUI(effectId)
+            }
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         mGetDeviceActor.dispose()
         mGetNotificationsActor.dispose()
+    }
+
+
+    private fun readCharacteristic(){
+        when{
+            mDevice.gattBluetoothGatt != null -> mReadBulbCharacteristicActor
+                    .execute(mDevice.gattBluetoothGatt!!)
+
+            else -> TODO("Show error BLE device error")
+        }
+    }
+
+    private fun decodeStatus(data: CharacteristicData){
+        when{
+            mDevice.gattBluetoothGatt != null -> mDecodeStatusCharacteristic
+                    .execute(mDecodeStatusDisposable, mDevice.gattBluetoothGatt!!, data)
+
+            else -> TODO("Show error BLE device error")
+        }
+    }
+
+
+    private fun updateEffectUI(effectId: Int){
+        mEffectsList[mEffect].state = State.AVAILABLE
+        mEffectsRecycler.value = mEffect
+
+        mEffect = effectId
+        mEffectsList[effectId].state = State.SELECTED
+        mEffectsRecycler.value = effectId
+
+        when(effectId){
+            Constants.COLOR_EFFECT, Constants.PULSE_EFFECT,
+            Constants.FADE_EFFECT, Constants.CANDLE_EFFECT -> {
+                updateColorUI(mColor)
+            }
+            else -> disableColorUI()
+        }
+        mLoadingData.value = false
+    }
+
+    private fun updateColorUI(color: Int){
+        mColor = color
+        mColorList.forEach {
+            when(mColor){
+                it.color ->  mColorList[mColorList.indexOf(it)].state = State.SELECTED
+                else ->  mColorList[mColorList.indexOf(it)].state = State.AVAILABLE
+            }
+        }
+        mColorsRecycler.value = UPDATE_ALL_RECYCLER
+    }
+
+    private fun disableColorUI(){
+        mColorList.forEach { mColorList[mColorList.indexOf(it)].state = State.DISABLE }
+        mColorsRecycler.value = UPDATE_ALL_RECYCLER
+    }
+
+    private fun effectIdFromString(effect: String): Int {
+        return when (effect) {
+            mEffectsList[0].effect -> Constants.COLOR_EFFECT
+            mEffectsList[1].effect -> Constants.CANDLE_EFFECT
+            mEffectsList[2].effect -> Constants.FADE_EFFECT
+            mEffectsList[3].effect -> Constants.PULSE_EFFECT
+            mEffectsList[4].effect -> Constants.DECREASE_EFFECT
+            mEffectsList[5].effect -> Constants.RAINBOW_EFFECT
+            else -> Constants.COLOR_EFFECT
+        }
     }
 
     override fun setUpComponent(appComponent: AppComponent) {
@@ -109,11 +212,4 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 .inject(this)
     }
 
-    private fun readCharacteristic(){
-        when{
-            mDevice.gattBluetoothGatt != null -> mReadBulbCharacteristicActor.execute(mDevice.gattBluetoothGatt!!)
-            else -> TODO("Show error BLE device error")
-        }
-
-    }
 }

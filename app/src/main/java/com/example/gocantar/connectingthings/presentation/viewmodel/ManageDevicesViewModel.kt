@@ -36,21 +36,6 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mGetBLENotificationsActor: GetBLENotificacionsActor
 
-    private val mScanDisposable: DisposableObserver<BLEDevice> = object : DisposableObserver<BLEDevice>() {
-        override fun onComplete() {
-            // Never it's called
-        }
-
-        override fun onNext(device: BLEDevice) {
-            addScannedDevice(device)
-        }
-
-        override fun onError(e: Throwable?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
-
-
     fun initialize(){
         mDevicesConnectedList.clear()
         mGetConnectedDevicesActor.execute(object: DisposableObserver<BLEDevice>(){
@@ -62,9 +47,10 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
             }
             override fun onComplete() {
                 Log.d(TAG, "The connected devices has been gotten correctly")
+                mRecyclerViewEvent.value = Event.LIST_CHANGED
             }
-
         }, Unit)
+
         mGetBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
             override fun onNext(deviceEvent: DeviceEvent) {
                 when (deviceEvent.event) {
@@ -74,6 +60,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                         when (mConnectingDevice.value) {
                             true -> mConnectingDevice.value = false
                         }
+                        startScanDevices()
                     }
                     Event.DEVICE_DISCONNECTED -> {
                         Log.d(TAG, "Device has been disconnected")
@@ -84,7 +71,6 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                                 true -> mConnectingDevice.value = false
                             }
                         }
-
                     }
                     else -> Log.d(TAG, "Other devices event has been registered")
                 }
@@ -99,15 +85,25 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     }
 
     fun startScanDevices(){
-        mScanDevicesActor.start(mScanDisposable)
+        mScanDevicesActor.start(object : DisposableObserver<BLEDevice>() {
+            override fun onComplete() {
+                // Never it's called
+            }
+            override fun onNext(device: BLEDevice) {
+                addScannedDevice(device)
+            }
+            override fun onError(e: Throwable?) {
+                Log.e(TAG, e?.message)
+            }
+        })
     }
 
     fun stopScanDevices(){
         mScanDevicesActor.stop()
-        mScanDisposable.dispose()
     }
 
     fun connectDevice(deviceScannedView: DeviceScannedView){
+        stopScanDevices()
         when(mConnectingDevice.value){
             false, null -> {
                 mConnectingDevice.value = true
@@ -133,7 +129,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         mRecyclerViewEvent.value = Event.LIST_CHANGED
     }
 
-    private fun addConnectedDevices(address: String){
+    private fun addConnectedDevices(address: String) {
         val deviceConnected = mDevicesScannedList.remove(address)
         deviceConnected?.let{
             mDevicesConnectedList.put(address, deviceConnected)
@@ -160,6 +156,5 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                 .build()
                 .inject(this)
     }
-
 
 }

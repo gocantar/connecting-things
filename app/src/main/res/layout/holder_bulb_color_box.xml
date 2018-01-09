@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
-    android:layout_height="60dp"
+    android:layout_width="70dp"
+    android:layout_height="56dp"
     android:layout_margin="4dp">
 
     <View
         android:id="@+id/hbcb_state"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_margin="4dp"
         android:background="@drawable/ic_oval_stroke"/>
 
@@ -18,6 +18,6 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_oval_stroke"/>
+        android:background="@drawable/ic_oval"/>
 
 </RelativeLayout>
