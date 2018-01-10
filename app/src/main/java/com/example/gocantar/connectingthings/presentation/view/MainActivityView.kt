@@ -13,7 +13,6 @@ import com.example.gocantar.connectingthings.presentation.view.adapter.Connected
 import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
 import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_manage_device_button.*
 
 
 class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
@@ -39,7 +38,7 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         setContentView(R.layout.activity_main)
         setEventsObserver()
 
-        ma_manage_devices_layout.setOnClickListener {
+        ma_manage_devices_icon.setOnClickListener {
             Navigator.navigateToManageDevicesActivity(this)
         }
 

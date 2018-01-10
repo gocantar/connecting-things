@@ -10,7 +10,6 @@
 
     <application  android:name=".AppController"
                     android:theme="@style/AppTheme.NoActionBar">
-
         <uses-library android:name="com.google.android.things" />
 
 

@@ -13,7 +13,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/selector_button_primary"
         android:fontFamily="@font/sfmedium"
-        android:paddingBottom="4dp"
+        android:paddingBottom="2dp"
         android:paddingEnd="@dimen/double_padding"
         android:paddingStart="@dimen/double_padding"
         android:paddingTop="2dp"
