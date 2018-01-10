@@ -27,12 +27,12 @@ class PlayBulbCandleDevice{
     private val DECREASE_EFFECT =  5
     private val RAINBOW_EFFECT = 6
 
-    private val ALPHA_POSITION = 0
-    private val RED_POSITION = 1
-    private val GREEN_POSITION = 2
-    private val BLUE_POSITION = 3
-    private val EFFECT_POSITION = 4
-    private val PERIOD_POSITION = 6
+    private val ALPHA_VALUE = 0
+    private val RED_VALUE = 1
+    private val GREEN_VALUE = 2
+    private val BLUE_VALUE = 3
+    private val EFFECT_VALUE = 4
+    private val PERIOD_VALUE = 6
 
     companion object {
         val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
@@ -40,20 +40,15 @@ class PlayBulbCandleDevice{
                 Constants.RAINBOW_EFFECT)
     }
 
-
     fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
         gatt?.let {
             val color = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte())
             val service = getService(gatt)
             val characteristic = getColorCharacteristic(service)
-
             characteristic.value = color
-            val status = gatt.writeCharacteristic(characteristic)
-            when{
-                status -> Log.d(TAG, "Value was written")
-                else -> {
-                    Log.d(TAG, "Error writing the value")
-                }
+            when(gatt.writeCharacteristic(characteristic)){
+                true -> Log.d(TAG, "Value was written")
+                else -> { Log.d(TAG, "Error writing the value") }
             }
         }
     }
@@ -73,11 +68,10 @@ class PlayBulbCandleDevice{
     }
 
     private fun decodeEffectCharacteristic(value: ByteArray): BulbStatus?{
-        val effect = value[EFFECT_POSITION].toUnsignedInt()
+        val effect = value[EFFECT_VALUE].toUnsignedInt()
         return BulbStatus(true, getColorFromBytes(value),
-                value[ALPHA_POSITION].toUnsignedInt() , getEffectID(effect) )
+                value[ALPHA_VALUE].toUnsignedInt() , getEffectID(effect) )
     }
-
 
     private fun getEffectCharacteristic(service: BluetoothGattService) =
             service.getCharacteristic(CharacteristicUUIDs.PLAYBULB_CANDLE_CHANGE_EFFECT)
@@ -100,9 +94,9 @@ class PlayBulbCandleDevice{
     }
 
     private fun getColorFromBytes(color: ByteArray): Int {
-        return  color[RED_POSITION].toUnsignedInt().shl(16) or
-                color[GREEN_POSITION].toUnsignedInt().shl(8) or
-                color[BLUE_POSITION].toUnsignedInt()
+        return  color[RED_VALUE].toUnsignedInt().shl(16) or
+                color[GREEN_VALUE].toUnsignedInt().shl(8) or
+                color[BLUE_VALUE].toUnsignedInt()
     }
 
 }

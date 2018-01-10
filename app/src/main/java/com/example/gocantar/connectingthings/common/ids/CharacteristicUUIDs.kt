@@ -8,6 +8,11 @@ import java.util.*
 class CharacteristicUUIDs {
     companion object {
         /**
+         * Descriptor
+         */
+        val DESCTRIPTOR_CONFIG_CHARACTERISTIC = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")
+
+        /**
          * Play Bulb
          */
         val PLAYBULB_CANDLE_CHANGE_COLOR = UUID.fromString("0000fffc-0000-1000-8000-00805f9b34fb")

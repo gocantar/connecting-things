@@ -43,6 +43,7 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         }
 
         setUpRecyclersView()
+
     }
 
     override fun onStart() {
@@ -106,6 +107,5 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         ma_plugs_recycler_view.visibility = visible.toVisibility()
         ma_plugs_no_device_connected_message.visibility = (!visible).toVisibility()
     }
-
 
 }

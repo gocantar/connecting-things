@@ -38,7 +38,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     }
 
 
-    var mEffect: Int = effectIdFromString(mEffectsList.first().effect)
+    var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
     var mAlpha: Int = 0
 
@@ -84,7 +84,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         override fun onNext(status: BulbStatus?) {
             when(status){
                 null -> TODO("Show error")
-                else -> updateEffectUI(status.effectID)
+                else -> selectEffect(status.effectID)
             }
         }
         override fun onError(e: Throwable?) {
@@ -116,7 +116,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     fun putColor(color: Int){
         when{
             mColor != color -> {
-                updateColorUI(color)
+                selectColor(color)
                 mSetColorActor.execute(BulbParams (mDevice,
                         BulbStatus(true, mColor, mAlpha, mEffect)))
             }
@@ -124,26 +124,18 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     }
 
     fun putEffect(effect: String){
-        val effectId = effectIdFromString(effect)
+        val effectId = getEffectIdFromString(effect)
         when{
             mEffect !=  effectId -> {
-                updateEffectUI(effectId)
+                selectEffect(effectId)
             }
         }
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        mGetDeviceActor.dispose()
-        mGetNotificationsActor.dispose()
-    }
-
 
     private fun readCharacteristic(){
         when{
             mDevice.gattBluetoothGatt != null -> mReadBulbCharacteristicActor
                     .execute(mDevice.gattBluetoothGatt!!)
-
             else -> TODO("Show error BLE device error")
         }
     }
@@ -157,8 +149,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
     }
 
-
-    private fun updateEffectUI(effectId: Int){
+    private fun selectEffect(effectId: Int){
         mEffectsList[mEffect].state = State.AVAILABLE
         mEffectsRecycler.value = mEffect
 
@@ -169,14 +160,14 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         when(effectId){
             Constants.COLOR_EFFECT, Constants.PULSE_EFFECT,
             Constants.FADE_EFFECT, Constants.CANDLE_EFFECT -> {
-                updateColorUI(mColor)
+                selectColor(mColor)
             }
-            else -> disableColorUI()
+            else -> disableALlColors()
         }
         mLoadingData.value = false
     }
 
-    private fun updateColorUI(color: Int){
+    private fun selectColor(color: Int){
         mColor = color
         mColorList.forEach {
             when(mColor){
@@ -187,12 +178,12 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         mColorsRecycler.value = UPDATE_ALL_RECYCLER
     }
 
-    private fun disableColorUI(){
+    private fun disableALlColors(){
         mColorList.forEach { mColorList[mColorList.indexOf(it)].state = State.DISABLE }
         mColorsRecycler.value = UPDATE_ALL_RECYCLER
     }
 
-    private fun effectIdFromString(effect: String): Int {
+    private fun getEffectIdFromString(effect: String): Int {
         return when (effect) {
             mEffectsList[0].effect -> Constants.COLOR_EFFECT
             mEffectsList[1].effect -> Constants.CANDLE_EFFECT
@@ -202,6 +193,12 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             mEffectsList[5].effect -> Constants.RAINBOW_EFFECT
             else -> Constants.COLOR_EFFECT
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        mGetDeviceActor.dispose()
+        mGetNotificationsActor.dispose()
     }
 
     override fun setUpComponent(appComponent: AppComponent) {
