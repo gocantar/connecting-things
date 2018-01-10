@@ -7,7 +7,7 @@ import com.example.gocantar.connectingthings.domain.interactor.ReadCharacteristi
 import com.example.gocantar.connectingthings.domain.interactor.SetColorInteractor
 import com.example.gocantar.connectingthings.domain.usecase.DecodeBulbCharacteristicActor
 import com.example.gocantar.connectingthings.domain.usecase.ReadBulbStateActor
-import com.example.gocantar.connectingthings.domain.usecase.SetColorActor
+import com.example.gocantar.connectingthings.domain.usecase.SetBulbColorActor
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ import dagger.Provides
 
     @Provides fun provideBulbController(): BulbControllerBoundary = BulbController()
 
-    @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetColorActor(bulbController)
+    @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetBulbColorActor(bulbController)
 
     @Provides fun provideReadBulbCharacteristicActor(bulbController: BulbControllerBoundary): ReadCharacteristicInteractor = ReadBulbStateActor(bulbController)
 

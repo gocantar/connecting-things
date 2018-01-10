@@ -45,7 +45,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     lateinit var mDevice: BLEDevice
 
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
-    @Inject lateinit var mSetColorActor: SetColorActor
+    @Inject lateinit var mSetColorActor: SetBulbColorActor
     @Inject lateinit var mGetNotificationsActor: GetCharacteristicNotificationActor
     @Inject lateinit var mReadBulbCharacteristicActor: ReadBulbStateActor
     @Inject lateinit var mDecodeStatusCharacteristic: DecodeBulbCharacteristicActor

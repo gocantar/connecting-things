@@ -13,7 +13,7 @@ class ReadBulbStateActor @Inject constructor(private val mBulbController: BulbCo
         ReadCharacteristicInteractor {
     override fun execute(gatt: BluetoothGatt) {
         doAsync {
-            mBulbController.readCharacteristic(gatt)
+            mBulbController.requestStatus(gatt)
         }
     }
 }

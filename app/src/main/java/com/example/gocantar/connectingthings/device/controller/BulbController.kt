@@ -3,7 +3,7 @@ package com.example.gocantar.connectingthings.device.controller
 import android.bluetooth.BluetoothGatt
 import android.graphics.Color
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.extension.getBulbService
+import com.example.gocantar.connectingthings.common.extension.getBulbServiceUuid
 import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.example.gocantar.connectingthings.device.light.PlayBulbCandleDevice
 import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
@@ -20,7 +20,7 @@ class BulbController: BulbControllerBoundary {
     private val TAG = javaClass.simpleName
 
     override fun setColor(params: BulbParams) {
-        when(params.device.uuids.getBulbService()){
+        when(params.device.uuids.getBulbServiceUuid()){
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice()
                     .setColor(gatt = params.device.gattBluetoothGatt,
                             alpha = params.status.alpha, red = Color.red(params.status.color),
@@ -28,15 +28,15 @@ class BulbController: BulbControllerBoundary {
         }
     }
 
-    override fun readCharacteristic(gatt: BluetoothGatt) {
-        when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbService()){
+    override fun requestStatus(gatt: BluetoothGatt) {
+        when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice()
                     .readCharacteristic(gatt)
         }
     }
 
     override fun decodeStatus(gatt: BluetoothGatt, charData: CharacteristicData): Observable<BulbStatus> {
-        return when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbService()){
+        return when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> {
                 PlayBulbCandleDevice().decodeCharacteristic(charData)
             }

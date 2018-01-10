@@ -18,7 +18,7 @@ fun List<ParcelUuid>.getType(): TypeID {
 }
 
 
-fun List<ParcelUuid>.getBulbService(): ParcelUuid = first { ServicesUUIDs.Bulbs.contains(it.uuid) }
+fun List<ParcelUuid>.getBulbServiceUuid(): ParcelUuid = first { ServicesUUIDs.Bulbs.contains(it.uuid) }
 
 
 
