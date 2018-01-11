@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothGatt
 /**
  * Created by gocantar on 10/1/18.
  */
-interface SetPlugStatusInteractor {
+interface SetPlugStateInteractor {
     fun turnOn(gatt: BluetoothGatt)
     fun turnOff(gatt: BluetoothGatt)
 }

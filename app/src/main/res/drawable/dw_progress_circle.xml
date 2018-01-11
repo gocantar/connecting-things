@@ -31,8 +31,8 @@
 
                 <gradient
                     android:centerColor="#FFBF00"
-                    android:endColor="#FE2E2E"
-                    android:startColor="#01DF01"
+                    android:endColor="#FF0000"
+                    android:startColor="#00FF00"
                     android:type="sweep" />
             </shape>
         </rotate>

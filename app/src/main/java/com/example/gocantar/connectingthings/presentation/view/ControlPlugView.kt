@@ -6,6 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.common.ids.Key
+import com.example.gocantar.connectingthings.presentation.extension.animate
+import com.example.gocantar.connectingthings.presentation.extension.removeLoadingDialog
+import com.example.gocantar.connectingthings.presentation.extension.showLoadingDialog
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
 import kotlinx.android.synthetic.main.activity_plug_controller.*
 
@@ -16,18 +19,30 @@ class ControlPlugView: BaseActivityVM<ControlPlugViewModel>() {
 
     override val mViewModelClass: Class<ControlPlugViewModel> = ControlPlugViewModel::class.java
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plug_controller)
 
-        pa_title.setOnClickListener { onBackPressed() }
-
-        mViewModel.pa_title.observe(this, Observer { pa_title.text = it })
+        setUpButtonListeners()
+        setUpDataBinding()
 
         mViewModel.initialize(intent.extras.getString(Key.DEVICE_ADDRESS))
     }
 
+    private fun setUpDataBinding(){
+        mViewModel.mTitle.observe(this, Observer { pa_title.text = it })
+        mViewModel.mPlugState.observe(this, Observer {
+            pa_state.text = it?.second
+            pa_state.setTextColor(it?.first!!)
+        })
+        mViewModel.mPowerConsumption.observe(this, Observer {
+            pa_live_power_consumption.text = it
+            pa_live_power_consumption_progress.text = it
+        })
+        mViewModel.mPowerConsumptionProgress.observe(this, Observer {
+            pa_progress_power_consumption.animate(it!!)
+        })
+    }
 
     /**
      * Statics
@@ -41,6 +56,11 @@ class ControlPlugView: BaseActivityVM<ControlPlugViewModel>() {
             intent.putExtra(Key.DEVICE_ADDRESS, address)
             return intent
         }
+    }
 
+    private fun setUpButtonListeners(){
+        pa_title.setOnClickListener { onBackPressed() }
+        pa_turn_on_button.setOnClickListener { mViewModel.turnOn() }
+        pa_turn_off_button.setOnClickListener { mViewModel.turnOff() }
     }
 }

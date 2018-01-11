@@ -5,8 +5,11 @@ import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
 import android.util.Log
 import com.example.gocantar.connectingthings.common.extension.hexStringToByteArray
+import com.example.gocantar.connectingthings.common.extension.toInt
 import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+
 
 /**
  * Created by gocantar on 10/1/18.
@@ -16,8 +19,8 @@ object RevogiPlug {
     private val TAG = javaClass.simpleName
 
     private val TURN_ON_REQUEST: ByteArray = "0F06030001000005FFFF".hexStringToByteArray()
-    private val TURN_OFF_REQUEST: ByteArray = "0F06030000000005FFFF".hexStringToByteArray()
-    private val POWER_CONSUMPTION_REQUEST: ByteArray = "0F050400000000FFFF".hexStringToByteArray()
+    private val TURN_OFF_REQUEST: ByteArray = "0F06030000000004FFFF".hexStringToByteArray()
+    private val POWER_CONSUMPTION_REQUEST: ByteArray = "0F050400000005FFFF".hexStringToByteArray()
 
     fun turnOn(gatt: BluetoothGatt){
        val characteristic = getRequestCharacteristic(gatt, TURN_ON_REQUEST)
@@ -55,6 +58,14 @@ object RevogiPlug {
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
+    fun decodePowerConsumption(charData: CharacteristicData): Int{
+        return when(charData.uuid){
+            CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE ->
+                charData.value.copyOfRange(5,10).toInt()
+            else -> 0
+        }
+    }
+
     private fun getRequestCharacteristic(gatt: BluetoothGatt, value: ByteArray? = null): BluetoothGattCharacteristic {
         val characteristic = gatt.getService(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE)
                 .getCharacteristic(CharacteristicUUIDs.REVOGI_SMART_PLUG_REQUEST)
@@ -68,6 +79,8 @@ object RevogiPlug {
         return gatt.getService(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE)
                 .getCharacteristic(CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE)
     }
+
+
 
     private fun writeConfigCharacteristicDescriptor(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic,
                                                     value: ByteArray?){

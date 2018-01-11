@@ -1,40 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/pa_title_line_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/primaryText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pa_title" />
 
     <TextView
         android:id="@+id/pa_title"
         android:layout_width="wrap_content"
-        android:layout_margin="100dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/double_margin"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/sfheavy"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/primary_title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="PLUG" />
 
     <RelativeLayout
+        android:id="@+id/pa_plug_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/bg_plug">
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_plug"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/pa_title_line_divider"
+        app:layout_constraintVertical_bias="0.19">
 
-        <ProgressBar android:id="@+id/progressBar"
-            android:progressDrawable="@drawable/dw_progress_circle"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:progress="100"
+        <TextView
+            android:id="@+id/pa_live_power_consumption_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminateOnly="false"
-            android:max="103">
-        </ProgressBar>
+            android:fontFamily="@font/sfregular"
+            android:textColor="@color/primaryText"
+            android:textSize="18sp"
+            android:text="@string/power_consumption" />
 
+        <ProgressBar
+            android:id="@+id/pa_progress_power_consumption"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:indeterminateOnly="false"
+            android:max="1027"
+            android:progress="0"
+            android:progressDrawable="@drawable/dw_progress_circle" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/pa_state_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pa_plug_image"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/pa_plug_image">
 
+        <TextView
+            android:id="@+id/pa_state_promp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/state_prompt"
+            android:textSize="@dimen/regular_text_size"
+            android:fontFamily="@font/sfbold"
+            android:textColor="@color/primaryText"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:id="@+id/pa_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/pa_state_promp"
+            android:fontFamily="@font/sfregular"
+            android:textAllCaps="true"
+            android:textColor="@color/primaryText"
+            android:textSize="@dimen/regular_text_size"
+            tools:text="On" />
+
+        <TextView
+            android:id="@+id/pa_live_power_consumption_promp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pa_state_promp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/power_consumption_prompt"
+            android:textSize="@dimen/regular_text_size"
+            android:fontFamily="@font/sfbold"
+            android:textColor="@color/primaryText"/>
+
+        <TextView
+            android:id="@+id/pa_live_power_consumption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pa_live_power_consumption_promp"
+            android:text="@string/power_consumption"
+            android:layout_alignBaseline="@+id/pa_live_power_consumption_promp"
+            android:textSize="@dimen/regular_text_size"
+            android:fontFamily="@font/sfregular"
+            android:textColor="@color/primaryText"/>
+
+        <LinearLayout
+            android:id="@+id/pa_button_layout"
+            android:layout_width="180dp"
+            android:layout_below="@id/pa_live_power_consumption_promp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/pa_turn_on_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_green"
+                android:fontFamily="@font/sfregular"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="2dp"
+                android:text="@string/turn_on"
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+            <TextView
+                android:id="@+id/pa_turn_off_button"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/simple_margin"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_red"
+                android:fontFamily="@font/sfregular"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="2dp"
+                android:text="@string/turn_off"
+                android:textColor="@color/white"
+                android:textSize="@dimen/regular_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <View
+        android:id="@+id/pa_tips_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/dividersLinesColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pa_plug_image" />
+
+</android.support.constraint.ConstraintLayout>

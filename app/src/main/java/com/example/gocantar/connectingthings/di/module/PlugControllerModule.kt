@@ -2,12 +2,11 @@ package com.example.gocantar.connectingthings.di.module
 
 import com.example.gocantar.connectingthings.device.controller.PlugController
 import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
+import com.example.gocantar.connectingthings.domain.interactor.DecodeLivePowerConsumptionInteractor
 import com.example.gocantar.connectingthings.domain.interactor.ManagePlugNotificationsInteractor
 import com.example.gocantar.connectingthings.domain.interactor.RequestLivePowerConsumptionInteractor
-import com.example.gocantar.connectingthings.domain.interactor.SetPlugStatusInteractor
-import com.example.gocantar.connectingthings.domain.usecase.ManagePlugNotificationsActor
-import com.example.gocantar.connectingthings.domain.usecase.RequestLivePowerConsumptionActor
-import com.example.gocantar.connectingthings.domain.usecase.SetPlugStatusActor
+import com.example.gocantar.connectingthings.domain.interactor.SetPlugStateInteractor
+import com.example.gocantar.connectingthings.domain.usecase.*
 import com.example.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
 import dagger.Module
 import dagger.Provides
@@ -21,12 +20,14 @@ import dagger.Provides
             PlugControllerBoundary = PlugController()
 
     @Provides fun provideSetPlugStatusActor(plugController: PlugControllerBoundary):
-            SetPlugStatusInteractor = SetPlugStatusActor(plugController)
+            SetPlugStateInteractor = SetPlugStateActor(plugController)
 
     @Provides fun provideRequestLivePowerConsumptionActor(plugController: PlugControllerBoundary):
-          RequestLivePowerConsumptionInteractor = RequestLivePowerConsumptionActor(plugController)
+            RequestLivePowerConsumptionInteractor = RequestLivePowerConsumptionActor(plugController)
 
     @Provides fun provideManageNotificationsActor(plugController: PlugControllerBoundary):
             ManagePlugNotificationsInteractor = ManagePlugNotificationsActor(plugController)
 
+    @Provides fun provideDecodeLivePowerConsumptionActor(plugController: PlugControllerBoundary):
+            DecodeLivePowerConsumptionInteractor = DecodeLivePowerConsumptionActor(plugController)
 }

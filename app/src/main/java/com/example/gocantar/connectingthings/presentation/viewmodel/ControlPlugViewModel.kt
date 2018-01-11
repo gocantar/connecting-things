@@ -2,7 +2,6 @@ package com.example.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.bluetooth.BluetoothGatt
 import android.util.Log
 import com.example.gocantar.connectingthings.R
 import com.example.gocantar.connectingthings.di.component.AppComponent
@@ -19,7 +18,10 @@ import javax.inject.Inject
  */
 class ControlPlugViewModel(app: Application): BaseViewModel(app) {
 
-    lateinit var mDevice: BLEDevice
+    /**
+     * Private val
+     */
+
     private var mGetDeviceDisposable: DisposableObserver<BLEDevice> =
             object : DisposableObserver<BLEDevice>() {
                 override fun onComplete() {
@@ -33,12 +35,13 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
                     when{
                         device?.gattBluetoothGatt != null -> {
                             mDevice = device
-                            pa_title.value = mDevice.name
+                            mTitle.value = mDevice.name
                         }
-                        else -> pa_title.value = mResources.getString(R.string.error)
+                        else -> mTitle.value = mResources.getString(R.string.error)
                     }
                 }
             }
+
     private var mGetNotificationsDisposable: DisposableObserver<CharacteristicData> =
             object : DisposableObserver<CharacteristicData>() {
                 override fun onError(e: Throwable?) {
@@ -51,51 +54,70 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
 
                 override fun onNext(t: CharacteristicData) {
                     Log.d(TAG, "PowerConsumption has been received")
+                    val consumption = mDecodeLivePowerConsumptionActor
+                                        .decode(mDevice.gattBluetoothGatt!!, t)
+                    mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), consumption/1000)
                 }
             }
+
+    private lateinit var mDevice: BLEDevice
+    private val STATE_OFF = Pair(mResources.getColor(R.color.redWrong, app.theme), mResources.getString(R.string.off))
+    private val STATE_ON = Pair(mResources.getColor(R.color.greenOK, app.theme), mResources.getString(R.string.on))
 
     /**
      * Case uses
      */
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
-    @Inject lateinit var mSetStatusActor: SetPlugStatusActor
-    @Inject lateinit var mManageNotifications: ManagePlugNotificationsActor
-    @Inject lateinit var mGetNotifications: GetCharacteristicNotificationActor
-    @Inject lateinit var mRequestLiveConsumption: RequestLivePowerConsumptionActor
+    @Inject lateinit var mSetStatusActor: SetPlugStateActor
+    @Inject lateinit var mManageNotificationsActor: ManagePlugNotificationsActor
+    @Inject lateinit var mGetNotificationsActor: GetCharacteristicNotificationActor
+    @Inject lateinit var mRequestLiveConsumptionActor: RequestLivePowerConsumptionActor
+    @Inject lateinit var mDecodeLivePowerConsumptionActor: DecodeLivePowerConsumptionActor
 
     /**
      * Data binding variables
      */
-    val pa_title: MutableLiveData<String> = MutableLiveData()
-    val mLoadingInformation: MutableLiveData<Boolean> = MutableLiveData()
+    val mTitle: MutableLiveData<String> = MutableLiveData()
+    val mPowerConsumption: MutableLiveData<String> = MutableLiveData()
+    val mPowerConsumptionProgress: MutableLiveData<Int> = MutableLiveData()
+    val mPlugState: MutableLiveData<Pair<Int, String>> = MutableLiveData()
 
     /**
      * ---------------------------------------------------------
      */
 
+    init {
+        mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), 0)
+        mPowerConsumptionProgress.value = 0
+        mPlugState.value = STATE_ON
+    }
+
     fun initialize(address: String){
-        mLoadingInformation.value = true
         mGetDeviceActor.execute(mGetDeviceDisposable, address)
     }
 
+    fun turnOn() = mSetStatusActor.turnOn(mDevice.gattBluetoothGatt!!)
+
+    fun turnOff() = mSetStatusActor.turnOff(mDevice.gattBluetoothGatt!!)
+
     private fun enableNotifications(){
         mDevice.gattBluetoothGatt?.let {
-            mManageNotifications.enable(it)
-            mGetNotifications.execute(mGetNotificationsDisposable, Unit)
-            mRequestLiveConsumption.execute(it)
+            mManageNotificationsActor.enable(it)
+            mGetNotificationsActor.execute(mGetNotificationsDisposable, Unit)
+            mRequestLiveConsumptionActor.execute(it)
         }
     }
 
     private fun disableNotifications(){
         mDevice.gattBluetoothGatt?.let {
-            mManageNotifications.disable(it)
+            mManageNotificationsActor.disable(it)
         }
     }
 
     override fun onCleared() {
         mGetDeviceActor.dispose()
-        mGetNotifications.dispose()
-        mRequestLiveConsumption.stop()
+        mGetNotificationsActor.dispose()
+        mRequestLiveConsumptionActor.stop()
         disableNotifications()
     }
 

@@ -40,8 +40,13 @@ class PlugController : PlugControllerBoundary {
         }
     }
 
-    override fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Observable<Int> {
-        TODO("Implement devices methods")
+    override fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Int {
+        val service: ParcelUuid = getServiceUuid(gatt)
+        return when(service){
+            ParcelUuid(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE) ->
+                RevogiPlug.decodePowerConsumption(charData)
+            else -> 0
+        }
     }
 
     override fun enableNotifications(gatt: BluetoothGatt) {

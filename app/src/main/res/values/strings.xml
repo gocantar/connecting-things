@@ -37,17 +37,24 @@
     <string name="no_available_services">No hay servicios disponibles</string>
     <string name="name_prompt">Nombre:</string>
     <!-- o. -->
+    <string name="on">On</string>
+    <string name="off">Off</string>
     <!-- p. -->
     <string name="power_signal_prompt">Potencia:</string>
     <string name="pulse">Pulso</string>
     <string name="plugs">Enchufes</string>
+    <string name="power_consumption_prompt">Consumo actual:</string>
+    <string name="power_consumption">%d W/h</string>
     <!-- q. -->
     <!-- r. -->
     <string name="rainbow">Arcoiris</string>
     <!-- s. -->
     <string name="settings">Ajustes</string>
     <string name="services_prompt">Servicios:</string>
+    <string name="state_prompt">Estado:</string>
     <!-- t. -->
+    <string name="turn_on">Encender</string>
+    <string name="turn_off">Apagar</string>
     <!-- u. -->
     <!-- v. -->
     <!-- w. -->

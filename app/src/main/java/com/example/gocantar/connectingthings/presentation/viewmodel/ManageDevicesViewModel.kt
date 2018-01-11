@@ -36,6 +36,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mGetBLENotificationsActor: GetBLENotificacionsActor
 
+
     fun initialize(){
         mDevicesConnectedList.clear()
         mGetConnectedDevicesActor.execute(object: DisposableObserver<BLEDevice>(){
