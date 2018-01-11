@@ -33,5 +33,4 @@ import javax.inject.Singleton
 
     @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
 
-
 }

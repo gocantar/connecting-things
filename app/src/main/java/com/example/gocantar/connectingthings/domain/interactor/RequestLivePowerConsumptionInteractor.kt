@@ -7,4 +7,5 @@ import android.bluetooth.BluetoothGatt
  */
 interface RequestLivePowerConsumptionInteractor {
     fun execute(gatt: BluetoothGatt)
+    fun stop()
 }

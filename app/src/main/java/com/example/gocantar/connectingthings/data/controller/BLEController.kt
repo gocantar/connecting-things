@@ -139,6 +139,10 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                 override fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic, status: Int) {
                     mPublisherOfCharacteristic.onNext(CharacteristicData(characteristic.uuid, characteristic.value))
                 }
+
+                override fun onCharacteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic) {
+                    mPublisherOfCharacteristic.onNext(CharacteristicData(characteristic.uuid, characteristic.value))
+                }
             }
 
 }

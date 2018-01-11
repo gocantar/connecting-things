@@ -16,11 +16,18 @@ class RequestLivePowerConsumptionActor @Inject constructor( private val mPlugCon
     private val INITIAL_DELAY: Long = 0
     private val PERIOD: Long = 10
 
+    private val mExecutor: ScheduledThreadPoolExecutor = ScheduledThreadPoolExecutor(1)
+
     override fun execute(gatt: BluetoothGatt) {
-        val executor = ScheduledThreadPoolExecutor(1)
-        executor.scheduleAtFixedRate({
-            Log.d("RequestLivePowerConsumption", "Doing request")
-            mPlugController.requestPowerConsuption(gatt)
+        mExecutor.scheduleAtFixedRate({
+            mPlugController.requestPowerConsumption(gatt)
         }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS)
     }
+
+
+    override fun stop() {
+        mExecutor.shutdown()
+    }
+
+
 }

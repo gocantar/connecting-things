@@ -20,6 +20,10 @@ fun List<ParcelUuid>.getType(): TypeID {
 
 fun List<ParcelUuid>.getBulbServiceUuid(): ParcelUuid = first { ServicesUUIDs.Bulbs.contains(it.uuid) }
 
+fun List<ParcelUuid>.getPlugSerciceUuid(): ParcelUuid = first{ ServicesUUIDs.Plugs.contains(it.uuid) }
+
+
+
 
 
 

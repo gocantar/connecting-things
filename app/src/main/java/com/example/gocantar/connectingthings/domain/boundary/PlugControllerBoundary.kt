@@ -10,8 +10,8 @@ import io.reactivex.Observable
 interface PlugControllerBoundary {
     fun turnOn(gatt: BluetoothGatt)
     fun turnOff(gatt: BluetoothGatt)
-    fun requestPowerConsuption(gatt: BluetoothGatt)
-    fun decodePowerConsuption(gatt: BluetoothGatt, charData: CharacteristicData): Observable<Int>
+    fun requestPowerConsumption(gatt: BluetoothGatt)
+    fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Observable<Int>
     fun enableNotifications(gatt: BluetoothGatt)
     fun disableNotifications(gatt: BluetoothGatt)
 }

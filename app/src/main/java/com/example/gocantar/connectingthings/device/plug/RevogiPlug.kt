@@ -11,7 +11,7 @@ import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 /**
  * Created by gocantar on 10/1/18.
  */
-class RevogiPlug {
+object RevogiPlug {
 
     private val TAG = javaClass.simpleName
 
@@ -20,7 +20,7 @@ class RevogiPlug {
     private val POWER_CONSUMPTION_REQUEST: ByteArray = "0F050400000000FFFF".hexStringToByteArray()
 
     fun turnOn(gatt: BluetoothGatt){
-       val characteristic = getCharacteristic(gatt, TURN_ON_REQUEST)
+       val characteristic = getRequestCharacteristic(gatt, TURN_ON_REQUEST)
         when(gatt.writeCharacteristic(characteristic)){
             true -> Log.d(TAG, "Revogi Plug has been turned on")
             else -> { Log.d(TAG, "Error writing the value") }
@@ -28,7 +28,7 @@ class RevogiPlug {
     }
 
     fun turnOff(gatt: BluetoothGatt){
-        val characteristic = getCharacteristic(gatt, TURN_OFF_REQUEST)
+        val characteristic = getRequestCharacteristic(gatt, TURN_OFF_REQUEST)
         when(gatt.writeCharacteristic(characteristic)){
             true -> Log.d(TAG, "Revogi Plug has been turned off")
             else -> { Log.d(TAG, "Error writing the value") }
@@ -36,7 +36,7 @@ class RevogiPlug {
     }
 
     fun requestPoweConsumption(gatt: BluetoothGatt){
-        val characteristic = getCharacteristic(gatt, POWER_CONSUMPTION_REQUEST)
+        val characteristic = getRequestCharacteristic(gatt, POWER_CONSUMPTION_REQUEST)
         when(gatt.writeCharacteristic(characteristic)){
             true -> Log.d(TAG, "The live power consumptions has been requested")
             else -> { Log.d(TAG, "Error writing the value") }
@@ -44,24 +44,29 @@ class RevogiPlug {
     }
 
     fun enableNotifications(gatt: BluetoothGatt){
-        val characteristic = getCharacteristic(gatt)
+        val characteristic = getResponseCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, true)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
     }
 
     fun disableNotifications(gatt: BluetoothGatt){
-        val characteristic = getCharacteristic(gatt)
+        val characteristic = getResponseCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, false)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
-    private fun getCharacteristic(gatt: BluetoothGatt, value: ByteArray? = null): BluetoothGattCharacteristic {
+    private fun getRequestCharacteristic(gatt: BluetoothGatt, value: ByteArray? = null): BluetoothGattCharacteristic {
         val characteristic = gatt.getService(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE)
                 .getCharacteristic(CharacteristicUUIDs.REVOGI_SMART_PLUG_REQUEST)
         when{
             value != null -> characteristic.value = value
         }
         return characteristic
+    }
+
+    private fun getResponseCharacteristic(gatt: BluetoothGatt): BluetoothGattCharacteristic{
+        return gatt.getService(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE)
+                .getCharacteristic(CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE)
     }
 
     private fun writeConfigCharacteristicDescriptor(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic,

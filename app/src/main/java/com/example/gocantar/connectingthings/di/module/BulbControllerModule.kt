@@ -17,11 +17,15 @@ import dagger.Provides
  */
 @Module class BulbControllerModule(controlBulbViewModel: ControlBulbViewModel) {
 
-    @Provides fun provideBulbController(): BulbControllerBoundary = BulbController()
+    @Provides fun provideBulbController():
+            BulbControllerBoundary = BulbController()
 
-    @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary): SetColorInteractor = SetBulbColorActor(bulbController)
+    @Provides fun provideSetColorActor(bulbController: BulbControllerBoundary):
+            SetColorInteractor = SetBulbColorActor(bulbController)
 
-    @Provides fun provideReadBulbCharacteristicActor(bulbController: BulbControllerBoundary): ReadCharacteristicInteractor = ReadBulbStateActor(bulbController)
+    @Provides fun provideReadBulbCharacteristicActor(bulbController: BulbControllerBoundary):
+            ReadCharacteristicInteractor = ReadBulbStateActor(bulbController)
 
-    @Provides fun provideDecodeBulbCharacteristicActor(bulbController: BulbControllerBoundary): DecodeBulbCharacteristicInteractor = DecodeBulbCharacteristicActor(bulbController)
+    @Provides fun provideDecodeBulbCharacteristicActor(bulbController: BulbControllerBoundary):
+            DecodeBulbCharacteristicInteractor = DecodeBulbCharacteristicActor(bulbController)
 }

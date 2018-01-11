@@ -21,7 +21,7 @@ class BulbController: BulbControllerBoundary {
 
     override fun setColor(params: BulbParams) {
         when(params.device.uuids.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice()
+            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice
                     .setColor(gatt = params.device.gattBluetoothGatt,
                             alpha = params.status.alpha, red = Color.red(params.status.color),
                             green = Color.green(params.status.color), blue = Color.blue(params.status.color))
@@ -30,7 +30,7 @@ class BulbController: BulbControllerBoundary {
 
     override fun requestStatus(gatt: BluetoothGatt) {
         when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice()
+            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice
                     .readCharacteristic(gatt)
         }
     }
@@ -38,7 +38,7 @@ class BulbController: BulbControllerBoundary {
     override fun decodeStatus(gatt: BluetoothGatt, charData: CharacteristicData): Observable<BulbStatus> {
         return when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> {
-                PlayBulbCandleDevice().decodeCharacteristic(charData)
+                PlayBulbCandleDevice.decodeCharacteristic(charData)
             }
             else -> Observable.empty()
         }

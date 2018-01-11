@@ -16,7 +16,7 @@ import io.reactivex.Observable
  * Created by gocantar on 7/11/17.
  */
 
-class PlayBulbCandleDevice{
+object PlayBulbCandleDevice{
 
     private val TAG = javaClass.simpleName
 
@@ -34,11 +34,10 @@ class PlayBulbCandleDevice{
     private val EFFECT_VALUE = 4
     private val PERIOD_VALUE = 6
 
-    companion object {
-        val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
+    val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,
                 Constants.RAINBOW_EFFECT)
-    }
+
 
     fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
         gatt?.let {
