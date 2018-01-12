@@ -15,5 +15,16 @@ class Constants {
         val PULSE_EFFECT = 3
         val DECREASE_EFFECT =  4
         val RAINBOW_EFFECT = 5
+
+        val MIN_CONSUMPTION_LOW = 0
+        val MAX_CONSUMPTION_LOW = 299
+        val MIN_CONSUMPTION_MEDIUM = 300
+        val MAX_CONSUMPTION_MEDIUM = 869
+        val MIN_CONSUMPTION_UPPER_MEDIUM = 870
+        val MAX_CONSUMPTION_UPPER_MEDIUM = 1999
+        val MIN_CONSUMPTION_HIGH = 2000
+        val MAX_CONSUMPTION_HIGH = 4000
+
+
     }
 }

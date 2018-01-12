@@ -30,7 +30,7 @@
                     android:toDegrees="360" />
 
                 <gradient
-                    android:centerColor="#FFBF00"
+                    android:centerColor="#FFFF00"
                     android:endColor="#FF0000"
                     android:startColor="#00FF00"
                     android:type="sweep" />

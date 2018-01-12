@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.gocantar.connectingthings.R
+import com.example.gocantar.connectingthings.common.Constants
 import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerPlugControllerComponent
 import com.example.gocantar.connectingthings.di.module.PlugControllerModule
@@ -56,7 +57,8 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
                     Log.d(TAG, "PowerConsumption has been received")
                     val consumption = mDecodeLivePowerConsumptionActor
                                         .decode(mDevice.gattBluetoothGatt!!, t)
-                    mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), consumption/1000)
+                    mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), getWattsFromInt(consumption))
+                    mPowerConsumptionProgress.value = getProgress(consumption)
                 }
             }
 
@@ -113,6 +115,28 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
             mManageNotificationsActor.disable(it)
         }
     }
+
+    private fun getWattsFromInt(intValue: Int): String{
+        return String.format("%.2f", intValue/1000.toFloat())
+    }
+
+    private fun getProgress(value: Int): Int{
+        val wattsConsumption = value/1000
+        return when(wattsConsumption){
+            in Constants.MIN_CONSUMPTION_LOW..Constants.MAX_CONSUMPTION_LOW ->
+                wattsConsumption
+            in Constants.MIN_CONSUMPTION_MEDIUM..Constants.MAX_CONSUMPTION_MEDIUM ->
+                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_MEDIUM, Constants.MAX_CONSUMPTION_MEDIUM, 300 )
+            in Constants.MIN_CONSUMPTION_UPPER_MEDIUM..Constants.MAX_CONSUMPTION_UPPER_MEDIUM ->
+                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_UPPER_MEDIUM, Constants.MAX_CONSUMPTION_UPPER_MEDIUM, 540)
+            in Constants.MIN_CONSUMPTION_HIGH..Constants.MAX_CONSUMPTION_HIGH ->
+                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_HIGH, Constants.MAX_CONSUMPTION_HIGH, 750)
+            else -> 1000
+        }
+    }
+
+    private fun getValue(value: Int, min: Int, max: Int, prevProgress: Int): Int =
+            prevProgress + (((value - min) * min) / (max - min))
 
     override fun onCleared() {
         mGetDeviceActor.dispose()

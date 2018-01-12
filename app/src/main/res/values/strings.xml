@@ -44,7 +44,7 @@
     <string name="pulse">Pulso</string>
     <string name="plugs">Enchufes</string>
     <string name="power_consumption_prompt">Consumo actual:</string>
-    <string name="power_consumption">%d W/h</string>
+    <string name="power_consumption">%s W/h</string>
     <!-- q. -->
     <!-- r. -->
     <string name="rainbow">Arcoiris</string>

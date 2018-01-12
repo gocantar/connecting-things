@@ -9,7 +9,7 @@
         android:id="@+id/pa_title_line_divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/primaryText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pa_title" />
