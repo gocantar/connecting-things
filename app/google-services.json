@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "463856194919",
+    "firebase_url": "https://connecting-things.firebaseio.com",
+    "project_id": "connecting-things",
+    "storage_bucket": "connecting-things.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463856194919:android:2d4378d441afebea",
+        "android_client_info": {
+          "package_name": "com.gocantar.connectingthings"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463856194919-og3oj23gomvg2vdl504oirh99ssoi5f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTimWuYp_2lLQ0XppeyD51mtyYWvdeFjg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

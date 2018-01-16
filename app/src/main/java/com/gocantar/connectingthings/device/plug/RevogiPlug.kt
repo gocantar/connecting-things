@@ -60,8 +60,11 @@ object RevogiPlug {
 
     fun decodePowerConsumption(charData: CharacteristicData): Int{
         return when(charData.uuid){
-            CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE ->
+            CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE ->{
+                TODO("Return state and power consumption")
+                val state = charData.value[4]
                 charData.value.copyOfRange(5,10).toInt()
+            }
             else -> 0
         }
     }
