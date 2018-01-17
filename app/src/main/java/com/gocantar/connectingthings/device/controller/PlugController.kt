@@ -7,7 +7,6 @@ import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.example.gocantar.connectingthings.device.plug.RevogiPlug
 import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
 import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import io.reactivex.Observable
 
 /**
  * Created by gocantar on 11/1/18.
@@ -36,7 +35,7 @@ class PlugController : PlugControllerBoundary {
         val service: ParcelUuid = getServiceUuid(gatt)
         when(service){
             ParcelUuid(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE) ->
-                RevogiPlug.requestPoweConsumption(gatt)
+                RevogiPlug.requestPowerConsumption(gatt)
         }
     }
 

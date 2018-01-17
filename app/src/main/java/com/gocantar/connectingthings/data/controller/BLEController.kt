@@ -136,12 +136,12 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                     mConnectedDevices.put(gatt.device.address, BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt))
                 }
 
-                override fun onCharacteristicRead(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic, status: Int) {
-                    mPublisherOfCharacteristic.onNext(CharacteristicData(characteristic.uuid, characteristic.value))
+                override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int) {
+                    mPublisherOfCharacteristic.onNext(CharacteristicData(gatt.device.address,characteristic.uuid, characteristic.value))
                 }
 
-                override fun onCharacteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic) {
-                    mPublisherOfCharacteristic.onNext(CharacteristicData(characteristic.uuid, characteristic.value))
+                override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic) {
+                    mPublisherOfCharacteristic.onNext(CharacteristicData(gatt.device.address, characteristic.uuid, characteristic.value))
                 }
             }
 
