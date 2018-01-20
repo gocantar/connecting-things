@@ -34,7 +34,7 @@ import javax.inject.Singleton
 
     @Provides fun provideGetCharacteristicNotificationActor(bleService: BLEServiceBoundary): BaseInteractor<CharacteristicData, Unit> = GetCharacteristicNotificationActor(bleService)
 
-    @Provides fun provideGetBLENotificationsActor(bleService: BLEServiceBoundary): BaseInteractor<DeviceEvent, Unit> = GetBLENotificacionsActor(bleService)
+    @Provides fun provideGetBLENotificationsActor(bleService: BLEServiceBoundary): BaseInteractor<DeviceEvent, Unit> = GetBLENotificationsActor(bleService)
 
     @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
 

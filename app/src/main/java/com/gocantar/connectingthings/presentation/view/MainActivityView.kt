@@ -44,6 +44,8 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
 
         setUpRecyclersView()
 
+        mViewModel.initialize()
+
     }
 
     override fun onStart() {

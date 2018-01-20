@@ -2,7 +2,6 @@ package com.example.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.bluetooth.BluetoothDevice
 import android.util.Log
 import com.example.gocantar.connectingthings.common.enum.Event
 import com.example.gocantar.connectingthings.di.component.AppComponent
@@ -12,7 +11,7 @@ import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
 import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
-import com.example.gocantar.connectingthings.domain.usecase.GetBLENotificacionsActor
+import com.example.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
 import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
@@ -34,7 +33,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mScanDevicesActor: ScanDevicesInteractor
     @Inject lateinit var mConnectDevicesActor: ConnectDevicesInteractor
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
-    @Inject lateinit var mGetBLENotificationsActor: GetBLENotificacionsActor
+    @Inject lateinit var mGetBLENotificationsActor: GetBLENotificationsActor
 
 
     fun initialize(){

@@ -15,7 +15,7 @@ import javax.inject.Inject
  * Created by gocantar on 20/1/18.
  */
 class TemperatureSensorRepository @Inject constructor(val mFirebaseDB: FirebaseDataSource) : TemperatureSensorRepositoryBoundary {
-    
+
     override fun saveTemperature(temperatureParams: TemperatureParams) {
         mFirebaseDB.addTemperature(temperatureParams.address, TemperatureFB(temperatureParams.value, temperatureParams.timestamp))
     }

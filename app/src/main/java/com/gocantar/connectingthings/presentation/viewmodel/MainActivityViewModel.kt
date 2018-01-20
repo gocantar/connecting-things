@@ -10,6 +10,8 @@ import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.example.gocantar.connectingthings.common.extension.getType
+import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.example.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
 import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
@@ -29,8 +31,34 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
 
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
+    @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
     
     fun enableBLE() = mBLEServiceService.enableBLE()
+
+    fun initialize(){
+        mBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
+            override fun onComplete() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onNext(event: DeviceEvent?) {
+                event?.let {
+                    if(it.event == Event.DEVICE_DISCONNECTED){
+                        when{
+                            mBulbsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.BULB_LIST_CHANGED
+                            mSensorsConnected.removeIf { it.address == event.address } ->  mRecyclerViewEvent.value = Event.SENSOR_LIST_CHANGED
+                            mPlugsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.PLUG_LIST_CHANGED
+                        }
+                    }
+                }
+            }
+
+            override fun onError(e: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        }, Unit)
+    }
 
     fun updateDevicesConnected(){
         val bulbs = mutableListOf<BulbConnectedView>()
@@ -48,9 +76,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
                 }
             }
             override fun onComplete() {
-                // notified list is completed
                 Log.d(TAG, "List of connected devices has been updated")
-
                 if (updateBulbList(bulbs)) {
                     mRecyclerViewEvent.value = Event.BULB_LIST_CHANGED
                 }
@@ -60,7 +86,6 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
                 if (updateSensorList(sensors)){
                     mRecyclerViewEvent.value = Event.SENSOR_LIST_CHANGED
                 }
-
             }
             override fun onError(e: Throwable?) {
                 Log.e(TAG, e?.message)
