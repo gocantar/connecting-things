@@ -10,7 +10,7 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Created by gocantar on 17/1/18.
  */
-object FirebaseDataSource {
+class FirebaseDataSource {
 
     private val DATA_COLLECTION = "data"
     private val STATE_COLLECTION = "state"
@@ -18,23 +18,25 @@ object FirebaseDataSource {
     private val HUMIDITY = "humidity"
     private val TIMESTAMP = "timestamp"
 
+    private val db = FirebaseFirestore.getInstance()
+
     fun addTemperature(address: String, temperature: TemperatureFB){
-        getInstance().collection(DATA_COLLECTION)
+        db.collection(DATA_COLLECTION)
                 .document(TEMPERATURE)
                 .collection(address)
                 .add(temperature)
     }
 
     fun addHumidity(address: String, humidity: HumidityFB){
-        getInstance().collection(DATA_COLLECTION)
+        db.collection(DATA_COLLECTION)
                 .document(HUMIDITY)
                 .collection(address)
                 .add(humidity)
     }
 
-    fun getTemprerature(address: String, from: Long = 0): PublishSubject<TemperatureFB>{
+    fun getTemperature(address: String, from: Long = 0): PublishSubject<TemperatureFB>{
         val observable: PublishSubject<TemperatureFB> = PublishSubject.create()
-        getInstance().collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
+        db.collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
                 .whereGreaterThanOrEqualTo(TIMESTAMP, from)
                 .get()
                 .addOnCompleteListener {
@@ -54,7 +56,7 @@ object FirebaseDataSource {
 
     fun getHumidity(address: String, from: Long = 0): PublishSubject<HumidityFB>{
         val observable: PublishSubject<HumidityFB> = PublishSubject.create()
-        getInstance().collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
+        db.collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
                 .whereGreaterThanOrEqualTo(TIMESTAMP, from)
                 .get()
                 .addOnCompleteListener { if (it.isSuccessful){
@@ -71,7 +73,5 @@ object FirebaseDataSource {
     }
 
 
-    private fun getInstance(): FirebaseFirestore{
-        return FirebaseFirestore.getInstance()
-    }
+
 }

@@ -6,6 +6,8 @@ import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
 import com.example.gocantar.connectingthings.domain.usecase.BaseInteractor
 import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
+import com.gocantar.connectingthings.data.datasource.FirebaseDataSource
+import com.gocantar.connectingthings.data.repository.TemperatureSensorRepository
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,4 +24,5 @@ interface AppComponent {
     fun getConnectedDevicesInteractor(): BaseInteractor<BLEDevice, Unit>
 
     fun inject(mainActivityViewModel: MainActivityViewModel)
+    fun inject(temperatureRepository: TemperatureSensorRepository)
 }
