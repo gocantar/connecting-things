@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothGatt
 /**
  * Created by gocantar on 10/1/18.
  */
-interface ManagePlugNotificationsInteractor {
+interface ManageNotificationsInteractor {
     fun enable(gatt: BluetoothGatt)
     fun disable(gatt: BluetoothGatt)
 }

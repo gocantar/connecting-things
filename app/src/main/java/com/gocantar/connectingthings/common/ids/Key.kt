@@ -5,6 +5,6 @@ package com.example.gocantar.connectingthings.common.ids
  */
 class Key {
     companion object {
-        val DEVICE_ADDRESS = "device_mac"
+        const val DEVICE_ADDRESS = "device_address"
     }
 }

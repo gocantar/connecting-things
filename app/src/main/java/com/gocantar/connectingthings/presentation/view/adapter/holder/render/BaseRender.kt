@@ -9,7 +9,7 @@ import android.view.ViewGroup
 abstract class BaseRender {
 
     companion object {
-        val DEFAULT_VIEW = -2
+        const val DEFAULT_VIEW = -2
     }
 
     var mParent: ViewGroup? = null

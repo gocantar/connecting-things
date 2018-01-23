@@ -82,8 +82,6 @@ object RevogiPlug {
                 .getCharacteristic(CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE)
     }
 
-
-
     private fun writeConfigCharacteristicDescriptor(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic,
                                                     value: ByteArray?){
 

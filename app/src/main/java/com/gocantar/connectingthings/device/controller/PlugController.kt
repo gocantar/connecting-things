@@ -2,7 +2,7 @@ package com.example.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.extension.getPlugSerciceUuid
+import com.example.gocantar.connectingthings.common.extension.getPlugServiceUuid
 import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.example.gocantar.connectingthings.device.plug.RevogiPlug
 import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
@@ -65,7 +65,7 @@ class PlugController : PlugControllerBoundary {
     }
 
     private fun getServiceUuid(gatt: BluetoothGatt): ParcelUuid{
-        return gatt.services.map { ParcelUuid(it.uuid) }.getPlugSerciceUuid()
+        return gatt.services.map { ParcelUuid(it.uuid) }.getPlugServiceUuid()
     }
 
 }

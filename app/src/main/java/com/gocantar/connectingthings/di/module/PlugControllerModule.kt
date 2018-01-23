@@ -3,7 +3,7 @@ package com.example.gocantar.connectingthings.di.module
 import com.example.gocantar.connectingthings.device.controller.PlugController
 import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
 import com.example.gocantar.connectingthings.domain.interactor.DecodeLivePowerConsumptionInteractor
-import com.example.gocantar.connectingthings.domain.interactor.ManagePlugNotificationsInteractor
+import com.example.gocantar.connectingthings.domain.interactor.ManageNotificationsInteractor
 import com.example.gocantar.connectingthings.domain.interactor.RequestLivePowerConsumptionInteractor
 import com.example.gocantar.connectingthings.domain.interactor.SetPlugStateInteractor
 import com.example.gocantar.connectingthings.domain.usecase.*
@@ -26,7 +26,7 @@ import dagger.Provides
             RequestLivePowerConsumptionInteractor = RequestLivePowerConsumptionActor(plugController)
 
     @Provides fun provideManageNotificationsActor(plugController: PlugControllerBoundary):
-            ManagePlugNotificationsInteractor = ManagePlugNotificationsActor(plugController)
+            ManageNotificationsInteractor = ManagePlugNotificationsActor(plugController)
 
     @Provides fun provideDecodeLivePowerConsumptionActor(plugController: PlugControllerBoundary):
             DecodeLivePowerConsumptionInteractor = DecodeLivePowerConsumptionActor(plugController)

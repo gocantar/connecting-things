@@ -8,10 +8,12 @@ import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.example.gocantar.connectingthings.di.component.DaggerManageDevicesComponent
 import com.example.gocantar.connectingthings.di.module.ManageDevicesViewModelModule
 import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
 import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
 import com.example.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
+import com.example.gocantar.connectingthings.domain.usecase.GetCharacteristicNotificationActor
 import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
@@ -34,54 +36,13 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mConnectDevicesActor: ConnectDevicesInteractor
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mGetBLENotificationsActor: GetBLENotificationsActor
+    @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
 
 
     fun initialize(){
         mDevicesConnectedList.clear()
-        mGetConnectedDevicesActor.execute(object: DisposableObserver<BLEDevice>(){
-            override fun onNext(device: BLEDevice) {
-                mDevicesConnectedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDeviceToScannedView(device))
-            }
-            override fun onError(e: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-            override fun onComplete() {
-                Log.d(TAG, "The connected devices has been gotten correctly")
-                mRecyclerViewEvent.value = Event.LIST_CHANGED
-            }
-        }, Unit)
-
-        mGetBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
-            override fun onNext(deviceEvent: DeviceEvent) {
-                when (deviceEvent.event) {
-                    Event.DEVICE_CONNECTED -> {
-                        Log.d(TAG, "Devices ${deviceEvent.address} added to list of connected devices")
-                        addConnectedDevices(deviceEvent.address)
-                        when (mConnectingDevice.value) {
-                            true -> mConnectingDevice.value = false
-                        }
-                        startScanDevices()
-                    }
-                    Event.DEVICE_DISCONNECTED -> {
-                        Log.d(TAG, "Device has been disconnected")
-                        removeConnectedDevice(deviceEvent.address)
-                        when(mDisconnectingDevice.value){
-                            true -> mDisconnectingDevice.value = false
-                            else -> when(mConnectingDevice.value){
-                                true -> mConnectingDevice.value = false
-                            }
-                        }
-                    }
-                    else -> Log.d(TAG, "Other devices event has been registered")
-                }
-            }
-            override fun onComplete() {
-                // Never it's called
-            }
-            override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        }, Unit)
+        getConnectedDevices()
+        getDevicesNotifications()
     }
 
     fun startScanDevices(){
@@ -125,7 +86,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
 
     private fun addScannedDevice(device: BLEDevice){
         mDevicesConnectedList.remove(device.bluetoothDevice.address)
-        mDevicesScannedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDeviceToScannedView(device))
+        mDevicesScannedList[device.bluetoothDevice.address] = BLEDeviceViewMapper.fromBLEDeviceToScannedView(device)
         mRecyclerViewEvent.value = Event.LIST_CHANGED
     }
 
@@ -155,6 +116,72 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                 .manageDevicesViewModelModule(ManageDevicesViewModelModule(this))
                 .build()
                 .inject(this)
+    }
+
+    private fun getConnectedDevices(){
+        mGetConnectedDevicesActor.execute(object: DisposableObserver<BLEDevice>(){
+            override fun onNext(device: BLEDevice) {
+                mDevicesConnectedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDeviceToScannedView(device))
+            }
+            override fun onError(e: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+            override fun onComplete() {
+                Log.d(TAG, "The connected devices has been gotten correctly")
+                mRecyclerViewEvent.value = Event.LIST_CHANGED
+            }
+        }, Unit)
+    }
+
+    private fun getDevicesNotifications(){
+        mGetBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
+            override fun onNext(deviceEvent: DeviceEvent) {
+                when (deviceEvent.event) {
+                    Event.DEVICE_CONNECTED -> {
+                        Log.d(TAG, "Devices ${deviceEvent.address} added to list of connected devices")
+                        addConnectedDevices(deviceEvent.address)
+                        when (mConnectingDevice.value) {
+                            true -> mConnectingDevice.value = false
+                        }
+                        startScanDevices()
+                    }
+                    Event.DEVICE_DISCONNECTED -> {
+                        Log.d(TAG, "Device has been disconnected")
+                        removeConnectedDevice(deviceEvent.address)
+                        when(mDisconnectingDevice.value){
+                            true -> mDisconnectingDevice.value = false
+                            else -> when(mConnectingDevice.value){
+                                true -> mConnectingDevice.value = false
+                            }
+                        }
+                    }
+                    else -> Log.d(TAG, "Other devices event has been registered")
+                }
+            }
+            override fun onComplete() {
+                // Never it's called
+            }
+            override fun onError(e: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }, Unit)
+    }
+
+    private fun getCharacteristicsNotifications(){
+        mGetCharacteristicNotification.execute(object : DisposableObserver<CharacteristicData>() {
+            override fun onComplete() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onNext(data: CharacteristicData) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onError(e: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        }, Unit)
     }
 
 }

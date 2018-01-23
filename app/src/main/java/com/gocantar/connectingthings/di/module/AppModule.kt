@@ -38,6 +38,6 @@ import javax.inject.Singleton
 
     @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
 
-    @Provides fun privideTemperatureSensorRepository(firebaseDB: FirebaseDataSource): TemperatureSensorRepositoryBoundary  = TemperatureSensorRepository(firebaseDB)
+    @Provides fun provideTemperatureSensorRepository(firebaseDB: FirebaseDataSource): TemperatureSensorRepositoryBoundary  = TemperatureSensorRepository(firebaseDB)
 
 }

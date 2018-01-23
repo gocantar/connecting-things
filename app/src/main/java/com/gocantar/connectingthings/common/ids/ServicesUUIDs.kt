@@ -33,9 +33,9 @@ class ServicesUUIDs {
         /**
          * Sensors
          */
-        val ARDUINO1_TEMPERATURE_SENSOR_PRIMARY_SERVICE = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb")
+        val ARDUINO101_WEATHER_STATION_SERVICE = UUID.fromString("0000ffa0-0000-1000-8000-00805f9b34fb")
 
-        val Sensors: List<UUID> = listOf(ARDUINO1_TEMPERATURE_SENSOR_PRIMARY_SERVICE)
+        val Sensors: List<UUID> = listOf(ARDUINO101_WEATHER_STATION_SERVICE)
 
     }
 }
