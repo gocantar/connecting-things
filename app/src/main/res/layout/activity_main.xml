@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gocantar.connectingthings.presentation.view.MainActivityView">
+    tools:context=".presentation.view.MainActivityView">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

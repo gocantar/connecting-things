@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.data.controller
+package com.gocantar.connectingthings.controller
 
 import android.bluetooth.*
 import android.bluetooth.le.ScanCallback
@@ -6,13 +6,13 @@ import android.bluetooth.le.ScanResult
 import android.content.Intent
 import android.os.ParcelUuid
 import android.util.Log
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.common.enum.Event
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.gocantar.connectingthings.AppController
+import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.PublishSubject

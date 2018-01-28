@@ -1,20 +1,20 @@
-package com.example.gocantar.connectingthings.presentation.viewmodel
+package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.example.gocantar.connectingthings.common.enum.Event
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.di.component.AppComponent
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
-import com.example.gocantar.connectingthings.common.extension.getType
-import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
-import com.example.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
-import com.example.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
-import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView
-import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
+import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.di.component.AppComponent
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
+import com.gocantar.connectingthings.common.extension.getType
+import com.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
+import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
+import com.gocantar.connectingthings.presentation.model.BulbConnectedView
+import com.gocantar.connectingthings.presentation.model.DeviceScannedView
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 

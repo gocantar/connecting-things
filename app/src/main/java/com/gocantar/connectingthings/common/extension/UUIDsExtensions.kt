@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.common.extension
+package com.gocantar.connectingthings.common.extension
 
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.example.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.common.ids.TypeID
 
 /**
  * Created by gocantar on 1/11/17.

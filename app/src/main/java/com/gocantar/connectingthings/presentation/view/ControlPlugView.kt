@@ -1,15 +1,13 @@
-package com.example.gocantar.connectingthings.presentation.view
+package com.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.ids.Key
-import com.example.gocantar.connectingthings.presentation.extension.animate
-import com.example.gocantar.connectingthings.presentation.extension.removeLoadingDialog
-import com.example.gocantar.connectingthings.presentation.extension.showLoadingDialog
-import com.example.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.ids.Key
+import com.gocantar.connectingthings.presentation.extension.animate
+import com.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
 import kotlinx.android.synthetic.main.activity_plug_controller.*
 
 /**

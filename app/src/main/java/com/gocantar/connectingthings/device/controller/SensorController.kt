@@ -2,8 +2,8 @@ package com.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.extension.getSensorServiceUuid
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.common.extension.getSensorServiceUuid
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.device.sensor.WeatherStationArduino101
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
 

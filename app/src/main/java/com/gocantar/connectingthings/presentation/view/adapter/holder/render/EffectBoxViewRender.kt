@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter.holder.render
+package com.gocantar.connectingthings.presentation.view.adapter.holder.render
 
 import android.view.View
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.extension.inflate
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.presentation.extension.inflate
 import kotlinx.android.synthetic.main.holder_effect_box.view.*
 
 /**

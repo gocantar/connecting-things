@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.presentation.view
+package com.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.example.gocantar.connectingthings.presentation.viewmodel.BaseViewModel
+import com.gocantar.connectingthings.presentation.viewmodel.BaseViewModel
 
 /**
  * Created by gocantar on 6/10/17.

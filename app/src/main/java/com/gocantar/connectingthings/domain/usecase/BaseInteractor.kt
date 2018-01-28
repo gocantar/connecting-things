@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,17 +1,17 @@
-package com.example.gocantar.connectingthings.presentation.view
+package com.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.Navigator
-import com.example.gocantar.connectingthings.common.enum.Event
-import com.example.gocantar.connectingthings.common.extension.toVisibility
-import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.presentation.Navigator
+import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.extension.toVisibility
+import com.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 

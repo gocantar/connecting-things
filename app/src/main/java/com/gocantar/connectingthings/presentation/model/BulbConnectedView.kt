@@ -1,10 +1,10 @@
-package com.example.gocantar.connectingthings.presentation.model
+package com.gocantar.connectingthings.presentation.model
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.AppController
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.R
 
 /**
  * Created by gocantar on 24/11/17.

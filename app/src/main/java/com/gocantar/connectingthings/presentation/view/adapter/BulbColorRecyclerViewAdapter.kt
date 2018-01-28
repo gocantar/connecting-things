@@ -1,11 +1,11 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter
+package com.gocantar.connectingthings.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.example.gocantar.connectingthings.common.enum.State
-import com.example.gocantar.connectingthings.presentation.model.BulbColor
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.ColorBoxViewHolder
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.render.ColorBoxViewRenderer
+import com.gocantar.connectingthings.common.enum.State
+import com.gocantar.connectingthings.presentation.model.BulbColor
+import com.gocantar.connectingthings.presentation.view.adapter.holder.ColorBoxViewHolder
+import com.gocantar.connectingthings.presentation.view.adapter.holder.render.ColorBoxViewRenderer
 
 /**
  * Created by gocantar on 16/11/17.

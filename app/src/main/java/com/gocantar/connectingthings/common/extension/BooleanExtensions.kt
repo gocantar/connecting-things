@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.common.extension
+package com.gocantar.connectingthings.common.extension
 
 import android.view.View
 

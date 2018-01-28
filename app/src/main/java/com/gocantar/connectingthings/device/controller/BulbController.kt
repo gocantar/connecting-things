@@ -1,15 +1,15 @@
-package com.example.gocantar.connectingthings.device.controller
+package com.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
 import android.graphics.Color
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.extension.getBulbServiceUuid
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.example.gocantar.connectingthings.device.light.PlayBulbCandleDevice
-import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
-import com.example.gocantar.connectingthings.domain.entity.BulbParams
-import com.example.gocantar.connectingthings.domain.entity.BulbStatus
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.common.extension.getBulbServiceUuid
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
+import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
+import com.gocantar.connectingthings.domain.entity.BulbParams
+import com.gocantar.connectingthings.domain.entity.BulbStatus
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
 
 /**

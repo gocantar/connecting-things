@@ -1,6 +1,6 @@
-package com.example.gocantar.connectingthings.domain.interactor
+package com.gocantar.connectingthings.domain.interactor
 
-import com.example.gocantar.connectingthings.domain.entity.BulbParams
+import com.gocantar.connectingthings.domain.entity.BulbParams
 
 /**
  * Created by gocantar on 21/11/17.

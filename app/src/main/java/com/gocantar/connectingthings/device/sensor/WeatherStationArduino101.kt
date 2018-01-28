@@ -3,8 +3,8 @@ package com.gocantar.connectingthings.device.sensor
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
-import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 
 /**
  * Created by gocantar on 23/1/18.

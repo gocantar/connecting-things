@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.domain.entity
+package com.gocantar.connectingthings.domain.entity
 
 import java.util.*
 

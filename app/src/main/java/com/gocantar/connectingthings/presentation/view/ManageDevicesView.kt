@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.view
+package com.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -6,13 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.enum.Event
-import com.example.gocantar.connectingthings.presentation.extension.removeLoadingDialog
-import com.example.gocantar.connectingthings.presentation.extension.showLoadingDialog
-import com.example.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.presentation.extension.removeLoadingDialog
+import com.gocantar.connectingthings.presentation.extension.showLoadingDialog
+import com.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import kotlinx.android.synthetic.main.activity_manage_devices.*
 
 /**

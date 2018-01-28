@@ -1,10 +1,10 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter.holder
+package com.gocantar.connectingthings.presentation.view.adapter.holder
 
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.example.gocantar.connectingthings.R
+import com.gocantar.connectingthings.R
 import kotlinx.android.synthetic.main.holder_bulb_color_box.view.*
 
 /**

@@ -1,10 +1,10 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
 import android.bluetooth.BluetoothGatt
-import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
-import com.example.gocantar.connectingthings.domain.entity.BulbStatus
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.interactor.DecodeBulbCharacteristicInteractor
+import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
+import com.gocantar.connectingthings.domain.entity.BulbStatus
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.interactor.DecodeBulbCharacteristicInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver

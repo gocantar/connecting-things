@@ -1,16 +1,16 @@
-package com.example.gocantar.connectingthings.presentation.viewmodel
+package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.Constants
-import com.example.gocantar.connectingthings.di.component.AppComponent
-import com.example.gocantar.connectingthings.di.component.DaggerPlugControllerComponent
-import com.example.gocantar.connectingthings.di.module.PlugControllerModule
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.usecase.*
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.Constants
+import com.gocantar.connectingthings.di.component.AppComponent
+import com.gocantar.connectingthings.di.component.DaggerPlugControllerComponent
+import com.gocantar.connectingthings.di.module.PlugControllerModule
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.usecase.*
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 

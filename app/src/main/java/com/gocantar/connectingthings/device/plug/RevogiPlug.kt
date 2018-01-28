@@ -1,14 +1,14 @@
-package com.example.gocantar.connectingthings.device.plug
+package com.gocantar.connectingthings.device.plug
 
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
 import android.util.Log
-import com.example.gocantar.connectingthings.common.extension.hexStringToByteArray
-import com.example.gocantar.connectingthings.common.extension.toInt
-import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.common.extension.hexStringToByteArray
+import com.gocantar.connectingthings.common.extension.fiveBytesToInt
+import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 
 
 /**
@@ -62,7 +62,7 @@ object RevogiPlug {
         return when(charData.uuid){
             CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE ->{
                 val state = charData.value[4]
-                charData.value.copyOfRange(5,10).toInt()
+                charData.value.copyOfRange(5,10).fiveBytesToInt()
             }
             else -> 0
         }

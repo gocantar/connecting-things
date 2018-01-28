@@ -1,21 +1,21 @@
-package com.example.gocantar.connectingthings.presentation.viewmodel
+package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.Constants
-import com.example.gocantar.connectingthings.common.enum.State
-import com.example.gocantar.connectingthings.di.component.AppComponent
-import com.example.gocantar.connectingthings.di.component.DaggerBulbControllerComponent
-import com.example.gocantar.connectingthings.di.module.BulbControllerModule
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.entity.BulbParams
-import com.example.gocantar.connectingthings.domain.entity.BulbStatus
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.usecase.*
-import com.example.gocantar.connectingthings.presentation.model.BulbColor
-import com.example.gocantar.connectingthings.presentation.model.BulbEffect
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.Constants
+import com.gocantar.connectingthings.common.enum.State
+import com.gocantar.connectingthings.di.component.AppComponent
+import com.gocantar.connectingthings.di.component.DaggerBulbControllerComponent
+import com.gocantar.connectingthings.di.module.BulbControllerModule
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.BulbParams
+import com.gocantar.connectingthings.domain.entity.BulbStatus
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.usecase.*
+import com.gocantar.connectingthings.presentation.model.BulbColor
+import com.gocantar.connectingthings.presentation.model.BulbEffect
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 

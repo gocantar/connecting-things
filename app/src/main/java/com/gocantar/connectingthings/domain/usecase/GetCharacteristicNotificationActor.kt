@@ -1,7 +1,7 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
 import javax.inject.Inject
 

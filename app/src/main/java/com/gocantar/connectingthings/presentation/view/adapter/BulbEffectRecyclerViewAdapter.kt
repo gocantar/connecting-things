@@ -1,12 +1,12 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter
+package com.gocantar.connectingthings.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.example.gocantar.connectingthings.common.enum.State
-import com.example.gocantar.connectingthings.presentation.model.BulbEffect
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.EffectBoxViewHolder
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.render.EffectBoxViewRender
+import com.gocantar.connectingthings.common.enum.State
+import com.gocantar.connectingthings.presentation.model.BulbEffect
+import com.gocantar.connectingthings.presentation.view.adapter.holder.EffectBoxViewHolder
+import com.gocantar.connectingthings.presentation.view.adapter.holder.render.EffectBoxViewRender
 
 /**
  * Created by gocantar on 15/11/17.

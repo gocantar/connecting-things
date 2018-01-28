@@ -1,6 +1,6 @@
-package com.example.gocantar.connectingthings.domain.entity
+package com.gocantar.connectingthings.domain.entity
 
-import com.example.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.enum.Event
 
 /**
  * Created by gocantar on 31/12/17.

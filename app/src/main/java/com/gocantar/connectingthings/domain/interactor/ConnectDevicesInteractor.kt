@@ -1,10 +1,7 @@
-package com.example.gocantar.connectingthings.domain.interactor
+package com.gocantar.connectingthings.domain.interactor
 
 import android.bluetooth.BluetoothDevice
-import com.example.gocantar.connectingthings.common.enum.Event
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
-import io.reactivex.observers.DisposableObserver
+import com.gocantar.connectingthings.common.ids.TypeID
 
 /**
  * Created by gocantar on 3/11/17.

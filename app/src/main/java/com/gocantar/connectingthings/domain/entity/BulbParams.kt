@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.domain.entity
+package com.gocantar.connectingthings.domain.entity
 
 /**
  * Created by gocantar on 17/11/17.

@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.domain.interactor
+package com.gocantar.connectingthings.domain.interactor
 
 import android.bluetooth.BluetoothGatt
-import com.example.gocantar.connectingthings.domain.entity.BulbStatus
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.entity.BulbStatus
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.observers.DisposableObserver
 
 /**

@@ -1,9 +1,9 @@
-package com.example.gocantar.connectingthings
+package com.gocantar.connectingthings
 
 import android.app.Application
-import com.example.gocantar.connectingthings.di.component.AppComponent
-import com.example.gocantar.connectingthings.di.module.AppModule
-import com.example.gocantar.connectingthings.di.component.DaggerAppComponent
+import com.gocantar.connectingthings.di.component.AppComponent
+import com.gocantar.connectingthings.di.component.DaggerAppComponent
+import com.gocantar.connectingthings.di.module.AppModule
 
 /**
  * Created by gocantar on 10/10/17.

@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter.holder.render
+package com.gocantar.connectingthings.presentation.view.adapter.holder.render
 
 import android.view.View
 import android.view.ViewGroup

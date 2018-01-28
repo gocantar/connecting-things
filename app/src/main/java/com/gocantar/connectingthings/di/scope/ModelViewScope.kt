@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.di.scope
+package com.gocantar.connectingthings.di.scope
 
 import javax.inject.Scope
 

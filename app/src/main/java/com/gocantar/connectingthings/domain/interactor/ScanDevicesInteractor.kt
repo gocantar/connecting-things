@@ -1,6 +1,6 @@
-package com.example.gocantar.connectingthings.domain.interactor
+package com.gocantar.connectingthings.domain.interactor
 
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.BLEDevice
 import io.reactivex.observers.DisposableObserver
 
 /**

@@ -1,12 +1,12 @@
-package com.example.gocantar.connectingthings.device.controller
+package com.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
 import android.os.ParcelUuid
-import com.example.gocantar.connectingthings.common.extension.getPlugServiceUuid
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.example.gocantar.connectingthings.device.plug.RevogiPlug
-import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.common.extension.getPlugServiceUuid
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.device.plug.RevogiPlug
+import com.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 
 /**
  * Created by gocantar on 11/1/18.

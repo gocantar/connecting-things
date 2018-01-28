@@ -1,7 +1,5 @@
 package com.gocantar.connectingthings.data.repository
 
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.data.datasource.FirebaseDataSource
 import com.gocantar.connectingthings.data.model.HumidityFB
 import com.gocantar.connectingthings.data.model.TemperatureFB

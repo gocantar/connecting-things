@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.common.ids
+package com.gocantar.connectingthings.common.ids
 
 import java.util.*
 

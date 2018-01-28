@@ -1,14 +1,14 @@
-package com.example.gocantar.connectingthings.device.light
+package com.gocantar.connectingthings.device.light
 
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattService
 import android.util.Log
-import com.example.gocantar.connectingthings.common.Constants
-import com.example.gocantar.connectingthings.common.extension.toUnsignedInt
-import com.example.gocantar.connectingthings.common.ids.CharacteristicUUIDs
-import com.example.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.example.gocantar.connectingthings.domain.entity.BulbStatus
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.common.Constants
+import com.gocantar.connectingthings.common.extension.toUnsignedInt
+import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.domain.entity.BulbStatus
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
 
 

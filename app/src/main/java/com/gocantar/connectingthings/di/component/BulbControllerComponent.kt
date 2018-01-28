@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.di.component
+package com.gocantar.connectingthings.di.component
 
-import com.example.gocantar.connectingthings.di.module.BulbControllerModule
-import com.example.gocantar.connectingthings.di.scope.ModelViewScope
-import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
+import com.gocantar.connectingthings.di.module.BulbControllerModule
+import com.gocantar.connectingthings.di.scope.ModelViewScope
+import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import dagger.Component
 
 /**

@@ -1,9 +1,9 @@
-package com.example.gocantar.connectingthings.presentation.extension
+package com.gocantar.connectingthings.presentation.extension
 
 import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
-import com.example.gocantar.connectingthings.R
+import com.gocantar.connectingthings.R
 import kotlinx.android.synthetic.main.loading_layout.view.*
 import org.jetbrains.anko.find
 

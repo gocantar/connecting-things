@@ -1,11 +1,11 @@
-package com.example.gocantar.connectingthings.presentation.viewmodel
+package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.content.res.Resources
 import android.util.Log
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.di.component.AppComponent
+import com.gocantar.connectingthings.AppController
+import com.gocantar.connectingthings.di.component.AppComponent
 
 /**
  * Created by gocantar on 10/7/17.

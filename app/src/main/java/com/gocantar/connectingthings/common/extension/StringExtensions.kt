@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.common.extension
+package com.gocantar.connectingthings.common.extension
 
 /**
  * Created by gocantar on 10/1/18.

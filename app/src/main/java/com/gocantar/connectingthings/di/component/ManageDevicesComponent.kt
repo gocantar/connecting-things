@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.di.component
+package com.gocantar.connectingthings.di.component
 
-import com.example.gocantar.connectingthings.di.module.ManageDevicesViewModelModule
-import com.example.gocantar.connectingthings.di.scope.ModelViewScope
-import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
+import com.gocantar.connectingthings.di.module.ManageDevicesViewModelModule
+import com.gocantar.connectingthings.di.scope.ModelViewScope
+import com.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import dagger.Component
 
 /**
@@ -10,8 +10,8 @@ import dagger.Component
  */
 
 @ModelViewScope @Component (
-        dependencies = arrayOf(AppComponent::class),
-        modules = arrayOf(ManageDevicesViewModelModule::class)
+        dependencies = [(AppComponent::class)],
+        modules = [(ManageDevicesViewModelModule::class)]
 )
 
 interface ManageDevicesComponent: AppComponent{

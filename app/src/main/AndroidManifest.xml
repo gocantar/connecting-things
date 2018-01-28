@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gocantar.connectingthings">
+    package="com.gocantar.connectingthings">
 
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
@@ -32,6 +32,8 @@
         <activity android:name=".presentation.view.ControlBulbView"/>
 
         <activity android:name=".presentation.view.ControlPlugView"/>
+
+        <activity android:name=".presentation.view.WeatherStationView" />
 
     </application>
 </manifest>

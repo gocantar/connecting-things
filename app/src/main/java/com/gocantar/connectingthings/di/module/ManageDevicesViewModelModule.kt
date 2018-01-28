@@ -1,11 +1,11 @@
-package com.example.gocantar.connectingthings.di.module
+package com.gocantar.connectingthings.di.module
 
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
-import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
-import com.example.gocantar.connectingthings.domain.usecase.ConnectDevicesActor
-import com.example.gocantar.connectingthings.domain.usecase.ScanDevicesActor
-import com.example.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
+import com.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
+import com.gocantar.connectingthings.domain.usecase.ConnectDevicesActor
+import com.gocantar.connectingthings.domain.usecase.ScanDevicesActor
+import com.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
 import dagger.Module
 import dagger.Provides
 

@@ -1,10 +1,10 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter.holder
+package com.gocantar.connectingthings.presentation.view.adapter.holder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.presentation.model.DeviceScannedView
 import kotlinx.android.synthetic.main.holder_scanned_device.view.*
 import org.jetbrains.anko.onClick
 

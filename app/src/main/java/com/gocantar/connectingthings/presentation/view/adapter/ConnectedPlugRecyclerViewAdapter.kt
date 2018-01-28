@@ -1,12 +1,12 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter
+package com.gocantar.connectingthings.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.presentation.extension.inflate
-import com.example.gocantar.connectingthings.presentation.model.DeviceScannedView
-import com.example.gocantar.connectingthings.presentation.view.adapter.holder.PlugConnectedViewHolder
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.presentation.extension.inflate
+import com.gocantar.connectingthings.presentation.model.DeviceScannedView
+import com.gocantar.connectingthings.presentation.view.adapter.holder.PlugConnectedViewHolder
 
 /**
  * Created by gocantar on 29/11/17.

@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
 import android.bluetooth.BluetoothGatt
-import com.example.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
-import com.example.gocantar.connectingthings.domain.interactor.ReadCharacteristicInteractor
+import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
+import com.gocantar.connectingthings.domain.interactor.ReadCharacteristicInteractor
 import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 

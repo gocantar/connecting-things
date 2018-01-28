@@ -1,10 +1,9 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
 import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothGattCharacteristic
-import com.example.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.interactor.DecodeLivePowerConsumptionInteractor
+import com.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.interactor.DecodeLivePowerConsumptionInteractor
 import javax.inject.Inject
 
 /**

@@ -1,9 +1,8 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
-import android.util.Log
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver

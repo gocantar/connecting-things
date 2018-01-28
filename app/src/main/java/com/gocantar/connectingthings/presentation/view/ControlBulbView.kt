@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.view
+package com.gocantar.connectingthings.presentation.view
 
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -7,11 +7,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import com.example.gocantar.connectingthings.R
-import com.example.gocantar.connectingthings.common.ids.Key
-import com.example.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
-import com.example.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
+import com.gocantar.connectingthings.common.ids.Key
+import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
+import com.gocantar.connectingthings.R
 import kotlinx.android.synthetic.main.activity_bulb_controller.*
 
 /**

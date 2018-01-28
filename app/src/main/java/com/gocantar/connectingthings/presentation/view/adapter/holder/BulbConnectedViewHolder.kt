@@ -1,8 +1,8 @@
-package com.example.gocantar.connectingthings.presentation.view.adapter.holder
+package com.gocantar.connectingthings.presentation.view.adapter.holder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.example.gocantar.connectingthings.presentation.model.BulbConnectedView
+import com.gocantar.connectingthings.presentation.model.BulbConnectedView
 import kotlinx.android.synthetic.main.holder_bulb_connected.view.*
 import org.jetbrains.anko.onClick
 

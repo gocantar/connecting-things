@@ -1,8 +1,7 @@
-package com.example.gocantar.connectingthings.domain.boundary
+package com.gocantar.connectingthings.domain.boundary
 
 import android.bluetooth.BluetoothGatt
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.gocantar.connectingthings.domain.boundary.ManageNotificationsBoundary
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 
 /**
  * Created by gocantar on 10/1/18.

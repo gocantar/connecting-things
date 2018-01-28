@@ -1,14 +1,14 @@
-package com.example.gocantar.connectingthings.di.module
+package com.gocantar.connectingthings.di.module
 
 import android.bluetooth.BluetoothManager
 import android.content.Context
-import com.example.gocantar.connectingthings.AppController
-import com.example.gocantar.connectingthings.data.controller.BLEController
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
-import com.example.gocantar.connectingthings.domain.usecase.*
+import com.gocantar.connectingthings.AppController
+import com.gocantar.connectingthings.controller.BLEController
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.gocantar.connectingthings.domain.usecase.*
 import com.gocantar.connectingthings.data.datasource.FirebaseDataSource
 import com.gocantar.connectingthings.data.repository.TemperatureSensorRepository
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary

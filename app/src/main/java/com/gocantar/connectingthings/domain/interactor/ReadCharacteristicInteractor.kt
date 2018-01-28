@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.domain.interactor
+package com.gocantar.connectingthings.domain.interactor
 
 import android.bluetooth.BluetoothGatt
 

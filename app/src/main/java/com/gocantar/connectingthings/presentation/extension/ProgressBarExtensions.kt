@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings.presentation.extension
+package com.gocantar.connectingthings.presentation.extension
 
 import android.animation.ObjectAnimator
 import android.view.animation.DecelerateInterpolator

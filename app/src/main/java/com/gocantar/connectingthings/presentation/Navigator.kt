@@ -1,10 +1,10 @@
-package com.example.gocantar.connectingthings.presentation
+package com.gocantar.connectingthings.presentation
 
 import android.app.Activity
 import android.content.Context
-import com.example.gocantar.connectingthings.presentation.view.ControlBulbView
-import com.example.gocantar.connectingthings.presentation.view.ControlPlugView
-import com.example.gocantar.connectingthings.presentation.view.ManageDevicesView
+import com.gocantar.connectingthings.presentation.view.ControlBulbView
+import com.gocantar.connectingthings.presentation.view.ControlPlugView
+import com.gocantar.connectingthings.presentation.view.ManageDevicesView
 
 /**
  * Created by gocantar on 10/10/17.

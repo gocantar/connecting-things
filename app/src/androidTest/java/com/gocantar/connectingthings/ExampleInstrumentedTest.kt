@@ -1,4 +1,4 @@
-package com.example.gocantar.connectingthings
+package com.gocantar.connectingthings.connectingthings
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

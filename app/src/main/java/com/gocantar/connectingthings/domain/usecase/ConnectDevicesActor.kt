@@ -1,9 +1,9 @@
-package com.example.gocantar.connectingthings.domain.usecase
+package com.gocantar.connectingthings.domain.usecase
 
 import android.bluetooth.BluetoothDevice
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
-import com.example.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
+import com.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
 import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 

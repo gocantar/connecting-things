@@ -1,11 +1,11 @@
-package com.example.gocantar.connectingthings.domain.boundary
+package com.gocantar.connectingthings.domain.boundary
 
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
-import com.example.gocantar.connectingthings.common.ids.TypeID
-import com.example.gocantar.connectingthings.domain.entity.BLEDevice
-import com.example.gocantar.connectingthings.domain.entity.CharacteristicData
-import com.example.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.gocantar.connectingthings.common.ids.TypeID
+import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
+import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
