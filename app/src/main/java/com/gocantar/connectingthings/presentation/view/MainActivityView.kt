@@ -11,6 +11,7 @@ import com.gocantar.connectingthings.common.enum.Event
 import com.gocantar.connectingthings.common.extension.toVisibility
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
+import com.gocantar.connectingthings.presentation.view.adapter.ConnectedWeatherStationAdapter
 import com.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,6 +31,13 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         ConnectedPlugRecyclerViewAdapter(ma_plugs_recycler_view, mViewModel.mPlugsConnected){
             Log.d(TAG, "Opening bulb ${it.name} controller activity")
             Navigator.navigateToControlPlugView(this, it.address)
+        }
+    }
+
+    private val mWeatherStationAdapter: ConnectedWeatherStationAdapter by lazy {
+        ConnectedWeatherStationAdapter(ma_ws_recycler_view, mViewModel.mSensorsConnected){
+            Log.d(TAG, "Opening sensor $it controller activity")
+            Navigator.navigateToWeatherStationView(this, it)
         }
     }
 
@@ -67,15 +75,30 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
      */
 
     private fun setUpRecyclersView(){
+        setUpBulbsAdapter()
+        setUpPlugsAdapter()
+        setUpSensorsAdapter()
+    }
+
+    private fun setUpBulbsAdapter(){
         // Setup bulbs adapter
         showBulbsRecyclerView(mViewModel.getBulbsRecyclerViewVisibility())
         ma_bulbs_recycler_view.layoutManager = GridLayoutManager(this, 3)
         ma_bulbs_recycler_view.adapter = mBulbsAdapter
+    }
 
+    private fun setUpPlugsAdapter(){
         // Setup plugs adapter
         showPlugsRecyclerView(mViewModel.getPlugsRecyclerViewVisibility())
         ma_plugs_recycler_view.layoutManager = GridLayoutManager(this, 3)
         ma_plugs_recycler_view.adapter = mPlugsAdapter
+    }
+
+    private fun setUpSensorsAdapter(){
+        // Setup sensors adapter
+        showSensorsRecyclerView(mViewModel.getSensorsRecyclerViewVisibility())
+        ma_ws_recycler_view.layoutManager = GridLayoutManager(this, 3)
+        ma_ws_recycler_view.adapter = mWeatherStationAdapter
     }
 
     private fun setEventsObserver(){
@@ -84,6 +107,7 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
                 when(it){
                     Event.BULB_LIST_CHANGED -> updateBulbsRecyclerView()
                     Event.PLUG_LIST_CHANGED -> updatePlugsRecyclerView()
+                    Event.SENSOR_LIST_CHANGED -> updateSensorRecyclerView()
                     else -> Log.d(TAG, "The event could not be captured")
                 }
             }
@@ -100,6 +124,11 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         mPlugsAdapter.notifyDataSetChanged()
     }
 
+    private fun updateSensorRecyclerView(){
+        showSensorsRecyclerView(mViewModel.getSensorsRecyclerViewVisibility())
+        mWeatherStationAdapter.notifyDataSetChanged()
+    }
+
     private fun showBulbsRecyclerView(visible: Boolean){
         ma_bulbs_recycler_view.visibility = visible.toVisibility()
         ma_bulbs_no_device_connected_message.visibility = (!visible).toVisibility()
@@ -108,6 +137,11 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
     private fun showPlugsRecyclerView(visible: Boolean){
         ma_plugs_recycler_view.visibility = visible.toVisibility()
         ma_plugs_no_device_connected_message.visibility = (!visible).toVisibility()
+    }
+
+    private fun showSensorsRecyclerView(visible: Boolean){
+        ma_ws_recycler_view.visibility = visible.toVisibility()
+        ma_ws_no_device_connected_message.visibility = (!visible).toVisibility()
     }
 
 }

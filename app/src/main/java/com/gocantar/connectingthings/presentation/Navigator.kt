@@ -5,6 +5,7 @@ import android.content.Context
 import com.gocantar.connectingthings.presentation.view.ControlBulbView
 import com.gocantar.connectingthings.presentation.view.ControlPlugView
 import com.gocantar.connectingthings.presentation.view.ManageDevicesView
+import com.gocantar.connectingthings.presentation.view.WeatherStationView
 
 /**
  * Created by gocantar on 10/10/17.
@@ -21,6 +22,10 @@ class Navigator {
 
         fun navigateToControlPlugView(context: Context, address: String){
             (context as Activity).startActivityForResult(ControlPlugView.getCallingIntent(context, address), ControlPlugView.REQUEST_CODE)
+        }
+
+        fun navigateToWeatherStationView(context: Context, address: String){
+            (context as Activity).startActivityForResult(WeatherStationView.getCallingIntent(context, address), WeatherStationView.REQUEST_CODE)
         }
     }
 

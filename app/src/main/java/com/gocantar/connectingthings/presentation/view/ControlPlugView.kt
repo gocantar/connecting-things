@@ -47,7 +47,7 @@ class ControlPlugView: BaseActivityVM<ControlPlugViewModel>() {
      */
     companion object {
 
-        val REQUEST_CODE = 10300
+        const val REQUEST_CODE = 10300
 
         fun getCallingIntent(context: Context, address: String): Intent{
             val intent = Intent(context, ControlPlugView::class.java)

@@ -168,9 +168,50 @@
                 android:layout_marginStart="@dimen/double_margin"
                 android:layout_marginTop="@dimen/simple_margin"
                 android:background="@color/dividersLinesColor" />
+
+            <TextView
+                android:id="@+id/ma_ws_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:fontFamily="@font/sfbold"
+                android:text="@string/sensors"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/title_text_size" />
+
+            <TextView
+                android:id="@+id/ma_ws_no_device_connected_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/double_margin"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:fontFamily="@font/sfmedium"
+                android:text="@string/no_weather_station_connection"
+                android:textColor="@color/hintText"
+                android:textSize="@dimen/regular_text_size" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ma_ws_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/ma_ws_connected_devices_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/simple_margin"
+                android:background="@color/dividersLinesColor" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-
 </android.support.design.widget.CoordinatorLayout>

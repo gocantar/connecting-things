@@ -34,6 +34,7 @@
     <!-- n. -->
     <string name="no_bulbs_connected">No hay ningun dispositivo de iluminación conectado</string>
     <string name="no_plugs_connected">No hay ningun enchufe conectado</string>
+    <string name="no_weather_station_connection">No hay ningun sensor conectado</string>
     <string name="no_available_services">No hay servicios disponibles</string>
     <string name="name_prompt">Nombre:</string>
     <!-- o. -->
@@ -52,6 +53,7 @@
     <string name="settings">Ajustes</string>
     <string name="services_prompt">Servicios:</string>
     <string name="state_prompt">Estado:</string>
+    <string name="sensors">Sensores</string>
     <!-- t. -->
     <string name="turn_on">Encender</string>
     <string name="turn_off">Apagar</string>

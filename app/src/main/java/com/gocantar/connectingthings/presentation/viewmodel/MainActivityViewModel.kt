@@ -32,7 +32,10 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
-    
+
+    /**
+     * Public fun
+     */
     fun enableBLE() = mBLEServiceService.enableBLE()
 
     fun initialize(){
@@ -93,12 +96,15 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
         }, Unit)
     }
 
-    fun getBulbsRecyclerViewVisibility(): Boolean =
-            (mBulbsConnected.size != 0)
+    fun getBulbsRecyclerViewVisibility(): Boolean = mBulbsConnected.isNotEmpty()
 
-    fun getPlugsRecyclerViewVisibility(): Boolean =
-            (mPlugsConnected.size != 0)
+    fun getPlugsRecyclerViewVisibility(): Boolean = mPlugsConnected.isNotEmpty()
 
+    fun getSensorsRecyclerViewVisibility(): Boolean = mSensorsConnected.isNotEmpty()
+
+    /**
+     * Private fun
+     */
     private fun updateBulbList(list: MutableList<BulbConnectedView>): Boolean {
         val itemRemoved = mBulbsConnected.retainAll(list)
         list.removeAll(mBulbsConnected)
@@ -120,6 +126,9 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
         return itemRemoved || itemAdded
     }
 
+    /**
+     * Override fun
+     */
     override fun onCleared() {
         super.onCleared()
         mGetConnectedDevicesActor.dispose()

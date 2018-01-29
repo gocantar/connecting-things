@@ -96,7 +96,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
      */
     companion object {
 
-        val REQUEST_CODE = 10200
+        const val REQUEST_CODE = 10200
 
         fun getCallingIntent(context: Context, address: String) : Intent {
             val intent = Intent(context, ControlBulbView::class.java)
