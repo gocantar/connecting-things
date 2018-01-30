@@ -1,7 +1,9 @@
 package com.gocantar.connectingthings.di.module
 
 import com.gocantar.connectingthings.device.controller.SensorController
+import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
+import com.gocantar.connectingthings.domain.usecase.ManageSensorNotificationsActor
 import com.gocantar.connectingthings.presentation.viewmodel.WeatherStationViewModel
 import dagger.Module
 import dagger.Provides
@@ -11,6 +13,10 @@ import dagger.Provides
  */
 @Module class WeatherStationControllerModule(controllerModule: WeatherStationViewModel) {
 
-    @Provides fun provideWeatherStationController():
-            TemperatureSensorControllerBoundary = SensorController()
+    @Provides fun provideWeatherStationController(bleService: BLEServiceBoundary):
+            TemperatureSensorControllerBoundary = SensorController(bleService)
+
+    @Provides fun provideManageNotificationsActor(sensorController: TemperatureSensorControllerBoundary):
+            ManageSensorNotificationsActor = ManageSensorNotificationsActor(sensorController)
+
 }

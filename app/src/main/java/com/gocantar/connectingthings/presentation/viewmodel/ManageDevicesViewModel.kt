@@ -36,7 +36,6 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mConnectDevicesActor: ConnectDevicesInteractor
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mGetBLENotificationsActor: GetBLENotificationsActor
-    @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
 
 
     fun initialize(){
@@ -121,7 +120,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     private fun getConnectedDevices(){
         mGetConnectedDevicesActor.execute(object: DisposableObserver<BLEDevice>(){
             override fun onNext(device: BLEDevice) {
-                mDevicesConnectedList.put(device.bluetoothDevice.address, BLEDeviceViewMapper.fromBLEDeviceToScannedView(device))
+                mDevicesConnectedList[device.bluetoothDevice.address] = BLEDeviceViewMapper.fromBLEDeviceToScannedView(device)
             }
             override fun onError(e: Throwable) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -167,21 +166,6 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         }, Unit)
     }
 
-    private fun getCharacteristicsNotifications(){
-        mGetCharacteristicNotification.execute(object : DisposableObserver<CharacteristicData>() {
-            override fun onComplete() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
 
-            override fun onNext(data: CharacteristicData) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        }, Unit)
-    }
 
 }

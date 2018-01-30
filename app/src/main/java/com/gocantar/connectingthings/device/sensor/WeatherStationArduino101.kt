@@ -11,42 +11,35 @@ import com.gocantar.connectingthings.common.ids.ServicesUUIDs
  */
 object WeatherStationArduino101 {
 
-    fun enableNotifications(gatt: BluetoothGatt){
-        enableTemperatureNotification(gatt)
-        enableHumidityNotification(gatt)
+
+
+    fun enableTemperatureNotification(gatt: BluetoothGatt){
+        val characteristic = getTemperatureCharacteristic(gatt)
+        gatt.setCharacteristicNotification(characteristic, true)
+        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
     }
 
-    fun disableNotifications(gatt: BluetoothGatt){
-        disableTemperatureNotification(gatt)
-        disableHumidityNotification(gatt)
+    fun disableTemperatureNotification(gatt: BluetoothGatt){
+        val characteristic = getTemperatureCharacteristic(gatt)
+        gatt.setCharacteristicNotification(characteristic, false)
+        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
+    }
+
+    fun enableHumidityNotification(gatt: BluetoothGatt){
+        val characteristic = getHumidityCharacteristic(gatt)
+        gatt.setCharacteristicNotification(characteristic, true)
+        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
+    }
+
+    fun disableHumidityNotification(gatt: BluetoothGatt){
+        val characteristic = getHumidityCharacteristic(gatt)
+        gatt.setCharacteristicNotification(characteristic, false)
+        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
     /**
      * Private functions
      */
-    private fun enableTemperatureNotification(gatt: BluetoothGatt){
-        val characteristic = getTemperatureCharacteristic(gatt)
-        gatt.setCharacteristicNotification(characteristic, true)
-        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
-    }
-
-    private fun disableTemperatureNotification(gatt: BluetoothGatt){
-        val characteristic = getTemperatureCharacteristic(gatt)
-        gatt.setCharacteristicNotification(characteristic, false)
-        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
-    }
-
-    private fun enableHumidityNotification(gatt: BluetoothGatt){
-        val characteristic = getHumidityCharacteristic(gatt)
-        gatt.setCharacteristicNotification(characteristic, true)
-        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
-    }
-
-    private fun disableHumidityNotification(gatt: BluetoothGatt){
-        val characteristic = getHumidityCharacteristic(gatt)
-        gatt.setCharacteristicNotification(characteristic, false)
-        writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
-    }
 
     private fun getTemperatureCharacteristic(gatt: BluetoothGatt): BluetoothGattCharacteristic{
         return gatt.getService(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE)

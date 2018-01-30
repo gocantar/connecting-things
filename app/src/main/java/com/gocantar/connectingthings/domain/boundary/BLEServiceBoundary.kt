@@ -17,6 +17,7 @@ interface BLEServiceBoundary {
     val mPublisherOfBLEDevice: PublishSubject<BLEDevice>
     val mPublisherOfEvent: PublishSubject<DeviceEvent>
     val mPublisherOfCharacteristic: PublishSubject<CharacteristicData>
+    val mPublisherDescriptor: PublishSubject<Int>
 
     fun start()
     fun stop()

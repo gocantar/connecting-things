@@ -45,6 +45,8 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
     override val mPublisherOfCharacteristic: PublishSubject<CharacteristicData> = PublishSubject.create()
 
+    override val mPublisherDescriptor: PublishSubject<Int> = PublishSubject.create()
+
 
     /**
      * Privates properties
@@ -142,6 +144,10 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
                 override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic) {
                     mPublisherOfCharacteristic.onNext(CharacteristicData(gatt.device.address, characteristic.uuid, characteristic.value))
+                }
+
+                override fun onDescriptorWrite(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor?, status: Int) {
+                    mPublisherDescriptor.onNext(status)
                 }
             }
 

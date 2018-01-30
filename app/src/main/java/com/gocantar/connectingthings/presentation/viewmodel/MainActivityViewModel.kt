@@ -10,8 +10,10 @@ import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.entity.BLEDevice
 import com.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.gocantar.connectingthings.common.extension.getType
+import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
+import com.gocantar.connectingthings.domain.usecase.GetCharacteristicNotificationActor
 import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
@@ -32,6 +34,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
+    @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
 
     /**
      * Public fun
@@ -39,28 +42,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     fun enableBLE() = mBLEServiceService.enableBLE()
 
     fun initialize(){
-        mBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
-            override fun onComplete() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onNext(event: DeviceEvent?) {
-                event?.let {
-                    if(it.event == Event.DEVICE_DISCONNECTED){
-                        when{
-                            mBulbsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.BULB_LIST_CHANGED
-                            mSensorsConnected.removeIf { it.address == event.address } ->  mRecyclerViewEvent.value = Event.SENSOR_LIST_CHANGED
-                            mPlugsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.PLUG_LIST_CHANGED
-                        }
-                    }
-                }
-            }
-
-            override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        }, Unit)
+        setUpNotifications()
     }
 
     fun updateDevicesConnected(){
@@ -105,6 +87,11 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     /**
      * Private fun
      */
+
+    private fun setUpNotifications(){
+        getBLENotifications()
+        getCharacteristicsNotifications()
+    }
     private fun updateBulbList(list: MutableList<BulbConnectedView>): Boolean {
         val itemRemoved = mBulbsConnected.retainAll(list)
         list.removeAll(mBulbsConnected)
@@ -125,6 +112,49 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
         val itemAdded = mSensorsConnected.addAll(list)
         return itemRemoved || itemAdded
     }
+
+    private fun getBLENotifications(){
+        mBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
+            override fun onComplete() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onNext(event: DeviceEvent?) {
+                event?.let {
+                    if(it.event == Event.DEVICE_DISCONNECTED){
+                        when{
+                            mBulbsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.BULB_LIST_CHANGED
+                            mSensorsConnected.removeIf { it.address == event.address } ->  mRecyclerViewEvent.value = Event.SENSOR_LIST_CHANGED
+                            mPlugsConnected.removeIf { it.address == event.address } -> mRecyclerViewEvent.value = Event.PLUG_LIST_CHANGED
+                        }
+                    }
+                }
+            }
+
+            override fun onError(e: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        }, Unit)
+    }
+
+    private fun getCharacteristicsNotifications(){
+        mGetCharacteristicNotification.execute(object : DisposableObserver<CharacteristicData>() {
+            override fun onComplete() {
+                // Never it's called
+            }
+
+            override fun onNext(data: CharacteristicData) {
+                Log.d(TAG, data.value.toString())
+            }
+
+            override fun onError(e: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        }, Unit)
+    }
+
 
     /**
      * Override fun

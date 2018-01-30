@@ -16,9 +16,11 @@
     <string name="decrease">Disminuir</string>
     <string name="disconnect">Desconectar</string>
     <string name="disconnecting">Desconectando</string>
+    <string name="disable">Deshabilitar</string>
     <!-- e. -->
     <string name="effects">Efectos</string>
     <string name="error">Error</string>
+    <string name="enable">Habilitar</string>
     <!-- f. -->
     <string name="fade">Desvanecer</string>
     <!-- g. -->

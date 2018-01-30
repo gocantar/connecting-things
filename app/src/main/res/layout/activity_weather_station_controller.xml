@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/awsc_enable_notifications_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_green"
+        android:fontFamily="@font/sfmedium"
+        android:paddingBottom="4dp"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:paddingTop="4dp"
+        android:text="@string/enable"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/awsc_disable_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/button_red"
+        android:fontFamily="@font/sfmedium"
+        android:paddingBottom="4dp"
+        android:paddingEnd="@dimen/double_padding"
+        android:paddingStart="@dimen/double_padding"
+        android:paddingTop="4dp"
+        android:text="@string/disable"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/awsc_enable_notifications_button"
+        app:layout_constraintStart_toEndOf="@+id/awsc_enable_notifications_button" />
+
+    <ImageView
+        android:id="@+id/awsc_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 </android.support.constraint.ConstraintLayout>
