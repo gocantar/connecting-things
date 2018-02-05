@@ -16,6 +16,7 @@ import com.gocantar.connectingthings.domain.boundary.TemperatureSensorController
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary
 import com.gocantar.connectingthings.domain.entity.SensorData
 import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataInteractor
+import com.gocantar.connectingthings.domain.interactor.SaveData
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -58,4 +59,6 @@ import javax.inject.Singleton
     @Provides fun provideDecodeSensorData(weatherstationController: TemperatureSensorControllerBoundary):
             DecodeCharacteristicDataInteractor<SensorData?> = DecodeSensorDataActor(weatherstationController)
 
+    @Provides fun provideSaveSensorData(weatherStationRepository: TemperatureSensorRepositoryBoundary):
+            SaveData<SensorData> = SaveDataSensorActor(weatherStationRepository)
 }

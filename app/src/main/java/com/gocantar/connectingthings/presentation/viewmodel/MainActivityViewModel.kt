@@ -8,13 +8,10 @@ import com.gocantar.connectingthings.common.ids.TypeID
 import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.entity.BLEDevice
-import com.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.gocantar.connectingthings.common.extension.getType
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
-import com.gocantar.connectingthings.domain.usecase.DecodeSensorDataActor
-import com.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
-import com.gocantar.connectingthings.domain.usecase.GetCharacteristicNotificationActor
+import com.gocantar.connectingthings.domain.usecase.*
 import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
@@ -37,6 +34,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
     @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
     @Inject lateinit var mDecodeSensorData: DecodeSensorDataActor
+    @Inject lateinit var mSaveDataSensorActor: SaveDataSensorActor
 
 
     /**
@@ -149,7 +147,9 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
 
             override fun onNext(data: CharacteristicData) {
                 val valueSensed = mDecodeSensorData.decode(charData = data)
-                Log.d(TAG, valueSensed.toString())
+                valueSensed?.let {
+                    mSaveDataSensorActor.save(it)
+                }?: Log.e(TAG, "Error decoding sensor data")
             }
 
             override fun onError(e: Throwable?) {

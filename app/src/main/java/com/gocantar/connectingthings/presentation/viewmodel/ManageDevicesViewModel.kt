@@ -8,12 +8,10 @@ import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.di.component.DaggerManageDevicesComponent
 import com.gocantar.connectingthings.di.module.ManageDevicesViewModelModule
 import com.gocantar.connectingthings.domain.entity.BLEDevice
-import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.interactor.ConnectDevicesInteractor
 import com.gocantar.connectingthings.domain.interactor.ScanDevicesInteractor
 import com.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
-import com.gocantar.connectingthings.domain.usecase.GetCharacteristicNotificationActor
 import com.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
