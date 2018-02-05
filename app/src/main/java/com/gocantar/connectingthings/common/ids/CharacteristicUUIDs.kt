@@ -25,7 +25,7 @@ class CharacteristicUUIDs {
         val REVOGI_SMART_PLUG_RESPONSE = UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb")
 
         /**
-         * Sensor
+         * SensorType
          */
         val ARDUINO101_TEMPERATURE = UUID.fromString("0000ffa1-0000-1000-8000-00805f9b34fb")
         val ARDUINO101_HUMIDITY = UUID.fromString("0000ffa2-0000-1000-8000-00805f9b34fb")

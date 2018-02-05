@@ -6,6 +6,6 @@ import com.gocantar.connectingthings.domain.entity.CharacteristicData
 /**
  * Created by gocantar on 11/1/18.
  */
-interface DecodeLivePowerConsumptionInteractor {
-    fun decode(gatt: BluetoothGatt, charData: CharacteristicData): Int
+interface DecodeCharacteristicDataInteractor<T> {
+    fun decode(gatt: BluetoothGatt? = null, charData: CharacteristicData): T
 }

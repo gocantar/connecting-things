@@ -11,7 +11,11 @@ import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.usecase.*
 import com.gocantar.connectingthings.data.datasource.FirebaseDataSource
 import com.gocantar.connectingthings.data.repository.TemperatureSensorRepository
+import com.gocantar.connectingthings.device.controller.SensorController
+import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary
+import com.gocantar.connectingthings.domain.entity.SensorData
+import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataInteractor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -24,20 +28,34 @@ import javax.inject.Singleton
 
     @Provides @Singleton fun provideApp() = appController
 
-    @Provides @Singleton fun provideBluetoothManager(): BluetoothManager = appController.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+    @Provides @Singleton fun provideBluetoothManager(): BluetoothManager =
+            appController.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
 
-    @Provides @Singleton fun provideBLEService(bluetoothManager: BluetoothManager): BLEServiceBoundary = BLEController(bluetoothManager)
+    @Provides @Singleton fun provideBLEService(bluetoothManager: BluetoothManager):
+            BLEServiceBoundary = BLEController(bluetoothManager)
 
-    @Provides @Singleton fun provideFirebaseDB(): FirebaseDataSource = FirebaseDataSource()
+    @Provides @Singleton fun provideFirebaseDB():
+            FirebaseDataSource = FirebaseDataSource()
 
-    @Provides fun provideGetConnectedDevicesActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, Unit> = GetConnectedDevicesActor(bleService)
+    @Provides fun provideTemperatureSensorControllerBoundary(bleService: BLEServiceBoundary):
+            TemperatureSensorControllerBoundary = SensorController(bleService)
 
-    @Provides fun provideGetCharacteristicNotificationActor(bleService: BLEServiceBoundary): BaseInteractor<CharacteristicData, Unit> = GetCharacteristicNotificationActor(bleService)
+    @Provides fun provideGetConnectedDevicesActor(bleService: BLEServiceBoundary):
+            BaseInteractor<BLEDevice, Unit> = GetConnectedDevicesActor(bleService)
 
-    @Provides fun provideGetBLENotificationsActor(bleService: BLEServiceBoundary): BaseInteractor<DeviceEvent, Unit> = GetBLENotificationsActor(bleService)
+    @Provides fun provideGetCharacteristicNotificationActor(bleService: BLEServiceBoundary):
+            BaseInteractor<CharacteristicData, Unit> = GetCharacteristicNotificationActor(bleService)
 
-    @Provides fun provideDeviceActor(bleService: BLEServiceBoundary): BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
+    @Provides fun provideGetBLENotificationsActor(bleService: BLEServiceBoundary):
+            BaseInteractor<DeviceEvent, Unit> = GetBLENotificationsActor(bleService)
 
-    @Provides fun provideTemperatureSensorRepository(firebaseDB: FirebaseDataSource): TemperatureSensorRepositoryBoundary  = TemperatureSensorRepository(firebaseDB)
+    @Provides fun provideDeviceActor(bleService: BLEServiceBoundary):
+            BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
+
+    @Provides fun provideTemperatureSensorRepository(firebaseDB: FirebaseDataSource):
+            TemperatureSensorRepositoryBoundary  = TemperatureSensorRepository(firebaseDB)
+
+    @Provides fun provideDecodeSensorData(weatherstationController: TemperatureSensorControllerBoundary):
+            DecodeCharacteristicDataInteractor<SensorData?> = DecodeSensorDataActor(weatherstationController)
 
 }

@@ -2,7 +2,7 @@ package com.gocantar.connectingthings.di.module
 
 import com.gocantar.connectingthings.device.controller.PlugController
 import com.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
-import com.gocantar.connectingthings.domain.interactor.DecodeLivePowerConsumptionInteractor
+import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataInteractor
 import com.gocantar.connectingthings.domain.interactor.ManageNotificationsInteractor
 import com.gocantar.connectingthings.domain.interactor.RequestLivePowerConsumptionInteractor
 import com.gocantar.connectingthings.domain.interactor.SetPlugStateInteractor
@@ -29,5 +29,5 @@ import dagger.Provides
             ManageNotificationsInteractor = ManagePlugNotificationsActor(plugController)
 
     @Provides fun provideDecodeLivePowerConsumptionActor(plugController: PlugControllerBoundary):
-            DecodeLivePowerConsumptionInteractor = DecodeLivePowerConsumptionActor(plugController)
+            DecodeCharacteristicDataInteractor<Int> = DecodeLivePowerConsumptionActor(plugController)
 }

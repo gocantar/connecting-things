@@ -3,7 +3,6 @@ package com.gocantar.connectingthings.presentation.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
-import android.os.Bundle
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.di.component.AppComponent

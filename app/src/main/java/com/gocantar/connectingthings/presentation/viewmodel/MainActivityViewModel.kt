@@ -12,6 +12,7 @@ import com.gocantar.connectingthings.domain.usecase.GetConnectedDevicesActor
 import com.gocantar.connectingthings.common.extension.getType
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
+import com.gocantar.connectingthings.domain.usecase.DecodeSensorDataActor
 import com.gocantar.connectingthings.domain.usecase.GetBLENotificationsActor
 import com.gocantar.connectingthings.domain.usecase.GetCharacteristicNotificationActor
 import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
@@ -35,6 +36,8 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
     @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
+    @Inject lateinit var mDecodeSensorData: DecodeSensorDataActor
+
 
     /**
      * Public fun
@@ -145,7 +148,8 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             }
 
             override fun onNext(data: CharacteristicData) {
-                Log.d(TAG, data.value.toString())
+                val valueSensed = mDecodeSensorData.decode(charData = data)
+                Log.d(TAG, valueSensed.toString())
             }
 
             override fun onError(e: Throwable?) {

@@ -13,9 +13,6 @@ import dagger.Provides
  */
 @Module class WeatherStationControllerModule(controllerModule: WeatherStationViewModel) {
 
-    @Provides fun provideWeatherStationController(bleService: BLEServiceBoundary):
-            TemperatureSensorControllerBoundary = SensorController(bleService)
-
     @Provides fun provideManageNotificationsActor(sensorController: TemperatureSensorControllerBoundary):
             ManageSensorNotificationsActor = ManageSensorNotificationsActor(sensorController)
 
