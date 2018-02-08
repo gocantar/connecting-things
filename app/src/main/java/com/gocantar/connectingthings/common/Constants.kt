@@ -8,6 +8,8 @@ class Constants {
 
         const val GATT_BLUETOOTH = "gatt_bluetooth"
         const val CHARACTERISTIC_DATA = "characteristic_data"
+        const val ADDRESS = "address"
+        const val TIMESTAMP = "timestamp"
 
         const val COLOR_EFFECT =  0
         const val CANDLE_EFFECT = 1

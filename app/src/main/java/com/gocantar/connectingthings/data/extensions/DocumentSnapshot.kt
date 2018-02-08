@@ -9,13 +9,14 @@ import com.google.firebase.firestore.DocumentSnapshot
  */
 
 fun DocumentSnapshot.toTemperature(): TemperatureFB{
-    val temperature: Int = get("temperature") as Int
+    val t = this
+    val temperature = getLong("temperature").toInt()
     val timestamp: Long = getLong("timestamp")
     return TemperatureFB(temperature, timestamp)
 }
 
 fun DocumentSnapshot.toHumidity(): HumidityFB{
-    val humidity: Int = get("humidity") as Int
+    val humidity = getLong("humidity").toInt()
     val timestamp: Long = getLong("timestamp")
     return HumidityFB(humidity, timestamp)
 }
