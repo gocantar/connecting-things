@@ -10,9 +10,15 @@ import javax.inject.Inject
  * Created by gocantar on 21/11/17.
  */
 class SetBulbColorActor @Inject constructor(private val mBulbController: BulbControllerBoundary): SetColorInteractor {
-    override fun execute(params: BulbParams) {
+    override fun executeSetColor(params: BulbParams) {
         doAsync {
             mBulbController.setColor(params)
+        }
+    }
+
+    override fun executeSetEffect(params: BulbParams) {
+        doAsync {
+            mBulbController.setEffect(params)
         }
     }
 }

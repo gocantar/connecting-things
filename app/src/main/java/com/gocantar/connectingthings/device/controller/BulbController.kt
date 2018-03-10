@@ -21,10 +21,25 @@ class BulbController: BulbControllerBoundary {
 
     override fun setColor(params: BulbParams) {
         when(params.device.uuids.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice
-                    .setColor(gatt = params.device.gattBluetoothGatt,
-                            alpha = params.status.alpha, red = Color.red(params.status.color),
-                            green = Color.green(params.status.color), blue = Color.blue(params.status.color))
+            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) ->
+                PlayBulbCandleDevice.setColor(gatt = params.device.gattBluetoothGatt,
+                        alpha = params.status.alpha,
+                        red = Color.red(params.status.color),
+                        green = Color.green(params.status.color),
+                        blue = Color.blue(params.status.color))
+        }
+    }
+
+    override fun setEffect(params: BulbParams) {
+        when(params.device.uuids.getBulbServiceUuid()){
+            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) ->
+                    PlayBulbCandleDevice.setEffect(gatt = params.device.gattBluetoothGatt,
+                            alpha = params.status.alpha,
+                            period = params.status.period,
+                            red = Color.red(params.status.color),
+                            green = Color.green(params.status.color),
+                            blue = Color.blue(params.status.color),
+                            effect = params.status.effectID)
         }
     }
 

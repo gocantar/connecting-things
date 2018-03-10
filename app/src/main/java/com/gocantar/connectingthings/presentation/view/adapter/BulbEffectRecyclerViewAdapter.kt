@@ -13,7 +13,7 @@ import com.gocantar.connectingthings.presentation.view.adapter.holder.render.Eff
  */
 class BulbEffectRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
                                     private val mItems: List<BulbEffect>,
-                                    private val mListener: (String) -> Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                                    private val mListener: (Int) -> Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = EffectBoxViewRender().parent(parent)
@@ -23,7 +23,7 @@ class BulbEffectRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as EffectBoxViewHolder).bind(mItems[position].effect, mListener)
+        (holder as EffectBoxViewHolder).bind(mItems[position].effect, position,  mListener)
     }
 
     override fun getItemCount(): Int {

@@ -40,7 +40,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
-    var mAlpha: Int = 0
+    var mAlpha: Int = 0xFF
 
     lateinit var mDevice: BLEDevice
 
@@ -117,17 +117,16 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         when{
             mColor != color -> {
                 selectColor(color)
-                mSetColorActor.execute(BulbParams (mDevice,
-                        BulbStatus(true, mColor, mAlpha, mEffect)))
+                sendDataToDevice()
             }
         }
     }
 
-    fun putEffect(effect: String){
-        val effectId = getEffectIdFromString(effect)
+    fun putEffect(effect: Int){
         when{
-            mEffect !=  effectId -> {
-                selectEffect(effectId)
+            mEffect !=  effect -> {
+                selectEffect(effect)
+                sendDataToDevice()
             }
         }
     }
@@ -176,6 +175,18 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             }
         }
         mColorsRecycler.value = UPDATE_ALL_RECYCLER
+    }
+
+    private fun sendDataToDevice(){
+        val params = BulbParams (mDevice,
+                BulbStatus(true, mColor, mAlpha, mEffect))
+        when (mEffect){
+            Constants.COLOR_EFFECT -> mSetColorActor.executeSetColor(params)
+            else -> {
+                mSetColorActor.executeSetEffect(params)
+            }
+        }
+
     }
 
     private fun disableALlColors(){

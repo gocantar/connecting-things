@@ -69,7 +69,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         mViewModel.putColor(color)
     }
 
-    private fun onEffectChanged(effect: String){
+    private fun onEffectChanged(effect: Int){
         mViewModel.putEffect(effect)
     }
 

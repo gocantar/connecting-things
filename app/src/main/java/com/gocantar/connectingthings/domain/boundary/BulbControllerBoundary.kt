@@ -11,6 +11,7 @@ import io.reactivex.Observable
  */
 interface BulbControllerBoundary {
     fun setColor(params: BulbParams)
+    fun setEffect(params: BulbParams)
     fun requestStatus(gatt: BluetoothGatt)
     fun decodeStatus(gatt: BluetoothGatt, charData: CharacteristicData): Observable<BulbStatus>
     fun getAvailableEffects(): Observable<Int>

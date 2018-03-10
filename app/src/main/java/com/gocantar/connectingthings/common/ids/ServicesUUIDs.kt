@@ -17,9 +17,11 @@ class ServicesUUIDs {
          * PlayBulb
          */
         val PLAYBULB_CANDLE_PRIMARY_SERVICE = UUID.fromString("0000ff02-0000-1000-8000-00805f9b34fb")
+        val RBPI3_PRIMARY_SERVICE = UUID.fromString("0000ffb0-0000-1000-8000-00805f9b34fb")
 
 
-        val Bulbs: List<UUID> = listOf(PLAYBULB_CANDLE_PRIMARY_SERVICE)
+
+        val Bulbs: List<UUID> = listOf(PLAYBULB_CANDLE_PRIMARY_SERVICE, RBPI3_PRIMARY_SERVICE)
 
 
         /**

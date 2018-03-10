@@ -6,10 +6,12 @@ import android.os.Parcelable
 /**
  * Created by gocantar on 8/1/18.
  */
-data class BulbStatus(val switchedOn: Boolean = true, val color: Int, val alpha: Int, val effectID: Int) : Parcelable {
+data class BulbStatus(val switchedOn: Boolean = true, val color: Int, val alpha: Int, val effectID: Int, val period: Int = 0x00) : Parcelable {
+
 
     private constructor(parcel: Parcel) : this(
             parcel.readByte() != 0.toByte(),
+            parcel.readInt(),
             parcel.readInt(),
             parcel.readInt(),
             parcel.readInt())
@@ -19,6 +21,7 @@ data class BulbStatus(val switchedOn: Boolean = true, val color: Int, val alpha:
         parcel.writeInt(color)
         parcel.writeInt(alpha)
         parcel.writeInt(effectID)
+        parcel.writeInt(period)
     }
 
     override fun describeContents(): Int {

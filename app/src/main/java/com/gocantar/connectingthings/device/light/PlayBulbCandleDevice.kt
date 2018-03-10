@@ -20,19 +20,18 @@ object PlayBulbCandleDevice{
 
     private val TAG = javaClass.simpleName
 
-    private val COLOR_EFFECT =  1
-    private val CANDLE_EFFECT = 2
-    private val FADE_EFFECT =  3
-    private val PULSE_EFFECT = 4
-    private val DECREASE_EFFECT =  5
-    private val RAINBOW_EFFECT = 6
+    private val CANDLE_EFFECT = 4
+    private val FADE_EFFECT =  1
+    private val PULSE_EFFECT = 0
+    private val DECREASE_EFFECT =  3
+    private val RAINBOW_EFFECT = 2
 
     private val ALPHA_VALUE = 0
     private val RED_VALUE = 1
     private val GREEN_VALUE = 2
     private val BLUE_VALUE = 3
     private val EFFECT_VALUE = 4
-    private val PERIOD_VALUE = 6
+    private val PERIOD_VALUE = 5
 
     val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,
@@ -47,7 +46,20 @@ object PlayBulbCandleDevice{
             characteristic.value = color
             when(gatt.writeCharacteristic(characteristic)){
                 true -> Log.d(TAG, "Value was written")
-                else -> { Log.d(TAG, "Error writing the value") }
+                else -> Log.d(TAG, "Error writing the value")
+            }
+        }
+    }
+
+    fun setEffect(gatt: BluetoothGatt?, alpha: Int, period: Int, red: Int = 0x00, green: Int = 0x00, blue: Int = 0x00, effect: Int){
+        gatt?.let {
+            val effect = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte(), getEffectByteFromID(effect), 0x00, period.toByte(), 0x00)
+            val service = getService(gatt)
+            val characteristic = getEffectCharacteristic(service)
+            characteristic.value = effect
+            when (gatt.writeCharacteristic(characteristic)){
+                true -> Log.d(TAG, "Value was written")
+                else -> Log.d(TAG, "Error writing the value")
             }
         }
     }
@@ -83,7 +95,6 @@ object PlayBulbCandleDevice{
 
     private fun getEffectID(effect: Int): Int =
         when(effect){
-            COLOR_EFFECT -> Constants.COLOR_EFFECT
             CANDLE_EFFECT -> Constants.CANDLE_EFFECT
             FADE_EFFECT -> Constants.FADE_EFFECT
             PULSE_EFFECT -> Constants.PULSE_EFFECT
@@ -91,6 +102,16 @@ object PlayBulbCandleDevice{
             RAINBOW_EFFECT -> Constants.RAINBOW_EFFECT
             else -> Constants.COLOR_EFFECT
     }
+
+    private fun getEffectByteFromID(effect: Int): Byte =
+            when(effect){
+                Constants.CANDLE_EFFECT -> CANDLE_EFFECT.toByte()
+                Constants.FADE_EFFECT -> FADE_EFFECT.toByte()
+                Constants.DECREASE_EFFECT -> DECREASE_EFFECT.toByte()
+                Constants.PULSE_EFFECT -> PULSE_EFFECT.toByte()
+                Constants.RAINBOW_EFFECT -> RAINBOW_EFFECT.toByte()
+                else -> 0x00
+            }
 
     private fun getColorFromBytes(color: ByteArray): Int {
         return  color[RED_VALUE].toUnsignedInt().shl(16) or

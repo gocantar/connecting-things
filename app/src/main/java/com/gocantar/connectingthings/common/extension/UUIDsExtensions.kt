@@ -19,8 +19,8 @@ fun List<ParcelUuid>.getType(): TypeID {
     }
 }
 
-fun UUID.getServiceUuidFromCharacteristic(): UUID{
-    return BLEServicesUUIDs.SENSORS_BLE_SERVICES.filter { it.value.contains(this) }.keys.first()
+fun UUID.getServiceUuidFromCharacteristic(): UUID?{
+    return BLEServicesUUIDs.SENSORS_BLE_SERVICES.filter { it.value.contains(this) }.keys.firstOrNull()
 }
 
 
