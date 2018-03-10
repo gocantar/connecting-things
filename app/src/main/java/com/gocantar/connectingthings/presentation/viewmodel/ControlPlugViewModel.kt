@@ -117,26 +117,39 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
     }
 
     private fun getWattsFromInt(intValue: Int): String{
-        return String.format("%.2f", intValue/1000.toFloat())
+        var value = intValue
+        if(intValue < 0)
+            value = 0
+        return String.format("%.2f", value/1000.toFloat())
     }
 
     private fun getProgress(value: Int): Int{
-        val wattsConsumption = value/1000
+
+        val wattsConsumption = when{
+            value < 0 -> Constants.MIN_CONSUMPTION_LOW
+            else -> value/1000
+        }
+
         return when(wattsConsumption){
             in Constants.MIN_CONSUMPTION_LOW..Constants.MAX_CONSUMPTION_LOW ->
                 wattsConsumption
             in Constants.MIN_CONSUMPTION_MEDIUM..Constants.MAX_CONSUMPTION_MEDIUM ->
-                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_MEDIUM, Constants.MAX_CONSUMPTION_MEDIUM, 300 )
+                getProgressValue(wattsConsumption, Constants.MIN_CONSUMPTION_MEDIUM, Constants.MAX_CONSUMPTION_MEDIUM, 300 )
             in Constants.MIN_CONSUMPTION_UPPER_MEDIUM..Constants.MAX_CONSUMPTION_UPPER_MEDIUM ->
-                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_UPPER_MEDIUM, Constants.MAX_CONSUMPTION_UPPER_MEDIUM, 540)
+                getProgressValue(wattsConsumption, Constants.MIN_CONSUMPTION_UPPER_MEDIUM, Constants.MAX_CONSUMPTION_UPPER_MEDIUM, 540)
             in Constants.MIN_CONSUMPTION_HIGH..Constants.MAX_CONSUMPTION_HIGH ->
-                getValue(wattsConsumption, Constants.MIN_CONSUMPTION_HIGH, Constants.MAX_CONSUMPTION_HIGH, 750)
+                getProgressValue(wattsConsumption, Constants.MIN_CONSUMPTION_HIGH, Constants.MAX_CONSUMPTION_HIGH, 750)
             else -> 1000
         }
     }
 
-    private fun getValue(value: Int, min: Int, max: Int, prevProgress: Int): Int =
-            prevProgress + (((value - min) * min) / (max - min))
+    private fun getProgressValue(value: Int, min: Int, max: Int, prevProgress: Int): Int {
+        val progress =  prevProgress + (((value - min) * min) / (max - min))
+        return when (progress > max) {
+            true -> max
+            else -> progress
+        }
+    }
 
     override fun onCleared() {
         mGetDeviceActor.dispose()
