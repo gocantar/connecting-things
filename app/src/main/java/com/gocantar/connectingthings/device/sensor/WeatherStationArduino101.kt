@@ -14,34 +14,34 @@ import org.w3c.dom.CharacterData
 /**
  * Created by gocantar on 23/1/18.
  */
-object WeatherStationArduino101 {
+class WeatherStationArduino101 :WeatherStation {
 
 
-    fun enableTemperatureNotification(gatt: BluetoothGatt){
+    override fun enableTemperatureNotification(gatt: BluetoothGatt){
         val characteristic = getTemperatureCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, true)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
     }
 
-    fun disableTemperatureNotification(gatt: BluetoothGatt){
+    override fun disableTemperatureNotification(gatt: BluetoothGatt){
         val characteristic = getTemperatureCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, false)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
-    fun enableHumidityNotification(gatt: BluetoothGatt){
+    override fun enableHumidityNotification(gatt: BluetoothGatt){
         val characteristic = getHumidityCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, true)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
     }
 
-    fun disableHumidityNotification(gatt: BluetoothGatt){
+    override fun disableHumidityNotification(gatt: BluetoothGatt){
         val characteristic = getHumidityCharacteristic(gatt)
         gatt.setCharacteristicNotification(characteristic, false)
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
-    fun decodeData(data: CharacteristicData): SensorData{
+    override fun decodeData(data: CharacteristicData): SensorData{
         return when(data.uuid){
             CharacteristicUUIDs.ARDUINO101_TEMPERATURE -> {
                 SensorData(data.value.first().toInt(), data.address, SensorType.TEMPERATURE)

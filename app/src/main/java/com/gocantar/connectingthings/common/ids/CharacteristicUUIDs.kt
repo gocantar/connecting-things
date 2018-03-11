@@ -34,5 +34,7 @@ class CharacteristicUUIDs {
          */
         val ARDUINO101_TEMPERATURE = UUID.fromString("0000ffa1-0000-1000-8000-00805f9b34fb")
         val ARDUINO101_HUMIDITY = UUID.fromString("0000ffa2-0000-1000-8000-00805f9b34fb")
+
+        val SENSOR_CHARACTERISTICS = listOf(ARDUINO101_TEMPERATURE, ARDUINO101_HUMIDITY)
     }
 }

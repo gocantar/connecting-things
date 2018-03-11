@@ -1,7 +1,6 @@
 package com.gocantar.connectingthings.common.extension
 
 import android.os.ParcelUuid
-import com.gocantar.connectingthings.common.ids.BLEServicesUUIDs
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.common.ids.TypeID
 import java.util.*
@@ -19,9 +18,6 @@ fun List<ParcelUuid>.getType(): TypeID {
     }
 }
 
-fun UUID.getServiceUuidFromCharacteristic(): UUID?{
-    return BLEServicesUUIDs.SENSORS_BLE_SERVICES.filter { it.value.contains(this) }.keys.firstOrNull()
-}
 
 
 fun List<ParcelUuid>.getBulbServiceUuid(): ParcelUuid = first { ServicesUUIDs.Bulbs.contains(it.uuid) }

@@ -3,9 +3,7 @@ package com.gocantar.connectingthings.device.controller
 import android.bluetooth.BluetoothGatt
 import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.extension.getSensorServiceUuid
-import com.gocantar.connectingthings.common.extension.getServiceUuidFromCharacteristic
-import com.gocantar.connectingthings.common.ids.ServicesUUIDs
-import com.gocantar.connectingthings.device.sensor.WeatherStationArduino101
+import com.gocantar.connectingthings.device.sensor.WeatherStationFactory
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
@@ -49,50 +47,30 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
         mDisposable.clear().takeUnless { mDisposable.isDisposed }
     }
 
-    override fun decode(charData: CharacteristicData): SensorData? {
-        val service = charData.uuid.getServiceUuidFromCharacteristic()
-        return when(service){
-            ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE -> {
-                WeatherStationArduino101.decodeData(charData)
-            }
-            else -> null
-        }
-    }
+    override fun decode(charData: CharacteristicData): SensorData? =
+        WeatherStationFactory.createWeatherStation(ParcelUuid(charData.uuid)).decodeData(charData)
+
 
     /**
      * Private fun
      */
 
     private fun enableTemperatureNotifications(gatt: BluetoothGatt) {
-        val service = getServiceUuid(gatt)
-        when(service){
-            ParcelUuid(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE) ->
-                WeatherStationArduino101.enableTemperatureNotification(gatt)
-        }
+        WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).enableTemperatureNotification(gatt)
+
     }
 
     private fun enableHumidityNotifications(gatt: BluetoothGatt) {
-        val service = getServiceUuid(gatt)
-        when(service){
-            ParcelUuid(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE) ->
-                WeatherStationArduino101.enableHumidityNotification(gatt)
-        }
+        WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).enableHumidityNotification(gatt)
     }
 
     private fun disableTemperatureNotifications(gatt: BluetoothGatt) {
-        val service = getServiceUuid(gatt)
-        when(service){
-            ParcelUuid(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE) ->
-                WeatherStationArduino101.disableTemperatureNotification(gatt)
-        }
+        WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).disableTemperatureNotification(gatt)
     }
 
     private fun disableHumidityNotifications(gatt: BluetoothGatt) {
-        val service = getServiceUuid(gatt)
-        when(service){
-            ParcelUuid(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE) ->
-                WeatherStationArduino101.disableHumidityNotification(gatt)
-        }
+        WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).disableHumidityNotification(gatt)
+
     }
 
     private fun getDescriptorObservable(): Observable<Int>{

@@ -1,5 +1,6 @@
 package com.gocantar.connectingthings.data.datasource
 
+import android.util.Log
 import com.gocantar.connectingthings.data.extensions.toHumidity
 import com.gocantar.connectingthings.data.extensions.toTemperature
 import com.gocantar.connectingthings.data.model.HumidityFB
@@ -11,6 +12,8 @@ import io.reactivex.subjects.PublishSubject
  * Created by gocantar on 17/1/18.
  */
 class FirebaseDataSource {
+
+    private val TAG = javaClass.simpleName
 
     private val DATA_COLLECTION = "data"
     private val STATE_COLLECTION = "state"
@@ -25,6 +28,7 @@ class FirebaseDataSource {
                 .document(TEMPERATURE)
                 .collection(address)
                 .add(temperature)
+        Log.i(TAG, "Device $address added a temperature with ${temperature.temperature} of value")
     }
 
     fun addHumidity(address: String, humidity: HumidityFB){
@@ -32,6 +36,8 @@ class FirebaseDataSource {
                 .document(HUMIDITY)
                 .collection(address)
                 .add(humidity)
+        Log.i(TAG, "Device $address added a temperature with ${humidity.humidity} of value")
+
     }
 
     fun getTemperature(address: String, from: Long = 0): PublishSubject<TemperatureFB>{
