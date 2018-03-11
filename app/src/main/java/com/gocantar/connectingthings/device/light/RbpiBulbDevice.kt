@@ -29,7 +29,6 @@ object RbpiBulbDevice {
 
     fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
         gatt?.let {
-            gatt?.let {
                 val color = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte())
                 val service = getService(gatt)
                 val characteristic = getCharacteristic(service)
@@ -38,7 +37,6 @@ object RbpiBulbDevice {
                     true -> Log.d(TAG, "Value was written")
                     else -> Log.d(TAG, "Error writing the value")
                 }
-            }
         }
     }
 
@@ -52,7 +50,8 @@ object RbpiBulbDevice {
     }
 
     private fun getColorFromBytes(color: ByteArray): Int {
-        return  color[RED_VALUE].toUnsignedInt().shl(16) or
+        return  color[ALPHA_VALUE].toUnsignedInt().shl(24) or
+                color[RED_VALUE].toUnsignedInt().shl(16) or
                 color[GREEN_VALUE].toUnsignedInt().shl(8) or
                 color[BLUE_VALUE].toUnsignedInt()
     }

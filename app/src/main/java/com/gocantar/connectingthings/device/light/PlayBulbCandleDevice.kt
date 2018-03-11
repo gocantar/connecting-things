@@ -114,7 +114,8 @@ object PlayBulbCandleDevice{
             }
 
     private fun getColorFromBytes(color: ByteArray): Int {
-        return  color[RED_VALUE].toUnsignedInt().shl(16) or
+        return  color[ALPHA_VALUE].toUnsignedInt().shl(24) or
+                color[RED_VALUE].toUnsignedInt().shl(16) or
                 color[GREEN_VALUE].toUnsignedInt().shl(8) or
                 color[BLUE_VALUE].toUnsignedInt()
     }

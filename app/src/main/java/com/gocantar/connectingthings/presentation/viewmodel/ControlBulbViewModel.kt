@@ -84,7 +84,9 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         override fun onNext(status: BulbStatus?) {
             when(status){
                 null -> TODO("Show error")
-                else -> selectEffect(status.effectID)
+                else -> {
+                    selectEffect(status.effectID, status.color)
+                }
             }
         }
         override fun onError(e: Throwable?) {
@@ -148,7 +150,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
     }
 
-    private fun selectEffect(effectId: Int){
+
+    private fun selectEffect(effectId: Int, color: Int = mColor){
         mEffectsList[mEffect].state = State.AVAILABLE
         mEffectsRecycler.value = mEffect
 
@@ -159,7 +162,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         when(effectId){
             Constants.COLOR_EFFECT, Constants.PULSE_EFFECT,
             Constants.FADE_EFFECT, Constants.CANDLE_EFFECT -> {
-                selectColor(mColor)
+                selectColor(color)
             }
             else -> disableALlColors()
         }
@@ -167,8 +170,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     }
 
     private fun selectColor(color: Int){
-        mColor = color
         mColorList.forEach {
+            mColor = color
             when(mColor){
                 it.color ->  mColorList[mColorList.indexOf(it)].state = State.SELECTED
                 else ->  mColorList[mColorList.indexOf(it)].state = State.AVAILABLE

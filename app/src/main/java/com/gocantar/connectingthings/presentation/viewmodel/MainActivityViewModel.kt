@@ -9,6 +9,7 @@ import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.entity.BLEDevice
 import com.gocantar.connectingthings.common.extension.getType
+import com.gocantar.connectingthings.common.ids.BLEServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.usecase.*
@@ -146,10 +147,14 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             }
 
             override fun onNext(data: CharacteristicData) {
-                val valueSensed = mDecodeSensorData.decode(charData = data)
-                valueSensed?.let {
-                    mSaveDataSensorActor.save(it)
-                }?: Log.e(TAG, "Error decoding sensor data")
+                if (BLEServicesUUIDs.SENSORS_BLE_SERVICES.containsKey(data.uuid)) {
+                    val valueSensed = mDecodeSensorData.decode(charData = data)
+                    valueSensed?.let {
+                        mSaveDataSensorActor.save(it)
+                        Log.i(TAG, "Sensor data has been saved in the data base")
+                    }?: Log.e(TAG, "Error decoding sensor data")
+                }
+                Log.i(TAG, "No sensor data receives")
             }
 
             override fun onError(e: Throwable?) {
