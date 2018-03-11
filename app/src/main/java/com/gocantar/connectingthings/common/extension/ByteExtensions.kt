@@ -1,5 +1,7 @@
 package com.gocantar.connectingthings.common.extension
 
+import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
+
 /**
  * Created by gocantar on 6/1/18.
  */
@@ -12,3 +14,4 @@ fun ByteArray.fiveBytesToInt(): Int {
             this[2].toUnsignedInt().shl(16) +  this[3].toUnsignedInt().shl(8) +
             this[4].toUnsignedInt()
 }
+

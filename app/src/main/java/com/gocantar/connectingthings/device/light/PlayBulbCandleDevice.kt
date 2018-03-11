@@ -20,18 +20,18 @@ object PlayBulbCandleDevice{
 
     private val TAG = javaClass.simpleName
 
-    private val CANDLE_EFFECT = 4
-    private val FADE_EFFECT =  1
-    private val PULSE_EFFECT = 0
-    private val DECREASE_EFFECT =  3
-    private val RAINBOW_EFFECT = 2
+    private const val CANDLE_EFFECT = 4
+    private const  val FADE_EFFECT =  1
+    private const  val PULSE_EFFECT = 0
+    private const  val DECREASE_EFFECT =  3
+    private const  val RAINBOW_EFFECT = 2
 
-    private val ALPHA_VALUE = 0
-    private val RED_VALUE = 1
-    private val GREEN_VALUE = 2
-    private val BLUE_VALUE = 3
-    private val EFFECT_VALUE = 4
-    private val PERIOD_VALUE = 5
+    private const  val ALPHA_VALUE = 0
+    private const  val RED_VALUE = 1
+    private const  val GREEN_VALUE = 2
+    private const  val BLUE_VALUE = 3
+    private const  val EFFECT_VALUE = 4
+    private const  val PERIOD_VALUE = 5
 
     val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,

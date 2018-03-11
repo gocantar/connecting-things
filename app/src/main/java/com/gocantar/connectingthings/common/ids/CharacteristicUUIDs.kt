@@ -19,6 +19,11 @@ class CharacteristicUUIDs {
         val PLAYBULB_CANDLE_CHANGE_EFFECT = UUID.fromString("0000fffb-0000-1000-8000-00805f9b34fb")
 
         /**
+         * Rbp3 Bulb
+         */
+        val RBPI3_CHANGE_COLOR = UUID.fromString("0000ffb1-0000-1000-8000-00805f9b34fb")
+
+        /**
          * Smart Connect
          */
         val REVOGI_SMART_PLUG_REQUEST =  UUID.fromString("0000fff3-0000-1000-8000-00805f9b34fb")

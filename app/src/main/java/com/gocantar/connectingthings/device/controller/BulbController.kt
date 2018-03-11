@@ -6,6 +6,7 @@ import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.extension.getBulbServiceUuid
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
+import com.gocantar.connectingthings.device.light.RbpiBulbDevice
 import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
 import com.gocantar.connectingthings.domain.entity.BulbParams
 import com.gocantar.connectingthings.domain.entity.BulbStatus
@@ -27,6 +28,12 @@ class BulbController: BulbControllerBoundary {
                         red = Color.red(params.status.color),
                         green = Color.green(params.status.color),
                         blue = Color.blue(params.status.color))
+            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) ->
+                    RbpiBulbDevice.setColor(gatt = params.device.gattBluetoothGatt,
+                            alpha = params.status.alpha,
+                            red = Color.red(params.status.color),
+                            green = Color.green(params.status.color),
+                            blue = Color.blue(params.status.color))
         }
     }
 
@@ -47,6 +54,9 @@ class BulbController: BulbControllerBoundary {
         when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice
                     .readCharacteristic(gatt)
+            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) -> {
+                RbpiBulbDevice.readCharacteristic(gatt)
+            }
         }
     }
 
@@ -55,6 +65,11 @@ class BulbController: BulbControllerBoundary {
             ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> {
                 PlayBulbCandleDevice.decodeCharacteristic(charData)
             }
+            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) -> {
+                RbpiBulbDevice.decodeCharacteristic(charData.value)
+            }
+
+
             else -> Observable.empty()
         }
     }
