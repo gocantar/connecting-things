@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.extension.getBulbServiceUuid
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
+import com.gocantar.connectingthings.device.light.BulbDeviceFactory
 import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
 import com.gocantar.connectingthings.device.light.RbpiBulbDevice
 import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
@@ -21,57 +22,36 @@ class BulbController: BulbControllerBoundary {
     private val TAG = javaClass.simpleName
 
     override fun setColor(params: BulbParams) {
-        when(params.device.uuids.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) ->
-                PlayBulbCandleDevice.setColor(gatt = params.device.gattBluetoothGatt,
+        BulbDeviceFactory.createBulb(params.device.uuids.getBulbServiceUuid())
+                .setColor(gatt = params.device.gattBluetoothGatt,
                         alpha = params.status.alpha,
                         red = Color.red(params.status.color),
                         green = Color.green(params.status.color),
                         blue = Color.blue(params.status.color))
-            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) ->
-                    RbpiBulbDevice.setColor(gatt = params.device.gattBluetoothGatt,
-                            alpha = params.status.alpha,
-                            red = Color.red(params.status.color),
-                            green = Color.green(params.status.color),
-                            blue = Color.blue(params.status.color))
-        }
+
     }
 
     override fun setEffect(params: BulbParams) {
-        when(params.device.uuids.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) ->
-                    PlayBulbCandleDevice.setEffect(gatt = params.device.gattBluetoothGatt,
+        BulbDeviceFactory.createBulb(params.device.uuids.getBulbServiceUuid())
+                .setEffect(gatt = params.device.gattBluetoothGatt,
                             alpha = params.status.alpha,
                             period = params.status.period,
                             red = Color.red(params.status.color),
                             green = Color.green(params.status.color),
                             blue = Color.blue(params.status.color),
                             effect = params.status.effectID)
-        }
+
     }
 
     override fun requestStatus(gatt: BluetoothGatt) {
-        when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> PlayBulbCandleDevice
+        BulbDeviceFactory.createBulb(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid())
                     .readCharacteristic(gatt)
-            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) -> {
-                RbpiBulbDevice.readCharacteristic(gatt)
-            }
-        }
+
     }
 
     override fun decodeStatus(gatt: BluetoothGatt, charData: CharacteristicData): Observable<BulbStatus> {
-        return when(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid()){
-            ParcelUuid(ServicesUUIDs.PLAYBULB_CANDLE_PRIMARY_SERVICE) -> {
-                PlayBulbCandleDevice.decodeCharacteristic(charData)
-            }
-            ParcelUuid(ServicesUUIDs.RBPI3_PRIMARY_SERVICE) -> {
-                RbpiBulbDevice.decodeCharacteristic(charData.value)
-            }
-
-
-            else -> Observable.empty()
-        }
+        return BulbDeviceFactory.createBulb(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid())
+           .decodeCharacteristic(charData)
     }
 
     override fun getAvailableEffects(): Observable<Int> {

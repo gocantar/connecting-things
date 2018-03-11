@@ -16,29 +16,29 @@ import io.reactivex.Observable
  * Created by gocantar on 7/11/17.
  */
 
-object PlayBulbCandleDevice{
+class PlayBulbCandleDevice :BulbDevice{
 
     private val TAG = javaClass.simpleName
 
-    private const val CANDLE_EFFECT = 4
-    private const  val FADE_EFFECT =  1
-    private const  val PULSE_EFFECT = 0
-    private const  val DECREASE_EFFECT =  3
-    private const  val RAINBOW_EFFECT = 2
+    private  val CANDLE_EFFECT = 4
+    private  val FADE_EFFECT =  1
+    private  val PULSE_EFFECT = 0
+    private  val DECREASE_EFFECT =  3
+    private  val RAINBOW_EFFECT = 2
 
-    private const  val ALPHA_VALUE = 0
-    private const  val RED_VALUE = 1
-    private const  val GREEN_VALUE = 2
-    private const  val BLUE_VALUE = 3
-    private const  val EFFECT_VALUE = 4
-    private const  val PERIOD_VALUE = 5
+    private  val ALPHA_VALUE = 0
+    private  val RED_VALUE = 1
+    private  val GREEN_VALUE = 2
+    private  val BLUE_VALUE = 3
+    private  val EFFECT_VALUE = 4
+    private  val PERIOD_VALUE = 5
 
     val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,
                 Constants.RAINBOW_EFFECT)
 
 
-    fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
+    override fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
         gatt?.let {
             val color = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte())
             val service = getService(gatt)
@@ -51,7 +51,7 @@ object PlayBulbCandleDevice{
         }
     }
 
-    fun setEffect(gatt: BluetoothGatt?, alpha: Int, period: Int, red: Int = 0x00, green: Int = 0x00, blue: Int = 0x00, effect: Int){
+    override fun setEffect(gatt: BluetoothGatt?, alpha: Int, period: Int, red: Int , green: Int , blue: Int, effect: Int){
         gatt?.let {
             val effect = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte(), getEffectByteFromID(effect), 0x00, period.toByte(), 0x00)
             val service = getService(gatt)
@@ -64,11 +64,11 @@ object PlayBulbCandleDevice{
         }
     }
 
-    fun readCharacteristic(gatt: BluetoothGatt){
+    override fun readCharacteristic(gatt: BluetoothGatt){
         gatt.readCharacteristic(getEffectCharacteristic(getService(gatt)))
     }
 
-    fun decodeCharacteristic(charData: CharacteristicData): Observable<BulbStatus> {
+    override fun decodeCharacteristic(charData: CharacteristicData): Observable<BulbStatus> {
         var params: BulbStatus? = null
         when(charData.uuid){
             CharacteristicUUIDs.PLAYBULB_CANDLE_CHANGE_EFFECT -> {
