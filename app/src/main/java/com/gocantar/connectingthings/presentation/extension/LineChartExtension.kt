@@ -51,7 +51,7 @@ fun LineChart.setUpLegend(){
     legend.textColor = resources.getColor(R.color.primaryText, AppController.instance.theme)
 }
 
-fun LineChart.setUpAxis(){
+fun LineChart.setUpAxis(max: Float = 80f){
     xAxis.textColor = Color.BLACK
     xAxis.position = XAxis.XAxisPosition.BOTTOM
     xAxis.setDrawGridLines(false)
@@ -60,7 +60,7 @@ fun LineChart.setUpAxis(){
     xAxis.isEnabled = true
 
     axisLeft.textColor = Color.BLACK
-    axisLeft.axisMaximum = 80f
+    axisLeft.axisMaximum = max
     axisLeft.axisMinimum = 0f
     axisLeft.setDrawGridLines(false)
 

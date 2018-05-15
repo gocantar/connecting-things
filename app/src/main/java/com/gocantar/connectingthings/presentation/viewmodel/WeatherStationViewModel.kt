@@ -132,5 +132,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     override fun onCleared() {
         super.onCleared()
         mGetNotifications.dispose()
+        mGetHumidityDataActor.dispose()
+        mGetTemperatureDataActor.dispose()
     }
 }
