@@ -10,10 +10,10 @@ import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.usecase.*
 import com.gocantar.connectingthings.data.datasource.FirebaseDataSource
-import com.gocantar.connectingthings.data.repository.TemperatureSensorRepository
+import com.gocantar.connectingthings.data.repository.WeatherStationSensorRepository
 import com.gocantar.connectingthings.device.controller.SensorController
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
-import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary
+import com.gocantar.connectingthings.domain.boundary.WeatherStationSensorRepositoryBoundary
 import com.gocantar.connectingthings.domain.entity.SensorData
 import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataInteractor
 import com.gocantar.connectingthings.domain.interactor.SaveData
@@ -54,11 +54,11 @@ import javax.inject.Singleton
             BaseInteractor<BLEDevice, String> = GetDeviceActor(bleService)
 
     @Provides fun provideTemperatureSensorRepository(firebaseDB: FirebaseDataSource):
-            TemperatureSensorRepositoryBoundary  = TemperatureSensorRepository(firebaseDB)
+            WeatherStationSensorRepositoryBoundary = WeatherStationSensorRepository(firebaseDB)
 
     @Provides fun provideDecodeSensorData(weatherstationController: TemperatureSensorControllerBoundary):
             DecodeCharacteristicDataInteractor<SensorData?> = DecodeSensorDataActor(weatherstationController)
 
-    @Provides fun provideSaveSensorData(weatherStationRepository: TemperatureSensorRepositoryBoundary):
+    @Provides fun provideSaveSensorData(weatherStationRepository: WeatherStationSensorRepositoryBoundary):
             SaveData<SensorData> = SaveDataSensorActor(weatherStationRepository)
 }

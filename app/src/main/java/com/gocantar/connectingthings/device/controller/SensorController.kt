@@ -20,13 +20,15 @@ import javax.inject.Inject
 
 class SensorController @Inject constructor(private val mBLEController: BLEServiceBoundary) : TemperatureSensorControllerBoundary {
 
+
     private val mDisposable: CompositeDisposable = CompositeDisposable()
 
     private val mDescriptorObservable = getDescriptorObservable()
 
+    // TODO Value of enable notifications indicate if notifications are disabled or enabled
     override fun enableNotifications(gatt: BluetoothGatt) {
         mDisposable.add(mDescriptorObservable
-                .take(1)
+                .firstElement()
                 .subscribe {
                     enableHumidityNotifications(gatt)
                 }
@@ -36,7 +38,7 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
 
     override fun disableNotifications(gatt: BluetoothGatt) {
         mDisposable.add(mDescriptorObservable
-                .take(1)
+                .firstElement()
                 .subscribe {
                     disableHumidityNotifications(gatt)
                 })
@@ -73,7 +75,7 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
 
     }
 
-    private fun getDescriptorObservable(): Observable<Int>{
+    private fun getDescriptorObservable(): Observable<ByteArray>{
         return mBLEController.mPublisherDescriptor
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

@@ -7,7 +7,7 @@ import io.reactivex.Observable
 /**
  * Created by gocantar on 20/1/18.
  */
-interface TemperatureSensorRepositoryBoundary {
+interface WeatherStationSensorRepositoryBoundary {
     fun saveTemperature(temperatureParams: TemperatureParams)
     fun getTemperature(address: String, from: Long = 0): Observable<TemperatureParams>
     fun saveHumidity(humidityParams: HumidityParams)

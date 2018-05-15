@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.extension.setDescription
+import com.gocantar.connectingthings.presentation.extension.setUpHumidityStyle
 import com.gocantar.connectingthings.presentation.extension.setUpPrimaryLineChart
 import com.gocantar.connectingthings.presentation.extension.setUpTemperatureStyle
 import com.gocantar.connectingthings.presentation.viewmodel.WeatherStationViewModel
@@ -20,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_weather_station_controller.*
 class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
 
 
-    private val mLineData: LineData = LineData()
-
+    private val mTemperatureLineData: LineData = LineData()
+    private val mHumidityLineData: LineData = LineData()
 
     override val mViewModelClass: Class<WeatherStationViewModel> =
             WeatherStationViewModel::class.java
@@ -34,9 +35,13 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
         setUpOnClickListeners()
         setUpObservers()
 
-        awsc_temperature_chart.data = mLineData
+        awsc_temperature_chart.data = mTemperatureLineData
         awsc_temperature_chart.setUpPrimaryLineChart()
         awsc_temperature_chart.setDescription("Temperature sensed by Arduino101")
+
+        awsc_humidity_chart.data = mHumidityLineData
+        awsc_humidity_chart.setUpPrimaryLineChart()
+        awsc_humidity_chart.setDescription("Humidity sensed by Arduino101")
 
     }
 
@@ -48,9 +53,14 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
     }
 
     private fun setUpObservers(){
-        mViewModel.mTEmperaturaDataChange.observe(this, Observer {
+        mViewModel.mTemperatureDataChange.observe(this, Observer {
             when(it) {
                 true -> updateTemperatureChartView()
+            }
+        })
+        mViewModel.mHumidityDataChange.observe(this, Observer {
+            when(it) {
+                true -> updateHumidityChartView()
             }
         })
     }
@@ -58,10 +68,19 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
     private fun updateTemperatureChartView(){
         val lineDataSet = LineDataSet(mViewModel.mTemperatureData, "Temperature")
         lineDataSet.setUpTemperatureStyle()
-        mLineData.removeDataSet(0)
-        mLineData.addDataSet(lineDataSet)
+        mTemperatureLineData.removeDataSet(0)
+        mTemperatureLineData.addDataSet(lineDataSet)
         awsc_temperature_chart.notifyDataSetChanged()
         awsc_temperature_chart.invalidate()
+    }
+
+    private fun updateHumidityChartView(){
+        val lineDataSet = LineDataSet(mViewModel.mHumidityData, "Humidity")
+        lineDataSet.setUpHumidityStyle()
+        mHumidityLineData.removeDataSet(0)
+        mHumidityLineData.addDataSet(lineDataSet)
+        awsc_humidity_chart.notifyDataSetChanged()
+        awsc_humidity_chart.invalidate()
     }
 
     companion object {

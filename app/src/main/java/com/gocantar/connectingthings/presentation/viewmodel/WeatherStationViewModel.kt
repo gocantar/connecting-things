@@ -13,8 +13,10 @@ import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.di.component.DaggerWeatherStationComponent
 import com.gocantar.connectingthings.di.module.WeatherStationControllerModule
 import com.gocantar.connectingthings.domain.entity.BLEDevice
+import com.gocantar.connectingthings.domain.entity.HumidityParams
 import com.gocantar.connectingthings.domain.entity.TemperatureParams
 import com.gocantar.connectingthings.domain.usecase.GetDeviceActor
+import com.gocantar.connectingthings.domain.usecase.GetHumidityDataActor
 import com.gocantar.connectingthings.domain.usecase.GetTemperatureDataActor
 import com.gocantar.connectingthings.domain.usecase.ManageSensorNotificationsActor
 import io.reactivex.observers.DisposableObserver
@@ -28,11 +30,15 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     private val mDeviceName: MutableLiveData<String> = MutableLiveData()
     private lateinit var mDevice: BLEDevice
     val mTemperatureData: MutableList<Entry>  = mutableListOf()
-    val mTEmperaturaDataChange: MutableLiveData<Boolean> = MutableLiveData()
+    val mTemperatureDataChange: MutableLiveData<Boolean> = MutableLiveData()
+    val mHumidityData: MutableList<Entry> = mutableListOf()
+    val mHumidityDataChange: MutableLiveData<Boolean> = MutableLiveData()
+
 
     @Inject lateinit var mGetDevice: GetDeviceActor
     @Inject lateinit var mGetNotifications: ManageSensorNotificationsActor
     @Inject lateinit var mGetTemperatureDataActor: GetTemperatureDataActor
+    @Inject lateinit var mGetHumidityDataActor: GetHumidityDataActor
 
     fun initialize(data: Intent){
         getDevice(data)
@@ -70,7 +76,10 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
 
    private fun getSensorData(timestamp: Long? = null){
        val params = getParams(mDevice.bluetoothDevice.address, timestamp)
+       mTemperatureData.clear()
+       mHumidityData.clear()
        getTemperatureData(params)
+       getHumidityData(params)
    }
 
     private fun getParams(address: String, timestamp: Long? = null): Bundle{
@@ -86,13 +95,26 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
         mGetTemperatureDataActor.execute(object : DisposableObserver<TemperatureParams>() {
             override fun onComplete() {
                 Log.d(TAG, "${mDevice.bluetoothDevice.address}: Temperature data has been loaded")
-                mTEmperaturaDataChange.value = true
+                mTemperatureDataChange.value = true
             }
-
             override fun onNext(temperature: TemperatureParams?) {
-                temperature?.let { mTemperatureData.add(Entry(mTemperatureData.size.toFloat(), temperature.value.toFloat())) }
+                temperature?.let { mTemperatureData.add(Entry(mTemperatureData.size.toFloat(), it.value.toFloat())) }
             }
+            override fun onError(e: Throwable?) {
+                Log.e(TAG, e.toString())
+            }
+        }, params)
+    }
 
+    private fun getHumidityData(params: Bundle){
+        mGetHumidityDataActor.execute(object : DisposableObserver<HumidityParams>(){
+            override fun onComplete() {
+                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Humidity data has been loaded")
+                mHumidityDataChange.value = true
+            }
+            override fun onNext(humidity: HumidityParams?) {
+                humidity?.let { mHumidityData.add(Entry(mHumidityData.size.toFloat(), it.value.toFloat())) }
+            }
             override fun onError(e: Throwable?) {
                 Log.e(TAG, e.toString())
             }

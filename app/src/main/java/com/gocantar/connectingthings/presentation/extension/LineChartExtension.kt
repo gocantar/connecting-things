@@ -60,11 +60,14 @@ fun LineChart.setUpAxis(){
     xAxis.isEnabled = true
 
     axisLeft.textColor = Color.BLACK
-    axisLeft.axisMaximum = 40f
+    axisLeft.axisMaximum = 80f
     axisLeft.axisMinimum = 0f
     axisLeft.setDrawGridLines(false)
 
     axisRight.isEnabled = false
+
+
+
 }
 
 fun LineDataSet.setUpTemperatureStyle(){
@@ -76,4 +79,5 @@ fun LineDataSet.setUpTemperatureStyle(){
 fun LineDataSet.setUpHumidityStyle(){
     setDrawCircles(false)
     colors = ColorTemplate.PASTEL_COLORS.toList()
+    color = Color.BLUE
 }

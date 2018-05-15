@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.widget.TextView
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
@@ -52,7 +53,8 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         setUpEffectsRecyclerObserver()
         setUpColorsRecyclerObserver()
 
-     }
+    }
+
 
     /**
      * Private functions

@@ -36,7 +36,7 @@ class FirebaseDataSource {
                 .document(HUMIDITY)
                 .collection(address)
                 .add(humidity)
-        Log.i(TAG, "Device $address added a temperature with ${humidity.humidity} of value")
+        Log.i(TAG, "Device $address added a humidity with ${humidity.humidity} % of value")
 
     }
 
@@ -62,7 +62,7 @@ class FirebaseDataSource {
 
     fun getHumidity(address: String, from: Long = 0): PublishSubject<HumidityFB>{
         val observable: PublishSubject<HumidityFB> = PublishSubject.create()
-        db.collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
+        db.collection(DATA_COLLECTION).document(HUMIDITY).collection(address)
                 .whereGreaterThanOrEqualTo(TIMESTAMP, from)
                 .get()
                 .addOnCompleteListener { if (it.isSuccessful){

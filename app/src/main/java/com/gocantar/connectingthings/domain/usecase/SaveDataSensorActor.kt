@@ -1,7 +1,7 @@
 package com.gocantar.connectingthings.domain.usecase
 
 import com.gocantar.connectingthings.common.enum.SensorType
-import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary
+import com.gocantar.connectingthings.domain.boundary.WeatherStationSensorRepositoryBoundary
 import com.gocantar.connectingthings.domain.entity.HumidityParams
 import com.gocantar.connectingthings.domain.entity.SensorData
 import com.gocantar.connectingthings.domain.entity.TemperatureParams
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * Created by gocantar on 5/2/18.
  */
 
-class SaveDataSensorActor @Inject constructor(private val mSensorRepository: TemperatureSensorRepositoryBoundary): SaveData<SensorData> {
+class SaveDataSensorActor @Inject constructor(private val mSensorRepository: WeatherStationSensorRepositoryBoundary): SaveData<SensorData> {
     override fun save(data: SensorData) {
         doAsync {
             when(data.type){

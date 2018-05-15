@@ -3,9 +3,9 @@ package com.gocantar.connectingthings.di.component
 import com.gocantar.connectingthings.di.module.AppModule
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.presentation.viewmodel.MainActivityViewModel
-import com.gocantar.connectingthings.data.repository.TemperatureSensorRepository
+import com.gocantar.connectingthings.data.repository.WeatherStationSensorRepository
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
-import com.gocantar.connectingthings.domain.boundary.TemperatureSensorRepositoryBoundary
+import com.gocantar.connectingthings.domain.boundary.WeatherStationSensorRepositoryBoundary
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,8 +19,8 @@ interface AppComponent {
 
     fun getBLEService(): BLEServiceBoundary
     fun getTemperatureSensorController(): TemperatureSensorControllerBoundary
-    fun getTemperatureSensorRepository(): TemperatureSensorRepositoryBoundary
+    fun getTemperatureSensorRepository(): WeatherStationSensorRepositoryBoundary
 
     fun inject(mainActivityViewModel: MainActivityViewModel)
-    fun inject(temperatureRepository: TemperatureSensorRepository)
+    fun inject(temperatureRepository: WeatherStationSensorRepository)
 }
