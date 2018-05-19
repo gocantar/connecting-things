@@ -23,12 +23,13 @@ fun LineChart.setDescription(descriptionMessage: String){
     description = d
 }
 
-fun LineChart.setUpPrimaryLineChart(){
+fun LineChart.setUpPrimaryLineChart(max: Float = 100f){
     setWhiteBackground()
     enableTouchGestures()
     setUpLegend()
-    setUpAxis()
+    setUpAxis(max)
 }
+
 
 fun LineChart.enableTouchGestures(){
     // enable touch gestures
@@ -51,7 +52,7 @@ fun LineChart.setUpLegend(){
     legend.textColor = resources.getColor(R.color.primaryText, AppController.instance.theme)
 }
 
-fun LineChart.setUpAxis(max: Float = 80f){
+fun LineChart.setUpAxis(max: Float){
     xAxis.textColor = Color.BLACK
     xAxis.position = XAxis.XAxisPosition.BOTTOM
     xAxis.setDrawGridLines(false)
@@ -65,19 +66,26 @@ fun LineChart.setUpAxis(max: Float = 80f){
     axisLeft.setDrawGridLines(false)
 
     axisRight.isEnabled = false
-
-
-
 }
 
 fun LineDataSet.setUpTemperatureStyle(){
-    setDrawCircles(false)
-    colors = ColorTemplate.PASTEL_COLORS.toList()
+    baseStyle(this)
     color = Color.RED
 }
 
 fun LineDataSet.setUpHumidityStyle(){
-    setDrawCircles(false)
-    colors = ColorTemplate.PASTEL_COLORS.toList()
+    baseStyle(this)
     color = Color.BLUE
+}
+
+fun LineDataSet.setUpNoDataStyle(){
+    baseStyle(this)
+    color = Color.GRAY
+}
+
+private fun baseStyle(lineDataSet: LineDataSet){
+    lineDataSet.setDrawCircles(false)
+    lineDataSet.setDrawValues(false)
+    lineDataSet.colors = ColorTemplate.PASTEL_COLORS.toList()
+
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "463856194919-rhcligtrtnu1gkbdi6jp346bh1gmpq22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gocantar.connectingthings",
+            "certificate_hash": "267ea116f8ab078879333daf0ff3cc5d1af081ca"
+          }
+        },
+        {
           "client_id": "463856194919-og3oj23gomvg2vdl504oirh99ssoi5f6.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463856194919-og3oj23gomvg2vdl504oirh99ssoi5f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

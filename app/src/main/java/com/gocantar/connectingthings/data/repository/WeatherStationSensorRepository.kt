@@ -7,6 +7,7 @@ import com.gocantar.connectingthings.domain.boundary.WeatherStationSensorReposit
 import com.gocantar.connectingthings.domain.entity.HumidityParams
 import com.gocantar.connectingthings.domain.entity.TemperatureParams
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -19,7 +20,7 @@ class WeatherStationSensorRepository @Inject constructor(val mFirebaseDB: Fireba
     }
 
     override fun getTemperature(address: String, from: Long): Observable<TemperatureParams> {
-        return mFirebaseDB.getTemperature(address, from).map { TemperatureParams(it.temperature, address, it.timestamp) }
+        return mFirebaseDB.getTemperature(address, from).map { TemperatureParams(it.value, address, it.timestamp) }
     }
 
     override fun saveHumidity(humidityParams: HumidityParams) {
@@ -27,7 +28,7 @@ class WeatherStationSensorRepository @Inject constructor(val mFirebaseDB: Fireba
     }
 
     override fun getHumidity(address: String, from: Long): Observable<HumidityParams> {
-        return mFirebaseDB.getHumidity(address, from).map { HumidityParams(it.humidity, address, it.timestamp) }
+        return mFirebaseDB.getHumidity(address, from).map { HumidityParams(it.value, address, it.timestamp) }
     }
 
 

@@ -5,8 +5,10 @@ import com.gocantar.connectingthings.data.extensions.toHumidity
 import com.gocantar.connectingthings.data.extensions.toTemperature
 import com.gocantar.connectingthings.data.model.HumidityFB
 import com.gocantar.connectingthings.data.model.TemperatureFB
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.*
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 
 /**
  * Created by gocantar on 17/1/18.
@@ -15,69 +17,59 @@ class FirebaseDataSource {
 
     private val TAG = javaClass.simpleName
 
-    private val DATA_COLLECTION = "data"
-    private val STATE_COLLECTION = "state"
     private val TEMPERATURE = "temperature"
     private val HUMIDITY = "humidity"
     private val TIMESTAMP = "timestamp"
 
-    private val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseDatabase.getInstance()
 
     fun addTemperature(address: String, temperature: TemperatureFB){
-        db.collection(DATA_COLLECTION)
-                .document(TEMPERATURE)
-                .collection(address)
-                .add(temperature)
-        Log.i(TAG, "Device $address added a temperature with ${temperature.temperature} of value")
+        db.getReference(address).child(TEMPERATURE).push().setValue(temperature)
     }
 
     fun addHumidity(address: String, humidity: HumidityFB){
-        db.collection(DATA_COLLECTION)
-                .document(HUMIDITY)
-                .collection(address)
-                .add(humidity)
-        Log.i(TAG, "Device $address added a humidity with ${humidity.humidity} % of value")
-
+        db.getReference(address).child(HUMIDITY).push().setValue(humidity)
     }
 
-    fun getTemperature(address: String, from: Long = 0): PublishSubject<TemperatureFB>{
+    fun getTemperature(address: String, from: Long = 0): Observable<TemperatureFB>{
         val observable: PublishSubject<TemperatureFB> = PublishSubject.create()
-        db.collection(DATA_COLLECTION).document(TEMPERATURE).collection(address)
-                .whereGreaterThanOrEqualTo(TIMESTAMP, from)
-                .get()
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        // Emits all received data
-                        it.result.documents
-                                .filterNotNull()
-                                .forEach { observable.onNext(it.toTemperature()) }
-                        // Emits onComplete event
-                        observable.onComplete()
-                    }
-                    else
-                        observable.onError(Throwable("Error getting temperatures"))
+        val query = db.getReference(address)
+                .child(TEMPERATURE)
+                .orderByChild(TIMESTAMP)
+                .startAt(from.toDouble())
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError?) {
+                observable.onError(Throwable())
+            }
+            override fun onDataChange(data: DataSnapshot?) {
+                data?.toTemperature()?.forEach {
+                    observable.onNext(it)
                 }
+                observable.onComplete()
+            }
+        })
         return observable
     }
 
     fun getHumidity(address: String, from: Long = 0): PublishSubject<HumidityFB>{
         val observable: PublishSubject<HumidityFB> = PublishSubject.create()
-        db.collection(DATA_COLLECTION).document(HUMIDITY).collection(address)
-                .whereGreaterThanOrEqualTo(TIMESTAMP, from)
-                .get()
-                .addOnCompleteListener { if (it.isSuccessful){
-                    it.result.documents
-                            .filterNotNull()
-                            .forEach { observable.onNext( it.toHumidity()) }
+        val query = db.getReference(address)
+                .child(HUMIDITY)
+                .orderByChild(TIMESTAMP)
+                .startAt(from.toDouble())
+        query.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError?) {
+                observable.onError(Throwable())
+            }
 
-                    observable.onComplete()
-                }else
-                    observable.onError(Throwable("Error getting humidity"))
+            override fun onDataChange(data: DataSnapshot?) {
+                data?.toHumidity()?.forEach {
+                    observable.onNext(it)
                 }
-
+                observable.onComplete()
+            }
+        })
         return observable
     }
-
-
 
 }

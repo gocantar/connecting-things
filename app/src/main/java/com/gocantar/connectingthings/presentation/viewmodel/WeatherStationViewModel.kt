@@ -94,8 +94,10 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     private fun getTemperatureData(params: Bundle){
         mGetTemperatureDataActor.execute(object : DisposableObserver<TemperatureParams>() {
             override fun onComplete() {
-                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Temperature data has been loaded")
-                mTemperatureDataChange.value = true
+                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Has been received ${mTemperatureData.size} values of temperature")
+                if (mTemperatureData.isNotEmpty()){
+                    mTemperatureDataChange.value = true
+                }
             }
             override fun onNext(temperature: TemperatureParams?) {
                 temperature?.let { mTemperatureData.add(Entry(mTemperatureData.size.toFloat(), it.value.toFloat())) }
@@ -109,8 +111,10 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     private fun getHumidityData(params: Bundle){
         mGetHumidityDataActor.execute(object : DisposableObserver<HumidityParams>(){
             override fun onComplete() {
-                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Humidity data has been loaded")
-                mHumidityDataChange.value = true
+                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Has been received ${mHumidityData.size} values of temperature")
+                if (mHumidityData.isNotEmpty()){
+                    mHumidityDataChange.value = true
+                }
             }
             override fun onNext(humidity: HumidityParams?) {
                 humidity?.let { mHumidityData.add(Entry(mHumidityData.size.toFloat(), it.value.toFloat())) }
