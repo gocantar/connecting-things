@@ -77,7 +77,7 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
     private fun updateHumidityChartView(){
         val lineDataSet = LineDataSet(mViewModel.mHumidityData, "Humidity")
         lineDataSet.setUpHumidityStyle()
-        awsc_temperature_chart.setDescription("Datos de la humedad sensada por Arduino 101")
+        awsc_humidity_chart.setDescription("Datos de la humedad sensada por Arduino 101")
         mHumidityLineData.removeDataSet(0)
         mHumidityLineData.addDataSet(lineDataSet)
         awsc_humidity_chart.notifyDataSetChanged()

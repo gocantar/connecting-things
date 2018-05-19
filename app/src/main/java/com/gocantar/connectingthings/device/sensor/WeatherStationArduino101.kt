@@ -3,13 +3,11 @@ package com.gocantar.connectingthings.device.sensor
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
-import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.enum.SensorType
 import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.SensorData
-import org.w3c.dom.CharacterData
 
 /**
  * Created by gocantar on 23/1/18.
@@ -42,11 +40,10 @@ class WeatherStationArduino101 :WeatherStation {
     }
 
     override fun decodeData(data: CharacteristicData): SensorData{
+        val value: Int = data.value.first().toInt()
         return when(data.uuid){
-            CharacteristicUUIDs.ARDUINO101_TEMPERATURE -> {
-                SensorData(data.value.first().toInt(), data.address, SensorType.TEMPERATURE)
-            }
-            else -> SensorData(data.value.first().toInt(), data.address, SensorType.HUMIDITY)
+            CharacteristicUUIDs.ARDUINO101_TEMPERATURE -> SensorData(value, data.address, SensorType.TEMPERATURE)
+            else -> SensorData(value, data.address, SensorType.HUMIDITY)
         }
     }
 
@@ -70,4 +67,5 @@ class WeatherStationArduino101 :WeatherStation {
         descriptor.value = value
         gatt.writeDescriptor(descriptor)
     }
+
 }

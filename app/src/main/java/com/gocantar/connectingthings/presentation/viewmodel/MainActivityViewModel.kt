@@ -17,12 +17,15 @@ import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
 import io.reactivex.observers.DisposableObserver
+import java.util.*
 import javax.inject.Inject
 
 /**
  * Created by gocantar on 17/10/17.
  */
 class MainActivityViewModel(app: Application): BaseViewModel(app) {
+
+    private val ERROR: Int = -1
 
     val mRecyclerViewEvent: MutableLiveData<Event> = MutableLiveData()
 
@@ -150,7 +153,9 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
                 if (CharacteristicUUIDs.SENSOR_CHARACTERISTICS.contains(data.uuid)) {
                     val valueSensed = mDecodeSensorData.decode(charData = data)
                     valueSensed?.let {
-                        mSaveDataSensorActor.save(it)
+                        if (it.value != ERROR) {
+                            mSaveDataSensorActor.save(it)
+                        }
                     }?: Log.e(TAG, "Error decoding sensor data")
                 }else{
                     Log.i(TAG, "No sensor data receives")
