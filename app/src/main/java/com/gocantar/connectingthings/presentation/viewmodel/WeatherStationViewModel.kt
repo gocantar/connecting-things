@@ -111,7 +111,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     private fun getHumidityData(params: Bundle){
         mGetHumidityDataActor.execute(object : DisposableObserver<HumidityParams>(){
             override fun onComplete() {
-                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Has been received ${mHumidityData.size} values of temperature")
+                Log.d(TAG, "${mDevice.bluetoothDevice.address}: Has been received ${mHumidityData.size} values of humidity")
                 if (mHumidityData.isNotEmpty()){
                     mHumidityDataChange.value = true
                 }

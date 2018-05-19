@@ -8,6 +8,8 @@ import android.os.ParcelUuid
 import android.util.Log
 import com.gocantar.connectingthings.AppController
 import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
+import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.common.ids.TypeID
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.entity.BLEDevice
@@ -29,12 +31,10 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
      *  Static properties
      */
     companion object {
-
         val REQUEST_CODE: Int = 4200
-
-        private val mConnectedDevices: MutableMap<String, BLEDevice> = mutableMapOf()
-
     }
+
+    private val mConnectedDevices: MutableMap<String, BLEDevice> = mutableMapOf()
 
     /**
      * Public properties
@@ -86,7 +86,11 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
     }
 
     override fun disconnect(address: String) {
-        mConnectedDevices[address]?.gattBluetoothGatt?.disconnect()
+        val gatt = mConnectedDevices[address]?.gattBluetoothGatt
+        gatt?.let {
+            disableNotifications(it)
+            it.disconnect()
+        }
     }
 
     override fun enableBLE()  {
@@ -129,6 +133,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                             Log.d(TAG, "${gatt.device.address} has been disconnected to  Gatt client.")
                             mPublisherOfEvent.onNext(DeviceEvent(gatt.device.address, Event.DEVICE_DISCONNECTED))
                             mConnectedDevices.remove(gatt.device.address)
+                            Log.d(TAG, mConnectedDevices.toString())
                         }
                     }
                 }
@@ -136,6 +141,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                 override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
                     Log.d(TAG, "Services has been discovered")
                     mConnectedDevices.put(gatt.device.address, BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt))
+                    Log.d(TAG, mConnectedDevices.toString())
                 }
 
                 override fun onCharacteristicRead(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic, status: Int) {
@@ -156,6 +162,26 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
 
             }
+
+    private fun disableNotifications(gatt: BluetoothGatt){
+        val characteristic = getAllCharacteristics(gatt)
+        characteristic.forEach {
+            gatt.setCharacteristicNotification(it, false)
+            writeConfigCharacteristicDescriptor(gatt, it, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
+        }
+    }
+
+    private fun getAllCharacteristics(gatt: BluetoothGatt): List<BluetoothGattCharacteristic>{
+        return  gatt.getService(ServicesUUIDs.ARDUINO101_WEATHER_STATION_SERVICE)
+                .characteristics
+    }
+
+    private fun writeConfigCharacteristicDescriptor(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic,
+                                                    value: ByteArray?){
+        val descriptor = characteristic.getDescriptor(CharacteristicUUIDs.DESCTRIPTOR_CONFIG_CHARACTERISTIC)
+        descriptor.value = value
+        gatt.writeDescriptor(descriptor)
+    }
 
 }
 
