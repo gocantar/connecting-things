@@ -17,7 +17,6 @@ import com.gocantar.connectingthings.presentation.mapper.BLEDeviceViewMapper
 import com.gocantar.connectingthings.presentation.model.BulbConnectedView
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
 import io.reactivex.observers.DisposableObserver
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -36,7 +35,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
-    @Inject lateinit var mGetCharacteristicNotification: GetCharacteristicNotificationActor
+    @Inject lateinit var mGetCharacteristicRead: GetCharacteristicReadActor
     @Inject lateinit var mDecodeSensorData: DecodeSensorDataActor
     @Inject lateinit var mSaveDataSensorActor: SaveDataSensorActor
 
@@ -144,7 +143,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     }
 
     private fun getCharacteristicsNotifications(){
-        mGetCharacteristicNotification.execute(object : DisposableObserver<CharacteristicData>() {
+        mGetCharacteristicRead.execute(object : DisposableObserver<CharacteristicData>() {
             override fun onComplete() {
                 // Never it's called
             }

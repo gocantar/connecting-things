@@ -45,6 +45,8 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
     override val mPublisherOfCharacteristic: PublishSubject<CharacteristicData> = PublishSubject.create()
 
+    override val mPublisherOfCharacteristicNotified: PublishSubject<CharacteristicData> = PublishSubject.create()
+
     override val mPublisherDescriptor: PublishSubject<ByteArray> = PublishSubject.create()
 
 
@@ -138,6 +140,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                     }
                 }
 
+
                 override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
                     Log.d(TAG, "Services has been discovered")
                     mConnectedDevices.put(gatt.device.address, BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt))
@@ -149,7 +152,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
                 }
 
                 override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic) {
-                    mPublisherOfCharacteristic.onNext(CharacteristicData(gatt.device.address, characteristic.uuid, characteristic.value))
+                    mPublisherOfCharacteristicNotified.onNext(CharacteristicData(gatt.device.address, characteristic.uuid, characteristic.value))
                 }
 
                 override fun onDescriptorWrite(gatt: BluetoothGatt?, descriptor: BluetoothGattDescriptor, status: Int) {
