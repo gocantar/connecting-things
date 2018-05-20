@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CompoundButton
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.extension.*
 import com.gocantar.connectingthings.presentation.viewmodel.WeatherStationViewModel
@@ -24,6 +26,15 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
 
     override val mViewModelClass: Class<WeatherStationViewModel> =
             WeatherStationViewModel::class.java
+
+    private val onCheckedChangeListener: CompoundButton.OnCheckedChangeListener = CompoundButton.OnCheckedChangeListener{
+        _, isChecked -> run {
+        when (isChecked) {
+            true -> mViewModel.enableNotifications()
+            false -> mViewModel.disableNotifications()
+        }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +58,8 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
 
     private fun setUpOnClickListeners(){
         awsc_back_button.setOnClickListener { onBackPressed() }
-        awsc_enable_notifications_button.setOnClickListener { mViewModel.enableNotifications() }
-        awsc_disable_button.setOnClickListener { mViewModel.disableNotifications() }
+        awsc_reload_data_button.setOnClickListener { mViewModel.getSensorData() }
+        awsc_publish_data_state.setOnCheckedChangeListener(onCheckedChangeListener)
     }
 
     private fun setUpObservers(){
@@ -62,6 +73,25 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
                 true -> updateHumidityChartView()
             }
         })
+
+        mViewModel.mNotificationsState.observe(this, Observer {
+            when(it){
+                State.AVAILABLE -> setOnSwitchState()
+                else -> setOffSwitchState()
+            }
+        })
+    }
+
+    private fun setOnSwitchState(){
+        awsc_publish_data_state.setOnCheckedChangeListener(null)
+        awsc_publish_data_state.isChecked = true
+        awsc_publish_data_state.setOnCheckedChangeListener(onCheckedChangeListener)
+    }
+
+    private fun setOffSwitchState(){
+        awsc_publish_data_state.setOnCheckedChangeListener(null)
+        awsc_publish_data_state.isChecked = false
+        awsc_publish_data_state.setOnCheckedChangeListener(onCheckedChangeListener)
     }
 
     private fun updateTemperatureChartView(){

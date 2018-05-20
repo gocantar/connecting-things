@@ -5,7 +5,7 @@
     <color name="colorPrimaryPressed">#60005BEA</color>
     <color name="colorPrimaryDisabled">#40005BEA</color>
     <color name="colorPrimaryDark">#0547DB</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#3F51B5</color>
     <color name="almostWhite">#FAFAFA</color>
     <color name="transparent">#00FFFFFF</color>
 

@@ -11,18 +11,15 @@ import javax.inject.Inject
  * Created by gocantar on 30/1/18.
  */
 class ManageSensorNotificationsActor @Inject constructor(private val mSensorController: TemperatureSensorControllerBoundary):
-            ManageNotificationsInteractor, DisposableInteractor {
+            ManageNotificationsInteractor {
 
     override fun enable(gatt: BluetoothGatt) {
-        doAsync { mSensorController.enableNotifications(gatt) }
+        mSensorController.enableNotifications(gatt)
     }
 
     override fun disable(gatt: BluetoothGatt) {
-        doAsync { mSensorController.disableNotifications(gatt) }
+        mSensorController.disableNotifications(gatt)
     }
 
-    override fun dispose() {
-        mSensorController.clearDisposables()
-    }
 }
 

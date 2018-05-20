@@ -3,6 +3,7 @@ package com.gocantar.connectingthings.device.controller
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattDescriptor
 import android.os.ParcelUuid
+import android.util.Log
 import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.extension.getSensorServiceUuid
 import com.gocantar.connectingthings.device.sensor.WeatherStationFactory
@@ -10,9 +11,10 @@ import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.SensorData
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -23,32 +25,33 @@ import javax.inject.Inject
 class SensorController @Inject constructor(private val mBLEController: BLEServiceBoundary) : TemperatureSensorControllerBoundary {
 
 
-    private val mDisposable: CompositeDisposable = CompositeDisposable()
 
-    private val mDescriptorObservable = getDescriptorObservable()
 
     // TODO Value of enable notifications indicate if notifications are disabled or enabled
     override fun enableNotifications(gatt: BluetoothGatt) {
-        mDisposable.add(mDescriptorObservable
+        mBLEController.mPublisherDescriptorWritten
+                .observeOn(Schedulers.io())
+                .doOnSubscribe({ enableTemperatureNotifications(gatt) })
                 .firstElement()
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     enableHumidityNotifications(gatt)
                 }
-        )
-        enableTemperatureNotifications(gatt)
     }
 
     override fun disableNotifications(gatt: BluetoothGatt) {
-        mDisposable.add(mDescriptorObservable
+        mBLEController.mPublisherDescriptorWritten
+                .observeOn(Schedulers.io())
+                .doOnSubscribe({ disableTemperatureNotifications(gatt) })
                 .firstElement()
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     disableHumidityNotifications(gatt)
-                })
-        disableTemperatureNotifications(gatt)
+                }
     }
 
     override fun getNotificationState(): Observable<State> {
-        return  mDescriptorObservable
+        return  getDescriptorObservable()
                 .map {
                     when{
                         it.contentEquals(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE) -> State.AVAILABLE
@@ -61,9 +64,6 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
         WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).requestNotificationsState(gatt)
     }
 
-    override fun clearDisposables() {
-        mDisposable.clear().takeUnless { mDisposable.isDisposed }
-    }
 
     override fun decode(charData: CharacteristicData): SensorData? =
         WeatherStationFactory.createWeatherStation(ParcelUuid(charData.uuid)).decodeData(charData)

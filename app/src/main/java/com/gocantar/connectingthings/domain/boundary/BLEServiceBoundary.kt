@@ -19,6 +19,8 @@ interface BLEServiceBoundary {
     val mPublisherOfCharacteristicRead: PublishSubject<CharacteristicData>
     val mPublisherDescriptor: PublishSubject<ByteArray>
     val mPublisherOfCharacteristicNotified: PublishSubject<CharacteristicData>
+    val mPublisherDescriptorWritten: PublishSubject<Unit>
+
 
     fun start()
     fun stop()
