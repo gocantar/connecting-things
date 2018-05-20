@@ -25,3 +25,4 @@ class ManageSensorNotificationsActor @Inject constructor(private val mSensorCont
         mSensorController.clearDisposables()
     }
 }
+

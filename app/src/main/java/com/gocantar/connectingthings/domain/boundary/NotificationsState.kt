@@ -5,9 +5,9 @@ import com.gocantar.connectingthings.common.enum.State
 import io.reactivex.Observable
 
 /**
- * Created by gocantar on 23/1/18.
+ * Created by gocantar on 20/5/18.
  */
-interface ManageNotificationsBoundary {
-    fun enableNotifications(gatt: BluetoothGatt)
-    fun disableNotifications(gatt: BluetoothGatt)
+interface NotificationsState {
+    fun getNotificationState(): Observable<State>
+    fun requestNotificationsState(gatt: BluetoothGatt)
 }

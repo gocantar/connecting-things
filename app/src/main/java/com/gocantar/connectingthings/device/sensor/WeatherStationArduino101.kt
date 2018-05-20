@@ -39,6 +39,11 @@ class WeatherStationArduino101 :WeatherStation {
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
+    override fun requestNotificationsState(gatt: BluetoothGatt) {
+        val characteristic = getTemperatureCharacteristic(gatt)
+        gatt.readDescriptor(characteristic.getDescriptor(CharacteristicUUIDs.DESCTRIPTOR_CONFIG_CHARACTERISTIC))
+    }
+
     override fun decodeData(data: CharacteristicData): SensorData{
         val value: Int = data.value.first().toInt()
         return when(data.uuid){

@@ -13,6 +13,6 @@ import dagger.Component
         dependencies = [AppComponent::class],
         modules = [WeatherStationControllerModule::class]
 )
-interface WeatherStationComponent {
+interface WeatherStationComponent: AppComponent {
     fun inject (controlWeatherStations: WeatherStationViewModel)
 }

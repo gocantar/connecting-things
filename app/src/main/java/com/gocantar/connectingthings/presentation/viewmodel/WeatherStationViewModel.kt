@@ -8,6 +8,7 @@ import android.util.Log
 import com.github.mikephil.charting.data.Entry
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.Constants
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.di.component.DaggerWeatherStationComponent
@@ -15,10 +16,7 @@ import com.gocantar.connectingthings.di.module.WeatherStationControllerModule
 import com.gocantar.connectingthings.domain.entity.BLEDevice
 import com.gocantar.connectingthings.domain.entity.HumidityParams
 import com.gocantar.connectingthings.domain.entity.TemperatureParams
-import com.gocantar.connectingthings.domain.usecase.GetDeviceActor
-import com.gocantar.connectingthings.domain.usecase.GetHumidityDataActor
-import com.gocantar.connectingthings.domain.usecase.GetTemperatureDataActor
-import com.gocantar.connectingthings.domain.usecase.ManageSensorNotificationsActor
+import com.gocantar.connectingthings.domain.usecase.*
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
@@ -39,15 +37,20 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetNotifications: ManageSensorNotificationsActor
     @Inject lateinit var mGetTemperatureDataActor: GetTemperatureDataActor
     @Inject lateinit var mGetHumidityDataActor: GetHumidityDataActor
+    @Inject lateinit var mGetDescriptorValueActor: GetDescriptorValueActor
+    @Inject lateinit var mRequestDescriptorValue: RequestDescriptorValue
+
 
     fun initialize(data: Intent){
         getDevice(data)
+        getDescriptorNotifications()
     }
 
     private fun getDevice (data: Intent){
             val address = data.extras.getString(Key.DEVICE_ADDRESS)
             mGetDevice.execute(object : DisposableObserver<BLEDevice>() {
                 override fun onComplete() {
+                    requestNotificationState()
                     getSensorData()
                 }
                 override fun onNext(device: BLEDevice?) {
@@ -125,6 +128,26 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
         }, params)
     }
 
+    private fun getDescriptorNotifications(){
+        mGetDescriptorValueActor.execute(object : DisposableObserver<State>() {
+            override fun onComplete() {
+            }
+
+            override fun onNext(state: State) {
+                Log.d(TAG, "Notifications state: $state")
+            }
+
+            override fun onError(e: Throwable?) {
+            }
+        }, Unit)
+
+    }
+    private fun requestNotificationState(){
+        mDevice.gattBluetoothGatt?.let {
+            mRequestDescriptorValue.execute(it)
+        }
+    }
+
     override fun setUpComponent(appComponent: AppComponent) {
         DaggerWeatherStationComponent.builder()
                 .appComponent(appComponent)
@@ -138,5 +161,6 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
         mGetNotifications.dispose()
         mGetHumidityDataActor.dispose()
         mGetTemperatureDataActor.dispose()
+        mGetDescriptorValueActor.dispose()
     }
 }

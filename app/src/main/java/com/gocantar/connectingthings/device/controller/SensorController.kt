@@ -1,7 +1,9 @@
 package com.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
+import android.bluetooth.BluetoothGattDescriptor
 import android.os.ParcelUuid
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.extension.getSensorServiceUuid
 import com.gocantar.connectingthings.device.sensor.WeatherStationFactory
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
@@ -45,6 +47,20 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
         disableTemperatureNotifications(gatt)
     }
 
+    override fun getNotificationState(): Observable<State> {
+        return  mDescriptorObservable
+                .map {
+                    when{
+                        it.contentEquals(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE) -> State.AVAILABLE
+                        else -> State.DISABLE
+                    }
+                }
+    }
+
+    override fun requestNotificationsState(gatt: BluetoothGatt){
+        WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).requestNotificationsState(gatt)
+    }
+
     override fun clearDisposables() {
         mDisposable.clear().takeUnless { mDisposable.isDisposed }
     }
@@ -59,7 +75,6 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
 
     private fun enableTemperatureNotifications(gatt: BluetoothGatt) {
         WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).enableTemperatureNotification(gatt)
-
     }
 
     private fun enableHumidityNotifications(gatt: BluetoothGatt) {
@@ -72,7 +87,6 @@ class SensorController @Inject constructor(private val mBLEController: BLEServic
 
     private fun disableHumidityNotifications(gatt: BluetoothGatt) {
         WeatherStationFactory.createWeatherStation(getServiceUuid(gatt)).disableHumidityNotification(gatt)
-
     }
 
     private fun getDescriptorObservable(): Observable<ByteArray>{

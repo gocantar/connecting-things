@@ -11,6 +11,7 @@ interface WeatherStation {
     fun enableTemperatureNotification(gatt: BluetoothGatt)
     fun disableTemperatureNotification(gatt: BluetoothGatt)
     fun enableHumidityNotification(gatt: BluetoothGatt)
+    fun requestNotificationsState(gatt: BluetoothGatt)
     fun disableHumidityNotification(gatt: BluetoothGatt)
     fun decodeData(data: CharacteristicData): SensorData
 }
