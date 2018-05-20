@@ -35,7 +35,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mBLEServiceService: BLEServiceBoundary
     @Inject lateinit var mGetConnectedDevicesActor: GetConnectedDevicesActor
     @Inject lateinit var mBLENotificationsActor: GetBLENotificationsActor
-    @Inject lateinit var mGetCharacteristicRead: GetCharacteristicReadActor
+    @Inject lateinit var mGetCharacteristicRead: GetCharacteristicNotificationActor
     @Inject lateinit var mDecodeSensorData: DecodeSensorDataActor
     @Inject lateinit var mSaveDataSensorActor: SaveDataSensorActor
 

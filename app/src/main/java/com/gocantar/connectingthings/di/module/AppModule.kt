@@ -47,6 +47,9 @@ import javax.inject.Singleton
     @Provides fun provideGetCharacteristicReadActor(bleService: BLEServiceBoundary):
             BaseInteractor<CharacteristicData, Unit> = GetCharacteristicReadActor(bleService)
 
+    @Provides fun provideGetCharacteristicNotificationActor(bleService: BLEServiceBoundary):
+            BaseInteractor<CharacteristicData, Unit> = GetCharacteristicNotificationActor(bleService)
+
     @Provides fun provideGetBLENotificationsActor(bleService: BLEServiceBoundary):
             BaseInteractor<DeviceEvent, Unit> = GetBLENotificationsActor(bleService)
 
@@ -61,4 +64,6 @@ import javax.inject.Singleton
 
     @Provides fun provideSaveSensorData(weatherStationRepository: WeatherStationSensorRepositoryBoundary):
             SaveData<SensorData> = SaveDataSensorActor(weatherStationRepository)
+
+
 }

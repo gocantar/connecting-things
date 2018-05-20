@@ -11,5 +11,5 @@ import javax.inject.Inject
 class GetCharacteristicReadActor @Inject constructor(private val mBLEService: BLEServiceBoundary)
             : BaseInteractor<CharacteristicData, Unit>() {
     override fun buildUseCase(params: Unit): Observable<CharacteristicData>  =
-        mBLEService.mPublisherOfCharacteristic
+        mBLEService.mPublisherOfCharacteristicRead
 }
