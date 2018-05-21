@@ -21,7 +21,14 @@
     <color name="greyButtonDisabledColor">#40616161</color>
 
     <color name="greenOK">#06730C</color>
+    <color name="greenOKHovered">#BF06730C</color>
+    <color name="greenOKPressed">#6006730C</color>
+    <color name="greenOKDisabled">#4006730C</color>
+
     <color name="redWrong">#BA0707</color>
+    <color name="redWrongHovered">#BFBA0707</color>
+    <color name="redWrongPressed">#60BA0707</color>
+    <color name="redWrongDisabled">#40BA0707</color>
 
     <color name="white">#FFFFFF</color>
     <color name="grey">#40616161</color>
