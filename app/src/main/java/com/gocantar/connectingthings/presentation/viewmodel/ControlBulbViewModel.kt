@@ -27,10 +27,9 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     val UPDATE_ALL_RECYCLER = -1
 
-    val mEffectsList: MutableList<BulbEffect> by lazy {
+    val mEffectsList: List<BulbEffect> by lazy {
         mResources.getStringArray(R.array.effects).asList()
                 .map { BulbEffect(it, State.DISABLE) }
-                .toMutableList()
     }
 
     val mColorList: List<BulbColor> by lazy {
@@ -96,10 +95,10 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     private var mGetAvailableEffectDisposable: DisposableObserver<Int> = object : DisposableObserver<Int>() {
         override fun onComplete() {
-            Log.d(TAG, "All available effects received")
+            //Nothing TODO
         }
         override fun onNext(effectID: Int) {
-            Log.d(TAG, "Effect $effectID available")
+            setEffectAsAvailable(effectID)
         }
         override fun onError(e: Throwable?) {
             //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -182,6 +181,13 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             else -> disableALlColors()
         }
         mLoadingData.value = false
+    }
+
+    private fun setEffectAsAvailable(effectId: Int){
+        if (mEffectsList[effectId].state == State.DISABLE) {
+            mEffectsList[effectId].state = State.AVAILABLE
+            mEffectsRecycler.value = effectId
+        }
     }
 
     private fun selectColor(color: Int){
