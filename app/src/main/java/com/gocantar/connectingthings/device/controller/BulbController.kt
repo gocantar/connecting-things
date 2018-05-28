@@ -54,7 +54,9 @@ class BulbController: BulbControllerBoundary {
            .decodeCharacteristic(charData)
     }
 
-    override fun getAvailableEffects(): Observable<Int> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getAvailableEffects(gatt: BluetoothGatt): Observable<Int> {
+        return BulbDeviceFactory.createBulb(gatt.services.map { ParcelUuid(it.uuid) }.getBulbServiceUuid())
+                .getAvailableEffects()
+
     }
 }

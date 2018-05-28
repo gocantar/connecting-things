@@ -1,13 +1,12 @@
 package com.gocantar.connectingthings.di.module
 
+import android.bluetooth.BluetoothGatt
 import com.gocantar.connectingthings.device.controller.BulbController
 import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
 import com.gocantar.connectingthings.domain.interactor.DecodeBulbCharacteristicInteractor
 import com.gocantar.connectingthings.domain.interactor.ReadCharacteristicInteractor
 import com.gocantar.connectingthings.domain.interactor.SetColorInteractor
-import com.gocantar.connectingthings.domain.usecase.DecodeBulbCharacteristicActor
-import com.gocantar.connectingthings.domain.usecase.ReadBulbStateActor
-import com.gocantar.connectingthings.domain.usecase.SetBulbColorActor
+import com.gocantar.connectingthings.domain.usecase.*
 import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import dagger.Module
 import dagger.Provides
@@ -28,4 +27,7 @@ import dagger.Provides
 
     @Provides fun provideDecodeBulbCharacteristicActor(bulbController: BulbControllerBoundary):
             DecodeBulbCharacteristicInteractor = DecodeBulbCharacteristicActor(bulbController)
+
+    @Provides fun provideGetAvailableBulbEffectsActor(bulbController: BulbControllerBoundary):
+            BaseInteractor<Int, BluetoothGatt> = GetAvailableBulbEffects(bulbController)
 }

@@ -21,6 +21,31 @@
         app:layout_constraintBottom_toTopOf="@+id/awsc_temperature_chart"
         app:layout_constraintStart_toStartOf="@+id/awsc_temperature_chart" />
 
+    <View
+        android:id="@+id/awsc_title_line_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:background="@color/primaryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/awsc_title" />
+
+
+    <TextView
+        android:id="@+id/awsc_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfheavy"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/primary_title_text_size"
+        app:layout_constraintStart_toEndOf="@+id/awsc_back_button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Arduino WS" />
+
     <ImageView
         android:id="@+id/awsc_back_button"
         android:layout_width="wrap_content"

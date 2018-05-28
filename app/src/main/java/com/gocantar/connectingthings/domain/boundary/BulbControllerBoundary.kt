@@ -14,5 +14,5 @@ interface BulbControllerBoundary {
     fun setEffect(params: BulbParams)
     fun requestStatus(gatt: BluetoothGatt)
     fun decodeStatus(gatt: BluetoothGatt, charData: CharacteristicData): Observable<BulbStatus>
-    fun getAvailableEffects(): Observable<Int>
+    fun getAvailableEffects(gatt: BluetoothGatt): Observable<Int>
 }

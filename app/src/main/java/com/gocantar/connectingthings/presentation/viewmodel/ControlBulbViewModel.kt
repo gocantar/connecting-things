@@ -27,16 +27,16 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     val UPDATE_ALL_RECYCLER = -1
 
-    val mEffectsList: List<BulbEffect> by lazy {
+    val mEffectsList: MutableList<BulbEffect> by lazy {
         mResources.getStringArray(R.array.effects).asList()
-                .map { BulbEffect(it, State.AVAILABLE) }
+                .map { BulbEffect(it, State.DISABLE) }
+                .toMutableList()
     }
 
     val mColorList: List<BulbColor> by lazy {
         mResources.getIntArray(R.array.bulb_colors_palette).asList()
                 .map { BulbColor(it, State.DISABLE) }
     }
-
 
     var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
@@ -49,8 +49,9 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     @Inject lateinit var mGetNotificationsActor: GetCharacteristicReadActor
     @Inject lateinit var mReadBulbCharacteristicActor: ReadBulbStateActor
     @Inject lateinit var mDecodeStatusCharacteristic: DecodeBulbCharacteristicActor
+    @Inject lateinit var mGetAvailableBulbEffects: GetAvailableBulbEffects
 
-    private var mGetDeviceDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
+    private val mGetDeviceDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
         override fun onError(e: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
@@ -63,10 +64,11 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         override fun onComplete() {
             Log.d(TAG, "Device connected was gotten")
             // Read value
-           readCharacteristic()
+            readCharacteristic()
+            getAvaillableEffects()
         }
     }
-    private var mNotificationDisposable: DisposableObserver<CharacteristicData> = object : DisposableObserver<CharacteristicData>() {
+    private val mNotificationDisposable: DisposableObserver<CharacteristicData> = object : DisposableObserver<CharacteristicData>() {
         override fun onComplete() {
             // Never it´ called
         }
@@ -74,23 +76,33 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             decodeStatus(char)
         }
         override fun onError(e: Throwable?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-    private var mDecodeStatusDisposable: DisposableObserver<BulbStatus> = object : DisposableObserver<BulbStatus>() {
+    private val mDecodeStatusDisposable: DisposableObserver<BulbStatus> = object : DisposableObserver<BulbStatus>() {
         override fun onComplete() {
             // Never it's called
         }
         override fun onNext(status: BulbStatus?) {
-            when(status){
-                null -> TODO("Show error")
-                else -> {
-                    selectEffect(status.effectID, status.color)
-                }
+            status?.let {
+                selectEffect(it.effectID, it.color)
             }
         }
         override fun onError(e: Throwable?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+    }
+
+    private var mGetAvailableEffectDisposable: DisposableObserver<Int> = object : DisposableObserver<Int>() {
+        override fun onComplete() {
+            Log.d(TAG, "All available effects received")
+        }
+        override fun onNext(effectID: Int) {
+            Log.d(TAG, "Effect $effectID available")
+        }
+        override fun onError(e: Throwable?) {
+            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
     }
@@ -137,7 +149,6 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         when{
             mDevice.gattBluetoothGatt != null -> mReadBulbCharacteristicActor
                     .execute(mDevice.gattBluetoothGatt!!)
-            else -> TODO("Show error BLE device error")
         }
     }
 
@@ -145,11 +156,15 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         when{
             mDevice.gattBluetoothGatt != null -> mDecodeStatusCharacteristic
                     .execute(mDecodeStatusDisposable, mDevice.gattBluetoothGatt!!, data)
-
-            else -> TODO("Show error BLE device error")
         }
     }
 
+    private fun getAvaillableEffects(){
+        when{
+            mDevice.gattBluetoothGatt != null -> mGetAvailableBulbEffects
+                    .execute(mGetAvailableEffectDisposable, mDevice.gattBluetoothGatt!!)
+        }
+    }
 
     private fun selectEffect(effectId: Int, color: Int = mColor){
         mEffectsList[mEffect].state = State.AVAILABLE

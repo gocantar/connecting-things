@@ -54,6 +54,10 @@ class RbpiBulbDevice :BulbDevice {
         Log.e(TAG, "This method can not be called")
     }
 
+    override fun getAvailableEffects(): Observable<Int> {
+        return Observable.just(AVAILABLE_EFFECTS).flatMapIterable{ it }
+    }
+
     private fun getColorFromBytes(color: ByteArray): Int {
         return  color[ALPHA_VALUE].toUnsignedInt().shl(24) or
                 color[RED_VALUE].toUnsignedInt().shl(16) or

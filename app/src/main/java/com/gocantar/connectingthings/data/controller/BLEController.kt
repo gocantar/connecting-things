@@ -8,6 +8,8 @@ import android.os.ParcelUuid
 import android.util.Log
 import com.gocantar.connectingthings.AppController
 import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.enum.SensorType
+import com.gocantar.connectingthings.common.extension.getType
 import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.common.ids.TypeID
@@ -90,9 +92,12 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
     }
 
     override fun disconnect(address: String) {
-        val gatt = mConnectedDevices[address]?.gattBluetoothGatt
+        val device = mConnectedDevices[address]
+        val gatt = device?.gattBluetoothGatt
         gatt?.let {
-            disableNotifications(it)
+            if(device.uuids.getType() == (TypeID.SENSOR)){
+                disableNotifications(it)
+            }
             it.disconnect()
         }
     }

@@ -18,6 +18,7 @@ import io.reactivex.Observable
 
 class PlayBulbCandleDevice :BulbDevice{
 
+
     private val TAG = javaClass.simpleName
 
     private  val CANDLE_EFFECT = 4
@@ -33,7 +34,7 @@ class PlayBulbCandleDevice :BulbDevice{
     private  val EFFECT_VALUE = 4
     private  val PERIOD_VALUE = 5
 
-    val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
+    private val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,
                 Constants.RAINBOW_EFFECT)
 
@@ -76,6 +77,10 @@ class PlayBulbCandleDevice :BulbDevice{
             }
         }
         return Observable.just(params)
+    }
+
+    override fun getAvailableEffects(): Observable<Int> {
+        return Observable.just(AVAILABLE_EFFECTS).flatMapIterable{ it }
     }
 
     private fun decodeEffectCharacteristic(value: ByteArray): BulbStatus?{
