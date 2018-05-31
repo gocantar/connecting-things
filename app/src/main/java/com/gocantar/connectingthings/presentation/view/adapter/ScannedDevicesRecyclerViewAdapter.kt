@@ -22,7 +22,8 @@ class ScannedDevicesRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as ScannedDeviceViewHolder).bind(mItems.values.elementAt(position), mListener)
+        (holder as ScannedDeviceViewHolder).
+                bind(mItems.values.elementAt(position), mListener)
     }
 
     override fun getItemCount(): Int = mItems.size

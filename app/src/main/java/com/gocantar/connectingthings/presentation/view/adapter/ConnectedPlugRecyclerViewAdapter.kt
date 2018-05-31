@@ -21,7 +21,7 @@ class ConnectedPlugRecyclerViewAdapter(private val mRecyclerview: RecyclerView,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as PlugConnectedViewHolder).bind(mItems[position], mListener)
+        (holder as PlugConnectedViewHolder).bind(mItems[position], position == mItems.size-1 , mListener)
     }
 
     override fun getItemCount(): Int = mItems.size

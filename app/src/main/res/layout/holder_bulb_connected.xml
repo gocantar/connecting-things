@@ -2,57 +2,51 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
-    android:layout_height="60dp"
-    android:layout_margin="@dimen/simple_margin"
-    android:background="@drawable/bg_rectangle_with_stroke">
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/simple_margin">
 
-    <View
+    <ImageView
         android:id="@+id/hbc_color_indicator"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ic_oval_stroke"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_bulb_oval"
+        android:padding="@dimen/simple_margin"
+        android:src="@drawable/ic_bulb"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hbc_device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
         android:layout_toStartOf="@+id/hbc_color_indicator"
         android:ellipsize="end"
         android:fontFamily="@font/sfbold"
         android:maxLines="1"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/regular_text_size"
-        app:layout_constraintEnd_toStartOf="@+id/hbc_color_indicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hbc_color_indicator"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="PLAYBULB CANDLE" />
 
-    <TextView
-        android:id="@+id/hbc_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hbc_device_name"
-        android:layout_marginTop="4dp"
-        android:layout_toStartOf="@id/hbc_color_indicator"
-        android:fontFamily="@font/sfheavy"
-        android:textAllCaps="true"
-        android:textColor="@color/greenOK"
-        android:textSize="@dimen/regular_text_size"
-        app:layout_constraintStart_toStartOf="@+id/hbc_device_name"
-        app:layout_constraintTop_toBottomOf="@+id/hbc_device_name"
-        tools:text="On" />
+
+    <View
+        android:id="@+id/line_divider"
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="@color/dividersLinesColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

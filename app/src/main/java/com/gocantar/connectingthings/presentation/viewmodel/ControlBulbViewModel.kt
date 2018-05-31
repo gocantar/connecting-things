@@ -64,7 +64,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             Log.d(TAG, "Device connected was gotten")
             // Read value
             readCharacteristic()
-            getAvaillableEffects()
+            getAvailableEffects()
         }
     }
     private val mNotificationDisposable: DisposableObserver<CharacteristicData> = object : DisposableObserver<CharacteristicData>() {
@@ -111,8 +111,6 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
      */
     val ba_title: MutableLiveData<String> = MutableLiveData()
 
-    val mLoadingData: MutableLiveData<Boolean> = MutableLiveData()
-
     val mEffectsRecycler: MutableLiveData<Int> = MutableLiveData()
     val mColorsRecycler: MutableLiveData<Int> = MutableLiveData()
 
@@ -123,7 +121,6 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     fun initialize(address: String){
         mGetNotificationsActor.execute(mNotificationDisposable, Unit)
         mGetDeviceActor.execute(mGetDeviceDisposable, address)
-        mLoadingData.value = true
     }
 
     fun putColor(color: Int){
@@ -158,7 +155,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
     }
 
-    private fun getAvaillableEffects(){
+    private fun getAvailableEffects(){
         when{
             mDevice.gattBluetoothGatt != null -> mGetAvailableBulbEffects
                     .execute(mGetAvailableEffectDisposable, mDevice.gattBluetoothGatt!!)
@@ -180,7 +177,6 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             }
             else -> disableALlColors()
         }
-        mLoadingData.value = false
     }
 
     private fun setEffectAsAvailable(effectId: Int){
