@@ -72,7 +72,7 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetDeviceActor: GetDeviceActor
     @Inject lateinit var mSetStatusActor: SetPlugStateActor
     @Inject lateinit var mManageNotificationsActor: ManagePlugNotificationsActor
-    @Inject lateinit var mGetNotificationsActor: GetCharacteristicReadActor
+    @Inject lateinit var mGetNotificationsActor: GetCharacteristicNotificationActor
     @Inject lateinit var mRequestLiveConsumptionActor: RequestLivePowerConsumptionActor
     @Inject lateinit var mDecodeLivePowerConsumptionActor: DecodeLivePowerConsumptionActor
 
