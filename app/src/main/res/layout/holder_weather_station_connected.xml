@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
-    android:layout_height="60dp"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/simple_margin"
     android:background="@drawable/bg_rectangle_with_stroke">
+
+    <View
+        android:id="@+id/hwsc_line_divider2"
+        android:layout_width="0.5dp"
+        android:layout_height="40dp"
+        android:background="@color/dividersLinesColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40sp"
+        android:background="@drawable/ic_oval"
+        android:padding="@dimen/simple_margin"
+        android:backgroundTint="@drawable/selector_sensor_icon"
+        android:src="@drawable/ic_line_chart" />
 
     <TextView
         android:id="@+id/hwsc_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:text="Weather station" />
 </android.support.constraint.ConstraintLayout>

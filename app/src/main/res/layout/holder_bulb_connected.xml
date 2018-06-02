@@ -12,7 +12,8 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/bg_bulb_oval"
+        android:background="@drawable/ic_oval"
+        android:backgroundTint="@drawable/selector_bulb_icon"
         android:padding="@dimen/simple_margin"
         android:src="@drawable/ic_bulb"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,6 @@
         app:layout_constraintStart_toEndOf="@+id/hbc_color_indicator"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="PLAYBULB CANDLE" />
-
 
     <View
         android:id="@+id/line_divider"
