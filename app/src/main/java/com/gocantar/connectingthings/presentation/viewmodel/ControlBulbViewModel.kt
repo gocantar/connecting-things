@@ -39,7 +39,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
     var mColor: Int = mResources.getColor(R.color.white, app.theme)
-    var mAlpha: Int = 0xFF
+    var mAlpha: Int = 0x00
 
     lateinit var mDevice: BLEDevice
 

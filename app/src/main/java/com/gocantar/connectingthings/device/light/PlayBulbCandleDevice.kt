@@ -10,6 +10,7 @@ import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.BulbStatus
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
+import kotlin.experimental.and
 
 
 /**

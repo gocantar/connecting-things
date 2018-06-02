@@ -33,6 +33,7 @@
             android:layout_height="0.5dp"
             android:background="@color/primaryText"/>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,25 +61,53 @@
             android:layout_marginStart="@dimen/simple_margin"
             android:background="@color/dividersLinesColor" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/simple_margin"
-            android:layout_marginEnd="@dimen/double_margin"
-            android:layout_marginStart="@dimen/double_margin"
-            android:layout_marginTop="@dimen/double_margin"
-            android:fontFamily="@font/sfbold"
-            android:text="@string/settings"
-            android:textColor="@color/primaryText"
-            android:textSize="@dimen/title_text_size" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginStart="@dimen/simple_margin"
-            android:layout_marginEnd="@dimen/simple_margin"
-            android:layout_marginBottom="@dimen/double_margin"
-            android:id="@+id/ba_colors_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/ba_settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:fontFamily="@font/sfbold"
+                android:text="@string/settings"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/title_text_size" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ba_colors_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ba_settings_title"
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin" />
+
+            <TextView
+                android:id="@+id/ba_velocity_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Velocidad del efecto"
+                android:fontFamily="@font/sfregular"
+                android:textSize="@dimen/regular_text_size"
+                android:layout_toEndOf="@+id/ba_colors_recycler_view"
+                android:layout_below="@+id/ba_settings_title"
+                android:layout_marginStart="32dp" />
+
+            <SeekBar
+                android:id="@+id/ba_seekBar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ba_velocity_subtitle"
+                android:layout_alignStart="@+id/ba_velocity_subtitle"
+                android:layout_marginTop="@dimen/simple_margin"
+                android:max="160"
+                android:progress="80" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

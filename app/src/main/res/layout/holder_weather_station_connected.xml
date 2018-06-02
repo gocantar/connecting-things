@@ -4,8 +4,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="160dp"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/simple_margin"
-    android:background="@drawable/bg_rectangle_with_stroke">
+    android:layout_margin="@dimen/simple_margin">
 
     <View
         android:id="@+id/hwsc_line_divider2"
@@ -37,4 +36,5 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
         tool:text="Weather station" />
+
 </android.support.constraint.ConstraintLayout>
