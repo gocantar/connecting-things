@@ -41,37 +41,38 @@
             android:layout_marginTop="@dimen/simple_margin"
             android:background="@color/primaryText" />
 
-        <RelativeLayout
-            android:id="@+id/md_container_layout"
-            android:layout_width="440dp"
-            android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/md_scanned_devices_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/md_title_line"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginStart="@dimen/double_margin"
             android:layout_marginTop="@dimen/double_margin"
-            android:background="@drawable/bg_rectangle_with_stroke">
+            android:fontFamily="@font/sfbold"
+            android:text="Dispositivos escaneados"
+            android:textSize="@dimen/subtitle_text_size" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/md_scanned_devices_recycler_view"
-                android:layout_width="220dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                tools:listitem="@layout/holder_scanned_device" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:layout_toEndOf="@+id/md_scanned_devices_recycler_view"
-                android:background="@color/dividersLinesColor" />
-
-        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/md_connected_devices_recycler_view"
+            android:id="@+id/md_scanned_devices_recycler_view"
             android:layout_width="220dp"
             android:layout_height="match_parent"
-            android:layout_alignEnd="@+id/md_container_layout"
-            android:layout_alignTop="@+id/md_container_layout"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/md_scanned_devices_title"
+            tools:listitem="@layout/holder_scanned_device" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/md_scanned_devices_recycler_view"
+            android:background="@color/dividersLinesColor" />
+
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/md_connected_devices_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             tools:listitem="@layout/holder_connected_device" />
 
 

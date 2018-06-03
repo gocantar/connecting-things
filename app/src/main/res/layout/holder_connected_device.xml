@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="220dp"
-    android:layout_height="wrap_content">
+    android:layout_height="105dp">
 
     <TextView
         android:id="@+id/hcd_disconnect_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
         android:fontFamily="@font/sfregular"
         android:paddingEnd="@dimen/double_padding"
         android:paddingStart="@dimen/double_padding"
         android:text="@string/disconnect"
         android:textColor="@color/redWrong"
         android:textSize="@dimen/regular_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hcd_services_prompt" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/hcd_name"
@@ -30,7 +30,7 @@
         android:layout_marginStart="4dp"
         android:layout_toStartOf="@id/hcd_disconnect_button"
         android:ellipsize="end"
-        android:fontFamily="@font/sfbold"
+        android:fontFamily="@font/sflight"
         android:maxLines="1"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/regular_text_size"
@@ -50,7 +50,7 @@
         android:layout_marginStart="4dp"
         android:layout_toStartOf="@id/hcd_disconnect_button"
         android:ellipsize="end"
-        android:fontFamily="@font/sfbold"
+        android:fontFamily="@font/sflight"
         android:maxLines="1"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/regular_text_size"
@@ -69,7 +69,7 @@
         android:layout_marginStart="4dp"
         android:layout_toStartOf="@id/hcd_disconnect_button"
         android:ellipsize="end"
-        android:fontFamily="@font/sfbold"
+        android:fontFamily="@font/sflight"
         android:maxLines="1"
         android:textSize="@dimen/regular_text_size"
         android:textColor="@color/primaryText"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/sflight"
+        android:fontFamily="@font/sfbold"
         android:text="@string/name_prompt"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/regular_text_size"
@@ -96,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/sflight"
+        android:fontFamily="@font/sfbold"
         android:text="@string/address_prompt"
         android:textSize="@dimen/regular_text_size"
         android:textColor="@color/primaryText"
@@ -109,7 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/sflight"
+        android:fontFamily="@font/sfbold"
         android:text="@string/services_prompt"
         android:textColor="@color/primaryText"
         android:textSize="@dimen/regular_text_size"
@@ -122,9 +122,8 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="8dp"
         android:background="@color/dividersLinesColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hcd_disconnect_button" />
+        app:layout_constraintStart_toStartOf="parent"  />
 
 </android.support.constraint.ConstraintLayout>
