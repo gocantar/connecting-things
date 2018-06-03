@@ -8,7 +8,7 @@ import android.util.Log
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.presentation.Navigator
 import com.gocantar.connectingthings.common.enum.Event
-import com.gocantar.connectingthings.common.extension.toVisibility
+import com.gocantar.connectingthings.common.extension.toVisibleOrGone
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedWeatherStationAdapter
@@ -130,18 +130,18 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
     }
 
     private fun showBulbsRecyclerView(visible: Boolean){
-        ma_bulbs_recycler_view.visibility = visible.toVisibility()
-        ma_bulbs_no_device_connected_message.visibility = (!visible).toVisibility()
+        ma_bulbs_recycler_view.visibility = visible.toVisibleOrGone()
+        ma_bulbs_no_device_connected_message.visibility = (!visible).toVisibleOrGone()
     }
 
     private fun showPlugsRecyclerView(visible: Boolean){
-        ma_plugs_recycler_view.visibility = visible.toVisibility()
-        ma_plugs_no_device_connected_message.visibility = (!visible).toVisibility()
+        ma_plugs_recycler_view.visibility = visible.toVisibleOrGone()
+        ma_plugs_no_device_connected_message.visibility = (!visible).toVisibleOrGone()
     }
 
     private fun showSensorsRecyclerView(visible: Boolean){
-        ma_ws_recycler_view.visibility = visible.toVisibility()
-        ma_ws_no_device_connected_message.visibility = (!visible).toVisibility()
+        ma_ws_recycler_view.visibility = visible.toVisibleOrGone()
+        ma_ws_no_device_connected_message.visibility = (!visible).toVisibleOrGone()
     }
 
 }

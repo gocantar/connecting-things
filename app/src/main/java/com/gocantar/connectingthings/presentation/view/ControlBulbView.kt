@@ -7,15 +7,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import android.view.View
 import android.widget.SeekBar
-import android.widget.TextView
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import com.gocantar.connectingthings.R
-import com.gocantar.connectingthings.common.extension.toVisibility
+import com.gocantar.connectingthings.common.extension.toVisibleOrGone
+import com.gocantar.connectingthings.common.extension.toVisibleOrInvisible
 import kotlinx.android.synthetic.main.activity_bulb_controller.*
 
 /**
@@ -125,8 +124,8 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         })
         mViewModel.mSeekBarVisibility.observe(this, Observer {
             it?.let {
-                ba_seekBar.visibility = it.toVisibility()
-                ba_velocity_subtitle.visibility = it.toVisibility()
+                ba_seekBar.visibility = it.toVisibleOrInvisible()
+                ba_velocity_subtitle.visibility = it.toVisibleOrInvisible()
             }
         })
     }
