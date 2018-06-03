@@ -113,6 +113,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     val mEffectsRecycler: MutableLiveData<Int> = MutableLiveData()
     val mColorsRecycler: MutableLiveData<Int> = MutableLiveData()
+    var mPeriod: MutableLiveData<Int> = MutableLiveData()
+
 
     /**
      * ---------------------------------------------------------
@@ -121,6 +123,11 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     fun initialize(address: String){
         mGetNotificationsActor.execute(mNotificationDisposable, Unit)
         mGetDeviceActor.execute(mGetDeviceDisposable, address)
+    }
+
+    fun onVelocityEffectChanged(velocity: Int){
+        mPeriod.value = velocity
+        sendDataToDevice()
     }
 
     fun putColor(color: Int){
@@ -199,7 +206,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     private fun sendDataToDevice(){
         val params = BulbParams (mDevice,
-                BulbStatus(true, mColor, mAlpha, mEffect))
+                BulbStatus(true, color = mColor, alpha = mAlpha,
+                        effectID = mEffect , period = mPeriod.value?: 0))
         when (mEffect){
             Constants.COLOR_EFFECT -> mSetColorActor.executeSetColor(params)
             else -> {

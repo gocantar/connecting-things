@@ -10,7 +10,6 @@ import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.BulbStatus
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
-import kotlin.experimental.and
 
 
 /**
@@ -55,7 +54,7 @@ class PlayBulbCandleDevice :BulbDevice{
 
     override fun setEffect(gatt: BluetoothGatt?, alpha: Int, period: Int, red: Int , green: Int , blue: Int, effect: Int){
         gatt?.let {
-            val effect = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte(), getEffectByteFromID(effect), 0x00, period.toByte(), 0x00)
+            val effect = byteArrayOf(alpha.toByte(), red.toByte(), green.toByte(), blue.toByte(), getEffectByteFromID(effect), 0x00, period.toByte() , 0x00)
             val service = getService(gatt)
             val characteristic = getEffectCharacteristic(service)
             characteristic.value = effect

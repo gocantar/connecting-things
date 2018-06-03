@@ -63,7 +63,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/ba_settings_title"
@@ -90,21 +91,21 @@
                 android:id="@+id/ba_velocity_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Velocidad del efecto"
-                android:fontFamily="@font/sfregular"
-                android:textSize="@dimen/regular_text_size"
-                android:layout_toEndOf="@+id/ba_colors_recycler_view"
                 android:layout_below="@+id/ba_settings_title"
-                android:layout_marginStart="32dp" />
+                android:layout_marginStart="32dp"
+                android:layout_toEndOf="@+id/ba_colors_recycler_view"
+                android:fontFamily="@font/sfregular"
+                android:text="Velocidad del efecto"
+                android:textSize="@dimen/regular_text_size" />
 
             <SeekBar
                 android:id="@+id/ba_seekBar"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ba_velocity_subtitle"
                 android:layout_alignStart="@+id/ba_velocity_subtitle"
+                android:layout_below="@+id/ba_velocity_subtitle"
                 android:layout_marginTop="@dimen/simple_margin"
-                android:max="160"
+                android:max="255"
                 android:progress="80" />
 
         </RelativeLayout>

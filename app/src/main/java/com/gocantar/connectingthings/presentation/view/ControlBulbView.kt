@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.widget.SeekBar
 import android.widget.TextView
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
@@ -45,7 +46,25 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
             onBackPressed()
         }
 
+        ba_seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                Log.d(TAG, "seekbar start")
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                Log.d(TAG, "seekbar finish")
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    mViewModel.onVelocityEffectChanged(progress)
+                }
+            }
+
+        })
+
         mViewModel.ba_title.observe(this, Observer { ba_title.text = it })
+
 
 
         mViewModel.initialize(intent.extras.getString(Key.DEVICE_ADDRESS))
