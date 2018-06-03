@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import com.gocantar.connectingthings.common.ids.Key
@@ -14,6 +15,7 @@ import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecycler
 import com.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
 import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.extension.toVisibility
 import kotlinx.android.synthetic.main.activity_bulb_controller.*
 
 /**
@@ -46,6 +48,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
             onBackPressed()
         }
 
+
         ba_seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 Log.d(TAG, "seekbar start")
@@ -71,6 +74,7 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         setUpRecyclersView()
         setUpEffectsRecyclerObserver()
         setUpColorsRecyclerObserver()
+        setUpSeekBarStateObserver()
 
     }
 
@@ -109,6 +113,22 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
     private fun setUpColorsRecyclerObserver(){
         mViewModel.mColorsRecycler.observe(this, Observer { mColorsAdapter.notifyDataSetChanged() })
+    }
+
+    private fun setUpSeekBarStateObserver(){
+        mViewModel.mPeriod.observe(this, Observer {
+            it?.let {
+                if(ba_seekBar.progress != it) {
+                    ba_seekBar.progress = it
+                }
+            }
+        })
+        mViewModel.mSeekBarVisibility.observe(this, Observer {
+            it?.let {
+                ba_seekBar.visibility = it.toVisibility()
+                ba_velocity_subtitle.visibility = it.toVisibility()
+            }
+        })
     }
 
 

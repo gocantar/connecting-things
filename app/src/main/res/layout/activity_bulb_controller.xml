@@ -106,7 +106,7 @@
                 android:layout_below="@+id/ba_velocity_subtitle"
                 android:layout_marginTop="@dimen/simple_margin"
                 android:max="255"
-                android:progress="80" />
+                android:progress="20" />
 
         </RelativeLayout>
 

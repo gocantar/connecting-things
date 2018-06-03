@@ -32,7 +32,7 @@ class PlayBulbCandleDevice :BulbDevice{
     private  val GREEN_VALUE = 2
     private  val BLUE_VALUE = 3
     private  val EFFECT_VALUE = 4
-    private  val PERIOD_VALUE = 5
+    private  val PERIOD_VALUE = 6
 
     private val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT, Constants.CANDLE_EFFECT,
                 Constants.FADE_EFFECT, Constants.PULSE_EFFECT, Constants.DECREASE_EFFECT,
@@ -86,7 +86,7 @@ class PlayBulbCandleDevice :BulbDevice{
     private fun decodeEffectCharacteristic(value: ByteArray): BulbStatus?{
         val effect = value[EFFECT_VALUE].toUnsignedInt()
         return BulbStatus(true, getColorFromBytes(value),
-                value[ALPHA_VALUE].toUnsignedInt() , getEffectID(effect) )
+                value[ALPHA_VALUE].toUnsignedInt() , getEffectID(effect), value[PERIOD_VALUE].toUnsignedInt() )
     }
 
     private fun getEffectCharacteristic(service: BluetoothGattService) =

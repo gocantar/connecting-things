@@ -84,7 +84,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
         override fun onNext(status: BulbStatus?) {
             status?.let {
-                selectEffect(it.effectID, it.color)
+                selectEffect(it.effectID, it.color, it.period)
             }
         }
         override fun onError(e: Throwable?) {
@@ -113,7 +113,8 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     val mEffectsRecycler: MutableLiveData<Int> = MutableLiveData()
     val mColorsRecycler: MutableLiveData<Int> = MutableLiveData()
-    var mPeriod: MutableLiveData<Int> = MutableLiveData()
+    val mPeriod: MutableLiveData<Int> = MutableLiveData()
+    val mSeekBarVisibility: MutableLiveData<Boolean> = MutableLiveData()
 
 
     /**
@@ -142,7 +143,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
     fun putEffect(effect: Int){
         when{
             mEffect !=  effect -> {
-                selectEffect(effect)
+                selectEffect(effectId = effect, period = mPeriod.value?:0)
                 sendDataToDevice()
             }
         }
@@ -169,7 +170,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         }
     }
 
-    private fun selectEffect(effectId: Int, color: Int = mColor){
+    private fun selectEffect(effectId: Int, color: Int = mColor, period: Int){
         mEffectsList[mEffect].state = State.AVAILABLE
         mEffectsRecycler.value = mEffect
 
@@ -178,11 +179,23 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
         mEffectsRecycler.value = effectId
 
         when(effectId){
-            Constants.COLOR_EFFECT, Constants.PULSE_EFFECT,
-            Constants.FADE_EFFECT, Constants.CANDLE_EFFECT -> {
+            Constants.COLOR_EFFECT -> selectColor(color)
+            Constants.PULSE_EFFECT, Constants.FADE_EFFECT,
+            Constants.CANDLE_EFFECT -> {
                 selectColor(color)
             }
             else -> disableALlColors()
+        }
+        setPeriodEffect(effectId, period)
+    }
+
+    private fun setPeriodEffect(effectId: Int, period: Int){
+        when(effectId){
+            Constants.COLOR_EFFECT -> mSeekBarVisibility.value = false
+            else -> {
+                mPeriod.value = period
+                mSeekBarVisibility.value = true
+            }
         }
     }
 
