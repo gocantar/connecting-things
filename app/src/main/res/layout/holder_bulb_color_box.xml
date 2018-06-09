@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="70dp"
-    android:layout_height="56dp"
-    android:layout_margin="4dp">
+    android:layout_width="250dp"
+    android:layout_height="32dp"
+    android:layout_margin="@dimen/simple_margin">
 
     <View
         android:id="@+id/hbcb_state"
         android:layout_width="12dp"
         android:layout_height="12dp"
+        android:layout_centerVertical="true"
         android:layout_margin="4dp"
         android:background="@drawable/ic_oval_stroke"/>
 
     <View
+        android:layout_toEndOf="@id/hbcb_state"
         android:id="@+id/hbcb_color"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="220dp"
+        android:background="@drawable/bg_paralle"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_oval"/>
+        android:layout_height="@dimen/double_margin"/>
 
 </RelativeLayout>

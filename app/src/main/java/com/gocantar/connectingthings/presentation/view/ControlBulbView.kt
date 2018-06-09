@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.SeekBar
 import com.gocantar.connectingthings.common.ids.Key
@@ -82,10 +83,10 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
      * Private functions
      */
     private fun setUpRecyclersView(){
-        ba_effects_recycler_view.layoutManager = GridLayoutManager(this, 6)
+        ba_effects_recycler_view.layoutManager = LinearLayoutManager(this)
         ba_effects_recycler_view.adapter = mEffectAdapter
 
-        ba_colors_recycler_view.layoutManager = GridLayoutManager(this, 4)
+        ba_colors_recycler_view.layoutManager = LinearLayoutManager(this)
         ba_colors_recycler_view.adapter = mColorsAdapter
     }
 

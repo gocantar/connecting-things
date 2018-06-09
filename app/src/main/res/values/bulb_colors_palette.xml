@@ -8,11 +8,10 @@
     <color name="four">#0000ff</color>
     <color name="five">#2196F3</color>
     <color name="six">#26C6DA</color>
-    <color name="seven">#00cc66</color>
+    <color name="seven">#00cc88</color>
     <color name="eight">#00ff00</color>
     <color name="nine">#F0F000</color>
-    <color name="ten">#FFB300</color>
-    <color name="eleven">#F00F00</color>
+    <color name="ten">#FF5000</color>
 
     <array name="bulb_colors_palette">
         <item>@color/zero</item>
@@ -26,7 +25,6 @@
         <item>@color/eight</item>
         <item>@color/nine</item>
         <item>@color/ten</item>
-        <item>@color/eleven</item>
 
     </array>
 

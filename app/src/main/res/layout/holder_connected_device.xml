@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="105dp">
+    android:layout_height="115dp">
 
     <TextView
         android:id="@+id/hcd_disconnect_button"
@@ -13,8 +13,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sfregular"
-        android:paddingEnd="@dimen/double_padding"
-        android:paddingStart="@dimen/double_padding"
         android:text="@string/disconnect"
         android:textColor="@color/redWrong"
         android:textSize="@dimen/regular_text_size"
@@ -119,12 +117,10 @@
 
     <View
         android:id="@+id/hcd_line"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="0.5dp"
-        android:layout_marginTop="8dp"
         android:background="@color/dividersLinesColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"  />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

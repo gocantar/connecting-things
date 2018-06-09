@@ -34,40 +34,12 @@
             android:background="@color/primaryText"/>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/simple_margin"
-            android:layout_marginEnd="@dimen/double_margin"
-            android:layout_marginStart="@dimen/double_margin"
-            android:layout_marginTop="@dimen/simple_margin"
-            android:fontFamily="@font/sfbold"
-            android:text="@string/effects"
-            android:textColor="@color/primaryText"
-            android:textSize="@dimen/title_text_size" />
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginStart="@dimen/simple_margin"
-            android:layout_marginEnd="@dimen/simple_margin"
-            android:id="@+id/ba_effects_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <View
-            android:id="@+id/ba_effects_line"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginEnd="@dimen/simple_margin"
-            android:layout_marginStart="@dimen/simple_margin"
-            android:background="@color/dividersLinesColor" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/ba_settings_title"
+                android:id="@+id/effect_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/simple_margin"
@@ -75,41 +47,78 @@
                 android:layout_marginStart="@dimen/double_margin"
                 android:layout_marginTop="@dimen/double_margin"
                 android:fontFamily="@font/sfbold"
-                android:text="@string/settings"
+                android:text="@string/effects"
                 android:textColor="@color/primaryText"
                 android:textSize="@dimen/title_text_size" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/ba_colors_recycler_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ba_settings_title"
+                android:layout_marginStart="@dimen/simple_margin"
                 android:layout_marginEnd="@dimen/simple_margin"
-                android:layout_marginStart="@dimen/simple_margin" />
-
-            <TextView
-                android:id="@+id/ba_velocity_subtitle"
+                android:id="@+id/ba_effects_recycler_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ba_settings_title"
-                android:layout_marginStart="32dp"
-                android:layout_toEndOf="@+id/ba_colors_recycler_view"
-                android:fontFamily="@font/sfregular"
-                android:text="Velocidad del efecto"
-                android:textSize="@dimen/regular_text_size" />
+                android:layout_below="@+id/effect_title"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/holder_effect_box" />
 
-            <SeekBar
-                android:id="@+id/ba_seekBar"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/ba_velocity_subtitle"
-                android:layout_below="@+id/ba_velocity_subtitle"
-                android:layout_marginTop="@dimen/simple_margin"
-                android:max="255"
-                android:progress="20" />
+            <View
+                android:id="@+id/ba_effects_line"
+                android:layout_width="0.5dp"
+                android:layout_toEndOf="@id/ba_effects_recycler_view"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin"
+                android:background="@color/dividersLinesColor" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/ba_effects_line">
+
+                <TextView
+                    android:id="@+id/ba_settings_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/simple_margin"
+                    android:layout_marginEnd="@dimen/double_margin"
+                    android:layout_marginStart="@dimen/double_margin"
+                    android:layout_marginTop="@dimen/double_margin"
+                    android:fontFamily="@font/sfbold"
+                    android:text="@string/settings"
+                    android:textColor="@color/primaryText"
+                    android:textSize="@dimen/title_text_size" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/ba_colors_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ba_settings_title"
+                    android:layout_marginEnd="@dimen/simple_margin"
+                    android:layout_marginStart="@dimen/simple_margin"
+                    tools:listitem="@layout/holder_bulb_color_box" />
+
+                <TextView
+                    android:id="@+id/ba_velocity_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ba_settings_title"
+                    android:layout_marginStart="32dp"
+                    android:layout_toEndOf="@+id/ba_colors_recycler_view"
+                    android:fontFamily="@font/sfregular"
+                    android:text="Velocidad del efecto"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <SeekBar
+                    android:id="@+id/ba_seekBar"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/ba_velocity_subtitle"
+                    android:layout_below="@+id/ba_velocity_subtitle"
+                    android:layout_marginTop="@dimen/simple_margin"
+                    android:max="255"
+                    android:progress="20" />
+
+            </RelativeLayout>
         </RelativeLayout>
-
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
