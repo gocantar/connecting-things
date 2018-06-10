@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.extension.toVisibleOrInvisible
 import com.gocantar.connectingthings.presentation.extension.removeLoadingDialog
 import com.gocantar.connectingthings.presentation.extension.showLoadingDialog
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
@@ -39,9 +40,7 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_devices)
-
         md_back_button.setOnClickListener{ onBackPressed() }
-
         setUpObservers()
         setUpRecyclersView()
         mViewModel.initialize()
@@ -64,6 +63,7 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
     private fun setUpObservers(){
         observeEvents()
         observeStates()
+        observeRecyclerViewVisibility()
     }
 
     private fun observeEvents(){
@@ -91,6 +91,22 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
                 }
             }
         })
+    }
+
+    private fun observeRecyclerViewVisibility(){
+        mViewModel.mShowConnectedDevices.observe(this, Observer {
+            it?.let {
+                md_connected_devices_recycler_view.visibility = it.toVisibleOrInvisible()
+                md_no_devices_connected.visibility = it.not().toVisibleOrInvisible()
+            }
+        })
+        mViewModel.mShowScannedDevices.observe(this, Observer {
+            it?.let {
+                md_scanned_devices_recycler_view.visibility = it.toVisibleOrInvisible()
+                md_no_devices_scanned.visibility = it.not().toVisibleOrInvisible()
+            }
+        })
+
     }
 
     private fun setUpRecyclersView(){

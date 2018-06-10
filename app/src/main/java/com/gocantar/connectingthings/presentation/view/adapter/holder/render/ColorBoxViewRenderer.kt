@@ -25,14 +25,17 @@ class ColorBoxViewRenderer: BaseRender() {
                 AVAILABLE_VIEW -> {
                     hbcb_state.background = resources.getDrawable(R.drawable.ic_oval_stroke, context.theme)
                     isClickable = true
+                    isEnabled = true
                 }
                 SELECTED_VIEW -> {
                     hbcb_state.backgroundTintList = resources.getColorStateList(R.color.colorPrimary, context.theme)
                     isClickable = false
+                    isEnabled = true
                 }
                 else -> {
                     hbcb_state.backgroundTintList = resources.getColorStateList(R.color.grey, context.theme)
                     isClickable = false
+                    isEnabled = false
                 }
             }
         }

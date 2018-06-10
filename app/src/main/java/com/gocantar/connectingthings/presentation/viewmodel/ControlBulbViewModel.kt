@@ -2,6 +2,7 @@ package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
+import android.graphics.Color
 import android.util.Log
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.Constants
@@ -138,6 +139,16 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 sendDataToDevice()
             }
         }
+    }
+
+    fun turnOff(){
+        selectColor(Color.BLACK)
+        when(mEffect){
+            Constants.DECREASE_EFFECT,
+            Constants.RAINBOW_EFFECT
+                -> putEffect(Constants.COLOR_EFFECT)
+        }
+        sendDataToDevice()
     }
 
     fun putEffect(effect: Int){

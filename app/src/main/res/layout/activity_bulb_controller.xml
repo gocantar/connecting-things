@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,28 +12,36 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/simple_margin"
-            android:layout_marginEnd="@dimen/double_margin"
-            android:layout_marginStart="@dimen/double_margin"
-            android:layout_marginTop="@dimen/double_margin">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ba_back_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/double_margin"
+                android:layout_marginStart="@dimen/double_margin"
+                android:layout_marginTop="@dimen/double_margin"
+                android:tint="@color/primaryText"
+                app:srcCompat="?attr/actionModeCloseDrawable" />
+
 
             <TextView
                 android:id="@+id/ba_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_toEndOf="@id/ba_back_button"
                 android:fontFamily="@font/sfheavy"
                 android:textColor="@color/primaryText"
                 android:textSize="@dimen/primary_title_text_size"
                 tools:text="PLAYBULB CANDLE" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/primaryText" />
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/primaryText"/>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -52,21 +61,21 @@
                 android:textSize="@dimen/title_text_size" />
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginStart="@dimen/simple_margin"
-                android:layout_marginEnd="@dimen/simple_margin"
                 android:id="@+id/ba_effects_recycler_view"
                 android:layout_width="wrap_content"
-                android:layout_below="@+id/effect_title"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/effect_title"
+                android:layout_marginEnd="@dimen/simple_margin"
+                android:layout_marginStart="@dimen/simple_margin"
                 tools:listitem="@layout/holder_effect_box" />
 
             <View
                 android:id="@+id/ba_effects_line"
                 android:layout_width="0.5dp"
-                android:layout_toEndOf="@id/ba_effects_recycler_view"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/simple_margin"
                 android:layout_marginStart="@dimen/simple_margin"
+                android:layout_toEndOf="@id/ba_effects_recycler_view"
                 android:background="@color/dividersLinesColor" />
 
             <RelativeLayout
@@ -103,19 +112,38 @@
                     android:layout_below="@+id/ba_settings_title"
                     android:layout_marginStart="32dp"
                     android:layout_toEndOf="@+id/ba_colors_recycler_view"
-                    android:fontFamily="@font/sfregular"
+                    android:fontFamily="@font/sfmedium"
                     android:text="Velocidad del efecto"
-                    android:textSize="@dimen/regular_text_size" />
+                    android:textColor="@color/primaryText"
+                    android:textSize="16dp" />
 
                 <SeekBar
                     android:id="@+id/ba_seekBar"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignStart="@+id/ba_velocity_subtitle"
                     android:layout_below="@+id/ba_velocity_subtitle"
                     android:layout_marginTop="@dimen/simple_margin"
                     android:max="255"
-                    android:progress="20" />
+                    android:progress="0"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:id="@+id/ba_turn_off_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/ba_settings_title"
+                    android:layout_toEndOf="@+id/ba_settings_title"
+                    android:background="@drawable/selector_button_red"
+                    android:fontFamily="@font/sfbold"
+                    android:paddingBottom="4dp"
+                    android:paddingEnd="@dimen/double_margin"
+                    android:paddingStart="@dimen/double_margin"
+                    android:paddingTop="4dp"
+                    android:text="Apagar"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/regular_text_size" />
 
             </RelativeLayout>
         </RelativeLayout>

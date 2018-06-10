@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="#40cca300" android:state_enabled="false"/>
-    <item android:color="#60cca300" android:state_pressed="true"/>
-    <item android:color="#60cca300" android:state_selected="true"/>
-    <item android:color="#BFcca300" android:state_hovered="true"/>
-    <item android:color="#cca300"/>
+    <item android:color="#40CCA300" android:state_enabled="false"/>
+    <item android:color="#60CCA300" android:state_pressed="true"/>
+    <item android:color="#60CCA300" android:state_selected="true"/>
+    <item android:color="#BFCCA300" android:state_hovered="true"/>
+    <item android:color="#CCA300"/>
 </selector>

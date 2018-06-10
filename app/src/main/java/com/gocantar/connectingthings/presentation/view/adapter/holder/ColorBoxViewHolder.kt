@@ -14,11 +14,13 @@ import org.jetbrains.anko.backgroundColor
 class ColorBoxViewHolder( val view: View): RecyclerView.ViewHolder(view){
     fun bind(color: Int, listener: (Int) -> Unit){
         with(view){
-            if (isClickable) {
-                setOnClickListener { listener(color) }
+            if (isEnabled) {
                 when{
                     color != Color.WHITE -> hbcb_color.backgroundColor = color
                     else -> hbcb_color.backgroundColor = resources.getColor(R.color.grey, context.theme)
+                }
+                if (isClickable) {
+                    setOnClickListener { listener(color) }
                 }
             }else{
                 hbcb_color.backgroundColor = resources.getColor(R.color.grey, context.theme)

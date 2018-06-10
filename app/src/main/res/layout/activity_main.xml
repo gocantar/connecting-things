@@ -15,23 +15,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/ma_primary_title"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/simple_margin"
-                android:layout_marginEnd="@dimen/double_margin"
-                android:layout_marginStart="@dimen/double_margin"
-                android:layout_marginTop="@dimen/simple_margin"
-                android:fontFamily="@font/sfheavy"
-                android:text="@string/control_panel"
-                android:textColor="@color/primaryText"
-                android:textSize="@dimen/primary_title_text_size" />
+                android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/primaryText" />
+                <TextView
+                    android:id="@+id/ma_primary_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/simple_margin"
+                    android:layout_marginEnd="@dimen/double_margin"
+                    android:layout_marginStart="@dimen/double_margin"
+                    android:layout_marginTop="@dimen/double_margin"
+                    android:fontFamily="@font/sfheavy"
+                    android:text="@string/control_panel"
+                    android:textColor="@color/primaryText"
+                    android:textSize="@dimen/primary_title_text_size" />
+
+                <View
+                    android:layout_marginTop="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/primaryText" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/ma_manage_devices_title"

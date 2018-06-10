@@ -29,6 +29,8 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
     val mConnectingDevice: MutableLiveData<Boolean> = MutableLiveData()
     val mDisconnectingDevice: MutableLiveData<Boolean> = MutableLiveData()
     val mRecyclerViewEvent: MutableLiveData<Event> = MutableLiveData()
+    val mShowScannedDevices: MutableLiveData<Boolean> = MutableLiveData()
+    val mShowConnectedDevices: MutableLiveData<Boolean> = MutableLiveData()
 
     @Inject lateinit var mScanDevicesActor: ScanDevicesInteractor
     @Inject lateinit var mConnectDevicesActor: ConnectDevicesInteractor
@@ -85,6 +87,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         mDevicesConnectedList.remove(device.bluetoothDevice.address)
         mDevicesScannedList[device.bluetoothDevice.address] = BLEDeviceViewMapper.fromBLEDeviceToScannedView(device)
         mRecyclerViewEvent.value = Event.LIST_CHANGED
+        mShowScannedDevices.value = true
     }
 
     private fun addConnectedDevices(address: String) {
@@ -93,11 +96,15 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
             mDevicesConnectedList.put(address, deviceConnected)
         }
         mRecyclerViewEvent.value = Event.LIST_CHANGED
+        mShowConnectedDevices.value = true
     }
 
     private fun removeConnectedDevice(address: String){
         mDevicesConnectedList.remove(address)
         mRecyclerViewEvent.value = Event.LIST_CHANGED
+        if (mDevicesConnectedList.isEmpty()) {
+            mShowConnectedDevices.value = false
+        }
     }
 
     override fun onCleared() {

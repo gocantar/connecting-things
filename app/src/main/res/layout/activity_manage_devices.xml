@@ -37,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/md_title"
-            android:layout_marginTop="@dimen/simple_margin"
+            android:layout_marginTop="60dp"
             android:background="@color/primaryText" />
 
         <TextView
@@ -53,6 +52,19 @@
             android:text="Dispositivos escaneados"
             android:textSize="@dimen/subtitle_text_size" />
 
+        <TextView
+            android:id="@+id/md_no_devices_scanned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/double_margin"
+            android:layout_marginEnd="@dimen/double_margin"
+            android:layout_marginStart="@dimen/double_margin"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/md_scanned_devices_title"
+            android:fontFamily="@font/sfmedium"
+            android:text="No hay dispositivos conectados cerca de ti"
+            android:textColor="@color/hintText"
+            android:textSize="@dimen/regular_text_size" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/md_scanned_devices_recycler_view"
@@ -61,10 +73,10 @@
             android:layout_alignStart="@+id/md_scanned_devices_title"
             android:layout_below="@id/md_scanned_devices_title"
             android:layout_marginEnd="@dimen/double_margin"
-            android:layout_marginStart="@dimen/double_margin"
             android:layout_marginTop="@dimen/double_margin"
             android:layout_toStartOf="@id/line_divider"
-            tools:listitem="@layout/holder_scanned_device" />
+            tools:listitem="@layout/holder_scanned_device"
+            android:visibility="invisible"/>
 
         <View
             android:layout_below="@id/md_title_line"
@@ -90,6 +102,20 @@
             android:text="Dispositivos conectados"
             android:textSize="@dimen/subtitle_text_size" />
 
+        <TextView
+            android:id="@+id/md_no_devices_connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/md_scanned_devices_title"            android:layout_toEndOf="@id/line_divider"
+            android:layout_marginBottom="@dimen/double_margin"
+            android:layout_marginEnd="@dimen/double_margin"
+            android:layout_marginStart="@dimen/double_margin"
+            android:fontFamily="@font/sfmedium"
+            android:text="No hay dispositivos conectados en este momento"
+            android:textColor="@color/hintText"
+            android:textSize="@dimen/regular_text_size" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/md_connected_devices_recycler_view"
             android:layout_width="match_parent"
@@ -98,7 +124,8 @@
             android:layout_below="@id/md_connected_devices_title"
             android:layout_marginEnd="@dimen/double_margin"
             android:layout_marginTop="@dimen/double_margin"
-            tools:listitem="@layout/holder_connected_device" />
+            tools:listitem="@layout/holder_connected_device"
+            android:visibility="invisible"/>
 
 
     </RelativeLayout>

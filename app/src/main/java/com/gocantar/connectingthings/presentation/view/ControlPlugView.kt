@@ -57,7 +57,7 @@ class ControlPlugView: BaseActivityVM<ControlPlugViewModel>() {
     }
 
     private fun setUpButtonListeners(){
-        pa_title.setOnClickListener { onBackPressed() }
+        pa_back_button.setOnClickListener { onBackPressed() }
         pa_turn_on_button.setOnClickListener { mViewModel.turnOn() }
         pa_turn_off_button.setOnClickListener { mViewModel.turnOff() }
     }

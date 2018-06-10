@@ -44,11 +44,12 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bulb_controller)
 
-        ba_title.setOnClickListener{
+        ba_back_button.setOnClickListener{
             onBackPressed()
         }
-
-
+        ba_turn_off_button.setOnClickListener{
+            mViewModel.turnOff()
+        }
         ba_seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 Log.d(TAG, "seekbar start")
