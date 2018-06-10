@@ -92,6 +92,9 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
 
     private fun addConnectedDevices(address: String) {
         val deviceConnected = mDevicesScannedList.remove(address)
+        if (mDevicesConnectedList.isEmpty()) {
+            mShowScannedDevices.value = false
+        }
         deviceConnected?.let{
             mDevicesConnectedList.put(address, deviceConnected)
         }
