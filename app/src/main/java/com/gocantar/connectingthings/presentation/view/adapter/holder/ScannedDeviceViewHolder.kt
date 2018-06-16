@@ -5,7 +5,6 @@ import android.view.View
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.ids.TypeID
 import com.gocantar.connectingthings.presentation.model.DeviceScannedView
-import kotlinx.android.synthetic.main.holder_bulb_connected.view.*
 import kotlinx.android.synthetic.main.holder_scanned_device.view.*
 import org.jetbrains.anko.onClick
 

@@ -10,8 +10,8 @@ import dagger.Component
  */
 
 @ModelViewScope @Component (
-        dependencies = arrayOf(AppComponent::class),
-        modules = arrayOf(BulbControllerModule::class)
+        dependencies = [(AppComponent::class)],
+        modules = [(BulbControllerModule::class)]
 )
 
 interface BulbControllerComponent : AppComponent{

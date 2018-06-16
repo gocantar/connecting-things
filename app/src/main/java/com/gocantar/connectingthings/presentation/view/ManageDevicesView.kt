@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.gocantar.connectingthings.R
@@ -14,6 +15,7 @@ import com.gocantar.connectingthings.presentation.extension.showLoadingDialog
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedDevicesRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ScannedDevicesRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.viewmodel.ManageDevicesViewModel
+import kotlinx.android.synthetic.main.activity_bulb_controller.*
 import kotlinx.android.synthetic.main.activity_manage_devices.*
 
 /**
@@ -44,6 +46,7 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
         setUpObservers()
         setUpRecyclersView()
         mViewModel.initialize()
+
     }
 
     override fun onResume() {
@@ -71,6 +74,12 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
             it?.let {
                 onModelViewEventReceived(it)
             } } )
+
+        mViewModel.mErrorSnackbar.observe(this, Observer {
+            it?.let {
+                showErrorSnackBar(it, md_container_layout)
+            }
+        })
     }
 
     private fun observeStates(){
@@ -141,7 +150,7 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
 
     companion object {
 
-        val REQUEST_CODE = 10100
+        const val REQUEST_CODE = 10100
 
         fun getCallingIntent(context: Context) : Intent {
             return Intent(context, ManageDevicesView::class.java)

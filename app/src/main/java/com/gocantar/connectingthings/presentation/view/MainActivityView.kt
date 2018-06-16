@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.gocantar.connectingthings.R
-import com.gocantar.connectingthings.presentation.Navigator
 import com.gocantar.connectingthings.common.enum.Event
 import com.gocantar.connectingthings.common.extension.toVisibleOrGone
+import com.gocantar.connectingthings.presentation.Navigator
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedBulbsRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedPlugRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.ConnectedWeatherStationAdapter
@@ -53,7 +53,6 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
         setUpRecyclersView()
 
         mViewModel.initialize()
-
     }
 
     override fun onStart() {
@@ -110,6 +109,11 @@ class MainActivityView : BaseActivityVM<MainActivityViewModel>() {
                     Event.SENSOR_LIST_CHANGED -> updateSensorRecyclerView()
                     else -> Log.d(TAG, "The event could not be captured")
                 }
+            }
+        })
+        mViewModel.mErrorSnackbar.observe(this, Observer {
+            it?.let {
+                showErrorSnackBar(it, ma_container_layout)
             }
         })
     }

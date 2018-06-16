@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothGatt
 import com.gocantar.connectingthings.domain.entity.BulbStatus
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
-import io.reactivex.Single
 
 /**
  * Created by gocantar on 11/3/18.

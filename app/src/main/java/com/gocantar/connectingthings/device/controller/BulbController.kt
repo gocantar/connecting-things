@@ -4,10 +4,7 @@ import android.bluetooth.BluetoothGatt
 import android.graphics.Color
 import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.extension.getBulbServiceUuid
-import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.device.light.BulbDeviceFactory
-import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
-import com.gocantar.connectingthings.device.light.RbpiBulbDevice
 import com.gocantar.connectingthings.domain.boundary.BulbControllerBoundary
 import com.gocantar.connectingthings.domain.entity.BulbParams
 import com.gocantar.connectingthings.domain.entity.BulbStatus

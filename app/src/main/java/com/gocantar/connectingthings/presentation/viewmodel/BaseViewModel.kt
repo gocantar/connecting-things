@@ -2,6 +2,7 @@ package com.gocantar.connectingthings.presentation.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.MutableLiveData
 import android.content.res.Resources
 import android.util.Log
 import com.gocantar.connectingthings.AppController
@@ -17,6 +18,8 @@ abstract class BaseViewModel(application: Application): AndroidViewModel(applica
     private val appComponent: AppComponent by lazy { (application as AppController).component }
 
     protected val mResources: Resources = AppController.instance.resources
+
+    public val mErrorSnackbar: MutableLiveData<String> = MutableLiveData()
 
     fun init() {
         Log.i(TAG, "initiated")

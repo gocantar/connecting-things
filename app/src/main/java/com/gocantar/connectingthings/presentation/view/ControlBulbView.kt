@@ -5,17 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.SeekBar
+import com.gocantar.connectingthings.R
+import com.gocantar.connectingthings.common.extension.toVisibleOrInvisible
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.view.adapter.BulbColorRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.view.adapter.BulbEffectRecyclerViewAdapter
 import com.gocantar.connectingthings.presentation.viewmodel.ControlBulbViewModel
-import com.gocantar.connectingthings.R
-import com.gocantar.connectingthings.common.extension.toVisibleOrGone
-import com.gocantar.connectingthings.common.extension.toVisibleOrInvisible
 import kotlinx.android.synthetic.main.activity_bulb_controller.*
 
 /**
@@ -38,7 +36,6 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
             onColorChanged(it)
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +66,11 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
 
         mViewModel.ba_title.observe(this, Observer { ba_title.text = it })
 
-
+        mViewModel.mErrorSnackbar.observe(this, Observer {
+            it?.let {
+                showErrorSnackBar(it, ba_container_layout)
+            }
+        })
 
         mViewModel.initialize(intent.extras.getString(Key.DEVICE_ADDRESS))
         setUpRecyclersView()
@@ -78,7 +79,6 @@ class ControlBulbView : BaseActivityVM<ControlBulbViewModel>() {
         setUpSeekBarStateObserver()
 
     }
-
 
     /**
      * Private functions

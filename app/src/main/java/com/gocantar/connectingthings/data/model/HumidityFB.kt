@@ -9,8 +9,8 @@ class HumidityFB( val value: Int,  val timestamp: Long) {
 
     fun toMap(): Map<String, Any>{
         val map: MutableMap<String, Any> = mutableMapOf()
-        map.put("humidity", value)
-        map.put("timestamp", timestamp)
+        map["humidity"] = value
+        map["timestamp"] = timestamp
         return map
     }
 }

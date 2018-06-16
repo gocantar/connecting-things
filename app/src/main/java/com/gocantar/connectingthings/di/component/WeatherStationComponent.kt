@@ -1,7 +1,7 @@
 package com.gocantar.connectingthings.di.component
 
-import com.gocantar.connectingthings.di.scope.ModelViewScope
 import com.gocantar.connectingthings.di.module.WeatherStationControllerModule
+import com.gocantar.connectingthings.di.scope.ModelViewScope
 import com.gocantar.connectingthings.presentation.viewmodel.WeatherStationViewModel
 import dagger.Component
 

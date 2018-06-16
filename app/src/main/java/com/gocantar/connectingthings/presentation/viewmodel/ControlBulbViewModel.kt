@@ -38,9 +38,9 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
                 .map { BulbColor(it, State.DISABLE) }
     }
 
-    var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
-    var mColor: Int = mResources.getColor(R.color.white, app.theme)
-    var mAlpha: Int = 0x00
+    private var mEffect: Int = getEffectIdFromString(mEffectsList.first().effect)
+    private var mColor: Int = mResources.getColor(R.color.white, app.theme)
+    private var mAlpha: Int = 0x00
 
     lateinit var mDevice: BLEDevice
 
@@ -53,7 +53,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
 
     private val mGetDeviceDisposable: DisposableObserver<BLEDevice> = object: DisposableObserver<BLEDevice>() {
         override fun onError(e: Throwable?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mErrorSnackbar.value = mResources.getString(R.string.error_device)
         }
         override fun onNext(device: BLEDevice?) {
             device?.let {
@@ -76,7 +76,7 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             decodeStatus(char)
         }
         override fun onError(e: Throwable?) {
-            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
         }
     }
     private val mDecodeStatusDisposable: DisposableObserver<BulbStatus> = object : DisposableObserver<BulbStatus>() {
@@ -89,20 +89,20 @@ class ControlBulbViewModel(app: Application): BaseViewModel(app){
             }
         }
         override fun onError(e: Throwable?) {
-            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mErrorSnackbar.value = mResources.getString(R.string.error_device)
         }
 
     }
 
     private var mGetAvailableEffectDisposable: DisposableObserver<Int> = object : DisposableObserver<Int>() {
         override fun onComplete() {
-            //Nothing TODO
+            // Never it´ called
         }
         override fun onNext(effectID: Int) {
             setEffectAsAvailable(effectID)
         }
         override fun onError(e: Throwable?) {
-            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mErrorSnackbar.value = mResources.getString(R.string.error_device)
         }
 
     }

@@ -3,13 +3,14 @@ package com.gocantar.connectingthings.presentation.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.enum.Event
+import com.gocantar.connectingthings.common.extension.getType
+import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.common.ids.TypeID
 import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.entity.BLEDevice
-import com.gocantar.connectingthings.common.extension.getType
-import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import com.gocantar.connectingthings.domain.usecase.*
@@ -91,11 +92,11 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     /**
      * Private fun
      */
-
     private fun setUpNotifications(){
         getBLENotifications()
         getCharacteristicsNotifications()
     }
+
     private fun updateBulbList(list: MutableList<BulbConnectedView>): Boolean {
         val itemRemoved = mBulbsConnected.retainAll(list)
         list.removeAll(mBulbsConnected)
@@ -120,7 +121,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
     private fun getBLENotifications(){
         mBLENotificationsActor.execute(object : DisposableObserver<DeviceEvent>() {
             override fun onComplete() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                // Never it's called
             }
 
             override fun onNext(event: DeviceEvent?) {
@@ -136,7 +137,7 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             }
 
             override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
             }
 
         }, Unit)
@@ -162,12 +163,11 @@ class MainActivityViewModel(app: Application): BaseViewModel(app) {
             }
 
             override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
             }
 
         }, Unit)
     }
-
 
     /**
      * Override fun

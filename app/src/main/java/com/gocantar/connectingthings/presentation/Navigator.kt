@@ -2,7 +2,6 @@ package com.gocantar.connectingthings.presentation
 
 import android.app.Activity
 import android.content.Context
-import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.presentation.view.ControlBulbView
 import com.gocantar.connectingthings.presentation.view.ControlPlugView
 import com.gocantar.connectingthings.presentation.view.ManageDevicesView

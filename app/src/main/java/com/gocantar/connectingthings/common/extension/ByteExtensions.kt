@@ -1,7 +1,5 @@
 package com.gocantar.connectingthings.common.extension
 
-import com.gocantar.connectingthings.device.light.PlayBulbCandleDevice
-
 /**
  * Created by gocantar on 6/1/18.
  */

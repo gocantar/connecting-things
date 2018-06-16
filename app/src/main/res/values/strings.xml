@@ -12,6 +12,8 @@
     <string name="connect">Conectar</string>
     <string name="control_panel">Panel de Control</string>
     <string name="connecting">Conectando</string>
+    <string name="connected_devices">Dispositivos conectados</string>
+
     <!-- d. -->
     <string name="decrease">Disminuir</string>
     <string name="disconnect">Desconectar</string>
@@ -19,8 +21,12 @@
     <string name="disable">Deshabilitar</string>
     <!-- e. -->
     <string name="effects">Efectos</string>
+    <string name="effect_velocity">Periodo del efecto</string>
     <string name="error">Error</string>
     <string name="enable">Habilitar</string>
+    <string name="error_notifications">Se ha producido un error con las notificaciones</string>
+    <string name="error_data">Se ha producido un error obteniendo los datos</string>
+    <string name="error_device">Se ha producido un con el dispositivo</string>
     <!-- f. -->
     <string name="fade">Desvanecer</string>
     <!-- g. -->
@@ -48,17 +54,22 @@
     <string name="plugs">Enchufes</string>
     <string name="power_consumption_prompt">Consumo actual:</string>
     <string name="power_consumption">%s W/h</string>
+    <string name="publish_data">Publicar datos en la nube</string>
     <!-- q. -->
     <!-- r. -->
     <string name="rainbow">Arcoiris</string>
+    <string name="reload_data">Actualizar datos</string>
     <!-- s. -->
     <string name="settings">Ajustes</string>
     <string name="services_prompt">Servicios:</string>
     <string name="state_prompt">Estado:</string>
     <string name="sensors">Sensores</string>
+    <string name="scanned_devices">Dispositivos escaneados</string>
     <!-- t. -->
     <string name="turn_on">Encender</string>
     <string name="turn_off">Apagar</string>
+    <string name="there_are_not_devices_close">No hay dispositivos cerca de ti</string>
+    <string name="there_are_not_devices_now">No hay dispositivos conectados en este momento</string>
     <!-- u. -->
     <!-- v. -->
     <!-- w. -->

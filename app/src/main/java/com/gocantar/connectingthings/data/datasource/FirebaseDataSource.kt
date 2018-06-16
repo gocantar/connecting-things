@@ -1,14 +1,15 @@
 package com.gocantar.connectingthings.data.datasource
 
-import android.util.Log
 import com.gocantar.connectingthings.data.extensions.toHumidity
 import com.gocantar.connectingthings.data.extensions.toTemperature
 import com.gocantar.connectingthings.data.model.HumidityFB
 import com.gocantar.connectingthings.data.model.TemperatureFB
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.util.*
 
 /**
  * Created by gocantar on 17/1/18.

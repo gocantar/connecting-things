@@ -6,7 +6,10 @@ import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataI
 import com.gocantar.connectingthings.domain.interactor.ManageNotificationsInteractor
 import com.gocantar.connectingthings.domain.interactor.RequestLivePowerConsumptionInteractor
 import com.gocantar.connectingthings.domain.interactor.SetPlugStateInteractor
-import com.gocantar.connectingthings.domain.usecase.*
+import com.gocantar.connectingthings.domain.usecase.DecodeLivePowerConsumptionActor
+import com.gocantar.connectingthings.domain.usecase.ManagePlugNotificationsActor
+import com.gocantar.connectingthings.domain.usecase.RequestLivePowerConsumptionActor
+import com.gocantar.connectingthings.domain.usecase.SetPlugStateActor
 import com.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
 import dagger.Module
 import dagger.Provides

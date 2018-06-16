@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.holder_bulb_color_box.view.*
 class ColorBoxViewRenderer: BaseRender() {
 
     companion object {
-        val DISABLE_VIEW = -1
-        val AVAILABLE_VIEW = 0
-        val SELECTED_VIEW = 1
+        const val DISABLE_VIEW = -1
+        const val AVAILABLE_VIEW = 0
+        const val SELECTED_VIEW = 1
     }
 
     override fun render(): View{

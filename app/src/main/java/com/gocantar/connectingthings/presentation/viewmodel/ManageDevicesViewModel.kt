@@ -3,6 +3,7 @@ package com.gocantar.connectingthings.presentation.viewmodel
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.enum.Event
 import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.di.component.DaggerManageDevicesComponent
@@ -42,6 +43,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         mDevicesConnectedList.clear()
         getConnectedDevices()
         getDevicesNotifications()
+        mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
     }
 
     fun startScanDevices(){
@@ -131,7 +133,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                 mDevicesConnectedList[device.bluetoothDevice.address] = BLEDeviceViewMapper.fromBLEDeviceToScannedView(device)
             }
             override fun onError(e: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                mErrorSnackbar.value = mResources.getString(R.string.error_device)
             }
             override fun onComplete() {
                 Log.d(TAG, "The connected devices has been gotten correctly")
@@ -169,7 +171,7 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
                 // Never it's called
             }
             override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
             }
         }, Unit)
     }

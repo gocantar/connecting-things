@@ -7,13 +7,12 @@ import com.gocantar.connectingthings.domain.boundary.WeatherStationSensorReposit
 import com.gocantar.connectingthings.domain.entity.HumidityParams
 import com.gocantar.connectingthings.domain.entity.TemperatureParams
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 /**
  * Created by gocantar on 20/1/18.
  */
-class WeatherStationSensorRepository @Inject constructor(val mFirebaseDB: FirebaseDataSource) : WeatherStationSensorRepositoryBoundary {
+class WeatherStationSensorRepository @Inject constructor(private val mFirebaseDB: FirebaseDataSource) : WeatherStationSensorRepositoryBoundary {
 
     override fun saveTemperature(temperatureParams: TemperatureParams) {
         mFirebaseDB.addTemperature(temperatureParams.address, TemperatureFB(temperatureParams.value, temperatureParams.timestamp))

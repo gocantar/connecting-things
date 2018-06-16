@@ -60,7 +60,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
                     }?: setDeviceName()
                 }
                 override fun onError(e: Throwable?) {
-                    Log.e(TAG, e.toString())
+                    mErrorSnackbar.value = mResources.getString(R.string.error_device)
                 }
             }, address)
     }
@@ -103,7 +103,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
                 temperature?.let { mTemperatureData.add(Entry(mTemperatureData.size.toFloat(), it.value.toFloat())) }
             }
             override fun onError(e: Throwable?) {
-                Log.e(TAG, e.toString())
+                mErrorSnackbar.value = mResources.getString(R.string.error_data)
             }
         }, params)
     }
@@ -120,7 +120,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
                 humidity?.let { mHumidityData.add(Entry(mHumidityData.size.toFloat(), it.value.toFloat())) }
             }
             override fun onError(e: Throwable?) {
-                Log.e(TAG, e.toString())
+                mErrorSnackbar.value = mResources.getString(R.string.error_data)
             }
         }, params)
     }
@@ -129,6 +129,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
         mDevice.gattBluetoothGatt?.let {
             mGetDescriptorValueActor.execute(object : DisposableObserver<State>() {
                 override fun onComplete() {
+                    // Never it's called
                 }
 
                 override fun onNext(state: State) {
@@ -137,6 +138,7 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
                 }
 
                 override fun onError(e: Throwable?) {
+                    mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
                 }
             }, it)
         }

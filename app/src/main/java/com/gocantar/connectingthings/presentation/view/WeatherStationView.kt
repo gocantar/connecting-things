@@ -13,6 +13,7 @@ import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.extension.*
 import com.gocantar.connectingthings.presentation.viewmodel.WeatherStationViewModel
+import kotlinx.android.synthetic.main.activity_bulb_controller.*
 import kotlinx.android.synthetic.main.activity_weather_station_controller.*
 
 /**
@@ -78,6 +79,12 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
             when(it){
                 State.AVAILABLE -> setOnSwitchState()
                 else -> setOffSwitchState()
+            }
+        })
+
+        mViewModel.mErrorSnackbar.observe(this, Observer {
+            it?.let {
+                showErrorSnackBar(it, awsc_container_layout)
             }
         })
     }

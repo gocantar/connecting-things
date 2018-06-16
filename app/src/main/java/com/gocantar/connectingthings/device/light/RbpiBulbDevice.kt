@@ -10,7 +10,6 @@ import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.BulbStatus
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import io.reactivex.Observable
-import java.util.*
 
 /**
  * Created by gocantar on 11/3/18.
@@ -26,7 +25,7 @@ class RbpiBulbDevice :BulbDevice {
 
 
 
-    val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT)
+    private val AVAILABLE_EFFECTS: List<Int> = listOf(Constants.COLOR_EFFECT)
 
     override fun setColor(gatt: BluetoothGatt?, alpha: Int, red: Int, green: Int, blue: Int){
         gatt?.let {

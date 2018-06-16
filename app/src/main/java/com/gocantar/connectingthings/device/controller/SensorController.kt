@@ -3,7 +3,6 @@ package com.gocantar.connectingthings.device.controller
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattDescriptor
 import android.os.ParcelUuid
-import android.util.Log
 import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.extension.getSensorServiceUuid
 import com.gocantar.connectingthings.device.sensor.WeatherStationFactory
@@ -11,10 +10,8 @@ import com.gocantar.connectingthings.domain.boundary.BLEServiceBoundary
 import com.gocantar.connectingthings.domain.boundary.TemperatureSensorControllerBoundary
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 import com.gocantar.connectingthings.domain.entity.SensorData
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -23,9 +20,6 @@ import javax.inject.Inject
  */
 
 class SensorController @Inject constructor(private val mBLEController: BLEServiceBoundary) : TemperatureSensorControllerBoundary {
-
-
-
 
     // TODO Value of enable notifications indicate if notifications are disabled or enabled
     override fun enableNotifications(gatt: BluetoothGatt) {

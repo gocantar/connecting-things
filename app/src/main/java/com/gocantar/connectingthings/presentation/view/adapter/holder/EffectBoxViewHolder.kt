@@ -3,7 +3,6 @@ package com.gocantar.connectingthings.presentation.view.adapter.holder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.holder_effect_box.view.*
-import java.text.FieldPosition
 
 /**
  * Created by gocantar on 15/11/17.

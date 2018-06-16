@@ -3,7 +3,6 @@ package com.gocantar.connectingthings.presentation.view.adapter.holder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.holder_weather_station_connected.view.*
-import org.jetbrains.anko.onClick
 
 /**
  * Created by gocantar on 29/1/18.

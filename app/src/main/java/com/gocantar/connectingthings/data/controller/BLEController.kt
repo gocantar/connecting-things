@@ -1,4 +1,4 @@
-package com.gocantar.connectingthings.controller
+package com.gocantar.connectingthings.data.controller
 
 import android.bluetooth.*
 import android.bluetooth.le.ScanCallback
@@ -8,7 +8,6 @@ import android.os.ParcelUuid
 import android.util.Log
 import com.gocantar.connectingthings.AppController
 import com.gocantar.connectingthings.common.enum.Event
-import com.gocantar.connectingthings.common.enum.SensorType
 import com.gocantar.connectingthings.common.extension.getType
 import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
@@ -20,7 +19,6 @@ import com.gocantar.connectingthings.domain.entity.DeviceEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.PublishSubject
-
 import javax.inject.Inject
 
 /**
@@ -28,13 +26,6 @@ import javax.inject.Inject
  */
 
 class BLEController @Inject constructor(private val mBluetoothManager: BluetoothManager) : ScanCallback(), BLEServiceBoundary {
-
-    /**
-     *  Static properties
-     */
-    companion object {
-        val REQUEST_CODE: Int = 4200
-    }
 
     private val mConnectedDevices: MutableMap<String, BLEDevice> = mutableMapOf()
 
@@ -150,7 +141,7 @@ class BLEController @Inject constructor(private val mBluetoothManager: Bluetooth
 
                 override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
                     Log.d(TAG, "Services has been discovered")
-                    mConnectedDevices.put(gatt.device.address, BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt))
+                    mConnectedDevices[gatt.device.address] = BLEDevice(gatt.device, gatt.device.name, gatt.services.map { ParcelUuid(it.uuid) }, gatt)
                     Log.d(TAG, mConnectedDevices.toString())
                 }
 

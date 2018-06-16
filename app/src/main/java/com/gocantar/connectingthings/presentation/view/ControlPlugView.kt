@@ -8,6 +8,7 @@ import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.ids.Key
 import com.gocantar.connectingthings.presentation.extension.animate
 import com.gocantar.connectingthings.presentation.viewmodel.ControlPlugViewModel
+import kotlinx.android.synthetic.main.activity_bulb_controller.*
 import kotlinx.android.synthetic.main.activity_plug_controller.*
 
 /**
@@ -40,6 +41,13 @@ class ControlPlugView: BaseActivityVM<ControlPlugViewModel>() {
         mViewModel.mPowerConsumptionProgress.observe(this, Observer {
             pa_progress_power_consumption.animate(it!!)
         })
+
+        mViewModel.mErrorSnackbar.observe(this, Observer {
+            it?.let {
+                showErrorSnackBar(it, pa_container_layout)
+            }
+        })
+
     }
 
     /**

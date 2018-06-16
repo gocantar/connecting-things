@@ -3,7 +3,6 @@ package com.gocantar.connectingthings.common.extension
 import android.os.ParcelUuid
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.common.ids.TypeID
-import java.util.*
 
 /**
  * Created by gocantar on 1/11/17.

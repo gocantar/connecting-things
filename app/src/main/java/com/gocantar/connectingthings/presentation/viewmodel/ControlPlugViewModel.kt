@@ -30,7 +30,7 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
                     enableNotifications()
                 }
                 override fun onError(error: Throwable?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    mErrorSnackbar.value = mResources.getString(R.string.error_device)
                 }
                 override fun onNext(device: BLEDevice?) {
                     when{
@@ -46,11 +46,11 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
     private var mGetNotificationsDisposable: DisposableObserver<CharacteristicData> =
             object : DisposableObserver<CharacteristicData>() {
                 override fun onError(e: Throwable?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
                 }
 
                 override fun onComplete() {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    // Never it's called
                 }
 
                 override fun onNext(t: CharacteristicData) {

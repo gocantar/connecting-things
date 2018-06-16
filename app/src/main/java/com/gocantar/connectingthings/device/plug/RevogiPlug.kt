@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
 import android.util.Log
-import com.gocantar.connectingthings.common.extension.hexStringToByteArray
 import com.gocantar.connectingthings.common.extension.fiveBytesToInt
+import com.gocantar.connectingthings.common.extension.hexStringToByteArray
 import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.domain.entity.CharacteristicData

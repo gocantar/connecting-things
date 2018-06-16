@@ -6,7 +6,7 @@ import android.os.Parcelable
 /**
  * Created by gocantar on 8/1/18.
  */
-data class BulbStatus(val switchedOn: Boolean = true, val color: Int, val alpha: Int, val effectID: Int, val period: Int = 0x00) : Parcelable {
+data class BulbStatus(private val switchedOn: Boolean = true, val color: Int, val alpha: Int, val effectID: Int, val period: Int = 0x00) : Parcelable {
 
 
     private constructor(parcel: Parcel) : this(
