@@ -1,6 +1,7 @@
 package com.gocantar.connectingthings.domain.boundary
 
 import android.bluetooth.BluetoothGatt
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.domain.entity.CharacteristicData
 
 /**
@@ -10,5 +11,5 @@ interface PlugControllerBoundary: ManageNotificationsBoundary {
     fun turnOn(gatt: BluetoothGatt)
     fun turnOff(gatt: BluetoothGatt)
     fun requestPowerConsumption(gatt: BluetoothGatt)
-    fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Int
+    fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Pair<Int, State>
 }

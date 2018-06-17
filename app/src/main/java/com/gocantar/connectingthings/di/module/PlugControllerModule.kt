@@ -1,5 +1,6 @@
 package com.gocantar.connectingthings.di.module
 
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.device.controller.PlugController
 import com.gocantar.connectingthings.domain.boundary.PlugControllerBoundary
 import com.gocantar.connectingthings.domain.interactor.DecodeCharacteristicDataInteractor
@@ -32,5 +33,5 @@ import dagger.Provides
             ManageNotificationsInteractor = ManagePlugNotificationsActor(plugController)
 
     @Provides fun provideDecodeLivePowerConsumptionActor(plugController: PlugControllerBoundary):
-            DecodeCharacteristicDataInteractor<Int> = DecodeLivePowerConsumptionActor(plugController)
+            DecodeLivePowerConsumptionActor = DecodeLivePowerConsumptionActor(plugController)
 }

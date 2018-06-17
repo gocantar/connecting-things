@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
 import android.util.Log
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.extension.fiveBytesToInt
 import com.gocantar.connectingthings.common.extension.hexStringToByteArray
 import com.gocantar.connectingthings.common.ids.CharacteristicUUIDs
@@ -58,13 +59,17 @@ object RevogiPlug {
         writeConfigCharacteristicDescriptor(gatt, characteristic, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
     }
 
-    fun decodePowerConsumption(charData: CharacteristicData): Int{
+    fun decodePowerConsumption(charData: CharacteristicData): Pair<Int, State>{
         return when(charData.uuid){
             CharacteristicUUIDs.REVOGI_SMART_PLUG_RESPONSE ->{
-                val state = charData.value[4]
-                charData.value.copyOfRange(5,10).fiveBytesToInt()
+                val state = charData.value[4].toInt()
+                val consume = charData.value.copyOfRange(5,10).fiveBytesToInt()
+                return when(state){
+                    0x01 -> Pair(consume, State.AVAILABLE)
+                    else -> Pair(consume, State.DISABLE)
+                }
             }
-            else -> 0
+            else -> Pair(0, State.DISABLE)
         }
     }
 

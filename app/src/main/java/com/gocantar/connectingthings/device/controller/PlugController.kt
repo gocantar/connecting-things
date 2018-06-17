@@ -2,6 +2,7 @@ package com.gocantar.connectingthings.device.controller
 
 import android.bluetooth.BluetoothGatt
 import android.os.ParcelUuid
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.common.extension.getPlugServiceUuid
 import com.gocantar.connectingthings.common.ids.ServicesUUIDs
 import com.gocantar.connectingthings.device.plug.RevogiPlug
@@ -39,12 +40,12 @@ class PlugController : PlugControllerBoundary {
         }
     }
 
-    override fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Int {
+    override fun decodePowerConsumption(gatt: BluetoothGatt, charData: CharacteristicData): Pair<Int, State> {
         val service: ParcelUuid = getServiceUuid(gatt)
         return when(service){
             ParcelUuid(ServicesUUIDs.REVOGI_SMART_PLUG_PRIMARY_SERVICE) ->
                 RevogiPlug.decodePowerConsumption(charData)
-            else -> 0
+            else -> Pair(0, State.DISABLE)
         }
     }
 

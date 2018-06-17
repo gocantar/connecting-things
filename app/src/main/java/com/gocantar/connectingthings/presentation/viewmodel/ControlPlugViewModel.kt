@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.gocantar.connectingthings.R
 import com.gocantar.connectingthings.common.Constants
+import com.gocantar.connectingthings.common.enum.State
 import com.gocantar.connectingthings.di.component.AppComponent
 import com.gocantar.connectingthings.di.component.DaggerPlugControllerComponent
 import com.gocantar.connectingthings.di.module.PlugControllerModule
@@ -53,12 +54,16 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
                     // Never it's called
                 }
 
-                override fun onNext(t: CharacteristicData) {
+                override fun onNext(data: CharacteristicData) {
                     Log.d(TAG, "PowerConsumption has been received")
-                    val consumption = mDecodeLivePowerConsumptionActor
-                                        .decode(mDevice.gattBluetoothGatt!!, t)
-                    mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), getWattsFromInt(consumption))
-                    mPowerConsumptionProgress.value = getProgress(consumption)
+                    val dataDecoded: Pair<Int, State> = mDecodeLivePowerConsumptionActor
+                                        .decode(mDevice.gattBluetoothGatt!!, data)
+                    mPowerConsumption.value = String.format(mResources.getString(R.string.power_consumption), getWattsFromInt(dataDecoded.first))
+                    mPowerConsumptionProgress.value = getProgress(dataDecoded.first)
+                    mPlugState.value = when(dataDecoded.second){
+                        State.AVAILABLE -> STATE_ON
+                        else -> STATE_OFF
+                    }
                 }
             }
 
@@ -126,7 +131,6 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
         var value = intValue
         if(intValue <= 0){
             value = 0
-            mPlugState.value = STATE_OFF
         }
         return String.format("%.2f", value/1000.toFloat())
     }
