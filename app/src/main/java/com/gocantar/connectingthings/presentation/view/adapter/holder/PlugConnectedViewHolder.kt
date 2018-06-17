@@ -13,13 +13,11 @@ import org.jetbrains.anko.onClick
 
 class PlugConnectedViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
-    fun bind(plug: DeviceScannedView, lastItem: Boolean ,listener: (DeviceScannedView) -> Unit){
+    fun bind(plug: DeviceScannedView,listener: (DeviceScannedView) -> Unit){
         with(view){
             hpc_device_name.text = plug.name
-            if (lastItem){
-                hpc_line_divider.visibility = View.GONE
-            }
-            view.onClick { listener(plug) }
+
+            setOnClickListener { listener(plug) }
         }
     }
 

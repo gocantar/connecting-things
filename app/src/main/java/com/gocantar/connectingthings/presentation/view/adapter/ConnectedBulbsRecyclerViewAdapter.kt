@@ -23,7 +23,7 @@ class ConnectedBulbsRecyclerViewAdapter(private val mRecyclerView: RecyclerView,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as BulbConnectedViewHolder).bind(mItems[position],position == mItems.size-1,  mListener)
+        (holder as BulbConnectedViewHolder).bind(mItems[position], mListener)
     }
 
     override fun getItemCount(): Int = mItems.size

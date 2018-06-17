@@ -6,16 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/simple_margin">
 
-    <View
-        android:id="@+id/hwsc_line_divider"
-        android:layout_width="0.5dp"
-        android:layout_height="40dp"
-        android:background="@color/dividersLinesColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/double_margin"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="40dp"

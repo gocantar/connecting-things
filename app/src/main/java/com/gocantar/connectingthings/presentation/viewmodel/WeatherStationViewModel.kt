@@ -39,9 +39,12 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetTemperatureDataActor: GetTemperatureDataActor
     @Inject lateinit var mGetHumidityDataActor: GetHumidityDataActor
     @Inject lateinit var mGetDescriptorValueActor: GetDescriptorValueActor
+    @Inject lateinit var mRequestDescriptorValue: RequestDescriptorValue
+
 
 
     fun initialize(data: Intent){
+        getDescriptorNotifications()
         getDevice(data)
     }
 
@@ -49,8 +52,8 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
             val address = data.extras.getString(Key.DEVICE_ADDRESS)
             mGetDevice.execute(object : DisposableObserver<BLEDevice>() {
                 override fun onComplete() {
-                    requestNotificationState()
                     getSensorData()
+                    requestDescriptorNotification()
                 }
                 override fun onNext(device: BLEDevice?) {
                     device?.let {
@@ -124,25 +127,28 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
         }, params)
     }
 
-    private fun requestNotificationState(){
-        mDevice.gattBluetoothGatt?.let {
-            mGetDescriptorValueActor.execute(object : DisposableObserver<State>() {
-                override fun onComplete() {
-                    // Never it's called
-                }
+    private fun getDescriptorNotifications(){
+        mGetDescriptorValueActor.execute(object : DisposableObserver<State>() {
+            override fun onComplete() {
+                // Never it's called
+            }
 
-                override fun onNext(state: State) {
-                    Log.d(TAG, "Notifications state: $state")
-                    mNotificationsState.value = state
-                }
+            override fun onNext(state: State) {
+                Log.d(TAG, "Notifications state: $state")
+                mNotificationsState.value = state
+            }
 
-                override fun onError(e: Throwable?) {
-                    mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
-                }
-            }, it)
-        }
+            override fun onError(e: Throwable?) {
+                mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
+            }
+        }, Unit)
     }
 
+    private fun requestDescriptorNotification(){
+        mDevice.gattBluetoothGatt?.let {
+            mRequestDescriptorValue.execute(it)
+        }
+    }
 
     override fun setUpComponent(appComponent: AppComponent) {
         DaggerWeatherStationComponent.builder()

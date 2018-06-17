@@ -40,13 +40,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="PLAYBULB CANDLE" />
 
-    <View
-        android:id="@+id/line_divider"
-        android:layout_width="0.5dp"
-        android:layout_height="40dp"
-        android:background="@color/dividersLinesColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
