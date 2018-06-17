@@ -98,9 +98,15 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
         mGetDeviceActor.execute(mGetDeviceDisposable, address)
     }
 
-    fun turnOn() = mSetStatusActor.turnOn(mDevice.gattBluetoothGatt!!)
+    fun turnOn() {
+        mSetStatusActor.turnOn(mDevice.gattBluetoothGatt!!)
+        mPlugState.value = STATE_ON
+    }
 
-    fun turnOff() = mSetStatusActor.turnOff(mDevice.gattBluetoothGatt!!)
+    fun turnOff(){
+        mSetStatusActor.turnOff(mDevice.gattBluetoothGatt!!)
+        mPlugState.value = STATE_OFF
+    }
 
     private fun enableNotifications(){
         mDevice.gattBluetoothGatt?.let {
@@ -118,8 +124,10 @@ class ControlPlugViewModel(app: Application): BaseViewModel(app) {
 
     private fun getWattsFromInt(intValue: Int): String{
         var value = intValue
-        if(intValue < 0)
+        if(intValue <= 0){
             value = 0
+            mPlugState.value = STATE_OFF
+        }
         return String.format("%.2f", value/1000.toFloat())
     }
 
