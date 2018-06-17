@@ -46,7 +46,6 @@ class ManageDevicesView : BaseActivityVM<ManageDevicesViewModel>() {
         setUpObservers()
         setUpRecyclersView()
         mViewModel.initialize()
-
     }
 
     override fun onResume() {

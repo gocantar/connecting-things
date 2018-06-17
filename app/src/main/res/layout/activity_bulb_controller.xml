@@ -114,19 +114,21 @@
                     android:layout_marginStart="32dp"
                     android:layout_toEndOf="@+id/ba_colors_recycler_view"
                     android:fontFamily="@font/sfmedium"
-                    android:text="Velocidad del efecto"
+                    android:text="@string/effect_velocity"
                     android:textColor="@color/primaryText"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <SeekBar
                     android:id="@+id/ba_seekBar"
-                    android:layout_width="150dp"
-                    android:layout_height="40dp"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
                     android:layout_alignStart="@+id/ba_velocity_subtitle"
                     android:layout_below="@+id/ba_velocity_subtitle"
                     android:layout_marginTop="@dimen/simple_margin"
                     android:max="255"
-                    android:progress="0"
+                    android:progress="50"
+                    android:thumb="@drawable/seek_bar_thumb"
+                    android:progressDrawable="@drawable/seek_bar_progress"
                     android:progressTint="@color/colorPrimary"
                     android:thumbTint="@color/colorPrimaryDark" />
 
@@ -142,7 +144,7 @@
                     android:paddingEnd="@dimen/double_margin"
                     android:paddingStart="@dimen/double_margin"
                     android:paddingTop="4dp"
-                    android:text="Apagar"
+                    android:text="@string/turn_off"
                     android:textColor="@color/white"
                     android:textSize="@dimen/regular_text_size" />
 

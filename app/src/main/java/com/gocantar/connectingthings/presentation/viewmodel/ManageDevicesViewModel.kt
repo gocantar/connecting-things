@@ -43,7 +43,6 @@ class ManageDevicesViewModel(app: Application): BaseViewModel(app) {
         mDevicesConnectedList.clear()
         getConnectedDevices()
         getDevicesNotifications()
-        mErrorSnackbar.value = mResources.getString(R.string.error_notifications)
     }
 
     fun startScanDevices(){

@@ -17,7 +17,7 @@
         android:paddingEnd="@dimen/double_padding"
         android:paddingStart="@dimen/double_padding"
         android:paddingTop="4dp"
-        android:text="Recargar datos"
+        android:text="@string/reload_data"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/awsc_temperature_chart"
         app:layout_constraintStart_toStartOf="@+id/awsc_temperature_chart" />
@@ -102,7 +102,7 @@
         android:fontFamily="@font/sfmedium"
         android:padding="@dimen/double_padding"
         android:switchPadding="8dp"
-        android:text="Publicación de datos activa"
+        android:text="@string/publish_data"
         android:theme="@style/SwitchStyle"
         app:layout_constraintEnd_toEndOf="@+id/awsc_humidity_chart"
         app:layout_constraintTop_toBottomOf="@+id/awsc_humidity_chart" />
