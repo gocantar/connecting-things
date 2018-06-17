@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 class WeatherStationViewModel(app: Application): BaseViewModel(app) {
 
-    private val mDeviceName: MutableLiveData<String> = MutableLiveData()
+    val mDeviceName: MutableLiveData<String> = MutableLiveData()
     private lateinit var mDevice: BLEDevice
     val mTemperatureData: MutableList<Entry>  = mutableListOf()
     val mTemperatureDataChange: MutableLiveData<Boolean> = MutableLiveData()
@@ -39,7 +39,6 @@ class WeatherStationViewModel(app: Application): BaseViewModel(app) {
     @Inject lateinit var mGetTemperatureDataActor: GetTemperatureDataActor
     @Inject lateinit var mGetHumidityDataActor: GetHumidityDataActor
     @Inject lateinit var mGetDescriptorValueActor: GetDescriptorValueActor
-    @Inject lateinit var mRequestDescriptorValue: RequestDescriptorValue
 
 
     fun initialize(data: Intent){

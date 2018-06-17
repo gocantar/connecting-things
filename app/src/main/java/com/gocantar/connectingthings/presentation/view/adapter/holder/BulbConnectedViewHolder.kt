@@ -13,12 +13,12 @@ import org.jetbrains.anko.onClick
 class BulbConnectedViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
     fun bind(bulb: BulbConnectedView, lastItem: Boolean ,listener: (BulbConnectedView) -> Unit){
-        with(view){
+        with(view) {
             hbc_device_name.text = bulb.name
-            if (lastItem){
+            if (lastItem) {
                 line_divider.visibility = View.GONE
             }
-            view.onClick { listener(bulb) }
+            setOnClickListener{ listener(bulb) }
         }
     }
 

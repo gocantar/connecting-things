@@ -23,6 +23,6 @@ class ConnectedWeatherStationAdapter(private val mRecyclerView: RecyclerView,
     override fun getItemCount(): Int = mItems.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as ConnectedWeatherStationHolder).bind(mItems[position].address, mListener)
+        (holder as ConnectedWeatherStationHolder).bind(mItems[position].device, position == mItems.size-1 ,mListener)
     }
 }

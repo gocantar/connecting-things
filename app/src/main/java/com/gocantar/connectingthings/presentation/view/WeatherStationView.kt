@@ -87,6 +87,12 @@ class WeatherStationView: BaseActivityVM<WeatherStationViewModel>() {
                 showErrorSnackBar(it, awsc_container_layout)
             }
         })
+
+        mViewModel.mDeviceName.observe(this, Observer {
+            it?.let {
+                awsc_title.text = it
+            }
+        })
     }
 
     private fun setOnSwitchState(){
